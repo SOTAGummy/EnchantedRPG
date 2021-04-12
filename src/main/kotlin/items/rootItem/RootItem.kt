@@ -3,11 +3,23 @@ package items.rootItem
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 import utils.Storage
+import java.io.File
 
 open class RootItem(name: String): Item(){
 	init {
 		this.unlocalizedName = name
 		this.registryName = ResourceLocation(Core.ID, name)
 		Storage.Items.add(this)
+
+		val file = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
+		if (!file.exists()) {
+			file.createNewFile()
+			file.writeText("{\n" +
+					"  \"parent\": \"item/generated\",\n" +
+					"  \"textures\": {\n" +
+					"\t\"layer0\": \"general-rpg:items/$name\"\n" +
+					"  }\n" +
+					"}")
+		}
 	}
 }

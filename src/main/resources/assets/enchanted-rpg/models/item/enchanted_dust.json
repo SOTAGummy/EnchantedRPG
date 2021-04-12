@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-	"layer0": "general-rpg:items/enchanted_dust"
+	"layer0": "enchanted-rpg:items/enchanted_dust"
   }
 }

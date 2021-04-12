@@ -25,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
-
+import net.minecraftforge.registries.IForgeRegistry
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
 class Core {
@@ -48,7 +48,7 @@ class Core {
 
 	@Mod.EventHandler
 	fun preInitEvent(event: FMLPreInitializationEvent){
-		ForgeRegistries.ITEMS.register(ItemBlock(pedestal).setRegistryName(ID, "pedestal"));
+
 
 		if (event.side.isClient){
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ID, "pedestal"))
@@ -66,14 +66,17 @@ class Core {
 
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	fun registerItems(event: RegistryEvent.Register<Item>){
 		repeat(Storage.Items.size){
 			event.registry.register(Storage.Items[it])
 		}
+
+		event.registry.register(enchanted_dust)
+		event.registry.register(ItemBlock(pedestal).setRegistryName(ResourceLocation(ID, "pedestal")))
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	fun registerBlocks(event: RegistryEvent.Register<Block>){
 		event.registry.register(pedestal)
 	}

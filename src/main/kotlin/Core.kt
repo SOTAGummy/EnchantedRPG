@@ -24,8 +24,10 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.fml.relauncher.SideOnly
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.registries.IForgeRegistry
+import packet.PacketHandler
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
 class Core {
@@ -33,6 +35,8 @@ class Core {
 		const val ID = "enchanted-rpg"
 		const val NAME = "EnchantedRPG"
 		const val VERSION = "1.0"
+
+		lateinit var wrapper: SimpleNetworkWrapper
 
 		val itemsTab = EnchantedRPGItemsTab
 
@@ -48,7 +52,7 @@ class Core {
 
 	@Mod.EventHandler
 	fun preInitEvent(event: FMLPreInitializationEvent){
-
+		PacketHandler(          )
 
 		if (event.side.isClient){
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ID, "pedestal"))

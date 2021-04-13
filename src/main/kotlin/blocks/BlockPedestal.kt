@@ -1,16 +1,22 @@
 package blocks
 
+import net.minecraft.block.BlockAnvil
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
+import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.items.CapabilityItemHandler
 
@@ -21,6 +27,7 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 		unlocalizedName = "pedestal"
 		blockHardness = 1F
 		blockResistance = 100F
+		fullBlock = false
 	}
 
 	override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
@@ -29,6 +36,10 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 
 	override fun getRenderType(state: IBlockState): EnumBlockRenderType {
 		return EnumBlockRenderType.MODEL
+	}
+
+	override fun isOpaqueCube(state: IBlockState): Boolean {
+		return false
 	}
 
 	override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {

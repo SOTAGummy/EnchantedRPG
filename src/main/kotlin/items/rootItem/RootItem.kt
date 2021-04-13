@@ -4,7 +4,7 @@ import net.minecraft.item.Item
 import utils.Storage
 import java.io.File
 
-open class RootItem(name: String): Item(){
+abstract class RootItem(name: String): Item(){
 	init {
 		Storage.Items.add(this)
 

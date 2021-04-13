@@ -1,22 +1,20 @@
 package blocks
 
-import net.minecraft.block.BlockAnvil
+import Core
+import items.baseItem.ItemSkill
+import module.ISkillStorable
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
+import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.items.CapabilityItemHandler
 
@@ -47,8 +45,23 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 			val tile = world.getTileEntity(pos) as TileEntityPedestal
 			val itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)
 			if (!player.isSneaking){
-				if (player.heldItemMainhand.isEmpty) player.setHeldItem(hand, itemHandler?.extractItem(0, 64, false)!!)
-				else player.setHeldItem(hand, itemHandler?.insertItem(0, player.getHeldItem(hand), false)!!)
+				if (player.heldItemMainhand.isEmpty){
+					player.setHeldItem(hand, itemHandler?.extractItem(0, 64, false)!!)
+				} else {
+					if (player.heldItemMainhand.item is ISkillStorable && tile.inventory.getStackInSlot(0).item is ItemSkill){
+						val operator = object: ISkillStorable {
+							override fun getSkillCapacity(): Int {
+								return 0
+							}
+						}
+						val stack = player.heldItemMainhand
+						operator.addItemSkill(stack, tile.inventory.getStackInSlot(0))
+						tile.inventory.setStackInSlot(0, ItemStack.EMPTY)
+						player.setHeldItem(hand, stack)
+					} else {
+						player.setHeldItem(hand, itemHandler?.insertItem(0, player.getHeldItem(hand), false)!!)
+					}
+				}
 				tile.markDirty()
 			}
 		}

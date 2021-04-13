@@ -7,13 +7,17 @@ import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 
 abstract class ItemSkill(name: String, val cost: Int): RootItem(name){
 	init {
-		this.creativeTab = Core.itemsTab
+		registryName = ResourceLocation(Core.ID, name)
+		unlocalizedName = name
+		creativeTab = Core.itemsTab
+		maxStackSize = 1
 	}
 
 	override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {

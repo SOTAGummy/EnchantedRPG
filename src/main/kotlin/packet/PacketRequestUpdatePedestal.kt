@@ -35,7 +35,7 @@ class PacketRequestUpdatePedestal(): IMessage{
 	class Handler: IMessageHandler<PacketRequestUpdatePedestal, IMessage>{
 		override fun onMessage(message: PacketRequestUpdatePedestal?, ctx: MessageContext?): IMessage? {
 			val world = FMLCommonHandler.instance().minecraftServerInstance.getWorld(message?.dimensionId!!)
-			val te = world.getTileEntity(message.pos) as TileEntityPedestal
+			val te = world.getTileEntity(message.pos) as TileEntityPedestal?
 			return if (te != null) PacketUpdatePedestal(te) else null
 		}
 	}

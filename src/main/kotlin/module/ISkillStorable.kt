@@ -4,52 +4,91 @@ import items.baseItem.ItemSkill
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
-import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.items.ItemHandlerHelper
 
-interface ISkillStorable: IItemHandler{
-	fun callSkills(world: World, player: EntityPlayer, handIn: EnumHand){
-		if (world.isRemote) { //CLIENT
-			val clientThread = Minecraft.getMinecraft()
-		}else{ // SERVER
-			if (world is WorldServer) {
-				var func = Runnable(){}
-				repeat(this.slots * 20){
-					if (it % 20 == 0){
-						val temp = Runnable {
-							world.addScheduledTask(){
-								func
-								(this.getStackInSlot(it % 20) as ItemSkill).serverFunction(world, player, handIn)
-							}
-						}
+interface ISkillStorable{
+	fun getSkillCapacity(): Int
 
-						func = temp
-					}else{
-						val temp = Runnable {
-							world.addScheduledTask(){
-								func
-							}
-						}
+	fun getItemSkill(stack: ItemStack, index: Int): ItemSkill?{
+		return if (stack.tagCompound != null && stack.tagCompound?.getTag("1") != null){
+			ItemStack(stack.tagCompound?.getTag("$index") as NBTTagCompound).item as ItemSkill
+		}else {
+			null
+		}
+	}
 
-						func = temp
+	fun addItemSkill(stack: ItemStack, skill: ItemStack){
+		if (stack.tagCompound == null){
+			stack.tagCompound = NBTTagCompound()
+		} else {
+			if (stack.tagCompound!!.getTag("1") == null){
+				stack.tagCompound?.setTag("1", skill.serializeNBT())
+			} else {
+				repeat(getSkillCapacity()){
+					if (stack.tagCompound?.getTag("${it + 2}") == null){
+						stack.tagCompound?.setTag("${it + 2}", skill.serializeNBT())
 					}
 				}
 			}
 		}
 	}
 
-	fun addSkillInfo(tooltip: MutableList<String>){
+	fun call(world: World, player: EntityPlayer, hand: EnumHand){
+		if (world.isRemote){
+			val clientThread = Minecraft.getMinecraft()
+			var func = Runnable(){}
+			repeat(getSkillCapacity() * 20){
+				if (it % 20 == 0){
+					val temp = Runnable(){
+						clientThread.addScheduledTask(){
+							func.run()
+							getItemSkill(player.getHeldItem(hand), it / 20 + 1)?.serverFunction(world, player, hand)
+						}
+					}
 
-	}
+					func = temp
+				} else {
+					val temp = Runnable(){
+						clientThread.addScheduledTask(){
+							func.run()
+						}
+					}
 
-	override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-		return stack.item is ItemSkill
-	}
+					func = temp
+				}
+			}
+			clientThread.addScheduledTask(){
+				func
+			}
+		} else {
+			val serverThread = world as WorldServer
+			var func = Runnable(){}
+			repeat(getSkillCapacity() * 20){
+				if (it % 20 == 0){
+					val temp = Runnable(){
+						serverThread.addScheduledTask(){
+							func.run()
+							getItemSkill(player.getHeldItem(hand), it / 20 + 1)?.serverFunction(world, player, hand)
+						}
+					}
 
-	override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-		TODO("Not yet implemented")
+					func = temp
+				} else {
+					val temp = Runnable(){
+						serverThread.addScheduledTask(){
+							func.run()
+						}
+					}
+
+					func = temp
+				}
+			}
+			serverThread.addScheduledTask(){
+				func
+			}
+		}
 	}
 }

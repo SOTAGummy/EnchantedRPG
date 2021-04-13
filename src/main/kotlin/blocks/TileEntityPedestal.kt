@@ -1,18 +1,16 @@
 package blocks
 
-import net.minecraft.tileentity.TileEntity
-import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraft.util.EnumFacing
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint
+import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 import packet.PacketHandler
 import packet.PacketRequestUpdatePedestal
 import packet.PacketUpdatePedestal
-import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint
-
 
 class TileEntityPedestal: TileEntity(){
 	val inventory = object: ItemStackHandler(1){

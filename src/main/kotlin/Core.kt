@@ -1,33 +1,34 @@
 import blocks.BlockPedestal
+import blocks.TESRPedestal
 import blocks.TileEntityPedestal
 import creativeTab.EnchantedRPGItemsTab
 import items.EnchantedDust
+import items.container.TestContainer
+import items.skill.TestSkill
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.RegistryEvent
+import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.common.SidedProxy
+import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import net.minecraftforge.fml.common.registry.ForgeRegistries
-import net.minecraftforge.fml.common.registry.GameRegistry
-import utils.Storage
-import net.minecraftforge.common.MinecraftForge
-
-import net.minecraftforge.fml.common.event.FMLConstructionEvent
-import net.minecraftforge.client.event.ModelRegistryEvent
-
-import net.minecraftforge.fml.relauncher.SideOnly
-
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.registries.IForgeRegistry
+import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
+import proxy.CommonProxy
+import utils.Storage
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
 class Core {
@@ -38,11 +39,17 @@ class Core {
 
 		lateinit var wrapper: SimpleNetworkWrapper
 
+		@SidedProxy(clientSide = "proxy.ClientProxy", serverSide = "proxy.ServerProxy")
+		lateinit var proxy: CommonProxy
+
 		val itemsTab = EnchantedRPGItemsTab
 
 		val enchanted_dust = EnchantedDust
 
 		val pedestal = BlockPedestal
+
+		val test = TestContainer
+		val test_skill = TestSkill
 	}
 
 	@Mod.EventHandler
@@ -52,11 +59,11 @@ class Core {
 
 	@Mod.EventHandler
 	fun preInitEvent(event: FMLPreInitializationEvent){
-		PacketHandler(          )
+		PacketHandler()
 
 		if (event.side.isClient){
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ID, "pedestal"))
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
 		}
 	}
 
@@ -75,8 +82,6 @@ class Core {
 		repeat(Storage.Items.size){
 			event.registry.register(Storage.Items[it])
 		}
-
-		event.registry.register(enchanted_dust)
 		event.registry.register(ItemBlock(pedestal).setRegistryName(ResourceLocation(ID, "pedestal")))
 	}
 
@@ -88,6 +93,9 @@ class Core {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	fun registerModels(event: ModelRegistryEvent?) {
-		ModelLoader.setCustomModelResourceLocation(enchanted_dust, 0, ModelResourceLocation(ResourceLocation(ID, "enchanted_dust"), "inventory"))
+		for (model in Storage.Items) {
+			ModelLoader.setCustomModelResourceLocation(model, 0, ModelResourceLocation(ResourceLocation(ID, model.unlocalizedName.split(".")[1]), "inventory"))
+		}
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ResourceLocation(ID, "pedestal"), "inventory"))
 	}
 }

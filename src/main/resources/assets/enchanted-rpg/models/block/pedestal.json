@@ -5,7 +5,7 @@
 		"1": "enchanted-rpg:blocks/pedestal/texture1",
 		"2": "enchanted-rpg:blocks/pedestal/texture3",
 		"3": "enchanted-rpg:blocks/pedestal/texture4",
-		"particle": "pedestal/texture4"
+		"particle": "enchanted-rpg:pedestal/texture2"
 	},
 	"elements": [
 		{
@@ -60,6 +60,17 @@
 	"display": {
 		"thirdperson_righthand": {
 			"scale": [0.5, 0.5, 0.5]
+		},
+		"thirdperson_lefthand": {
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"ground": {
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [25, 45, 0],
+			"translation": [0, 1.5, 0],
+			"scale": [0.8, 0.8, 0.8]
 		}
 	}
 }

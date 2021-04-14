@@ -2,11 +2,14 @@ package event
 
 import capability.accessory.AccessoryProvider
 import capability.mp.MpProvider
+import gui.accessory.button.AccessoryButton
 import gui.mp.MPIndicator
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
@@ -43,5 +46,11 @@ class Events {
 			if (event.type == RenderGameOverlayEvent.ElementType.AIR) correction = 8
 			MPIndicator(mc, correction)
 		}
+	}
+
+	@SubscribeEvent
+	fun guiPostInit(event: GuiScreenEvent.InitGuiEvent.Post) {
+		if (event.gui is GuiInventory)
+			event.buttonList.add(AccessoryButton(70, event.gui.mc.displayWidth / 2 - 314, event.gui.mc.displayHeight / 2 - 190, 12, 14, ""))
 	}
 }

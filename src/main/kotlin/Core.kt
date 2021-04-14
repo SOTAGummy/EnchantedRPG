@@ -13,6 +13,8 @@ import items.skill.TestSkill
 import capability.accessory.Accessory
 import capability.accessory.AccessoryStorage
 import capability.accessory.IAccessory
+import gui.accessory.GuiAccessoryHandler
+import mod.util.SlotExtension
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
@@ -31,6 +33,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
@@ -50,6 +53,9 @@ class Core {
 
 		@SidedProxy(clientSide = "proxy.ClientProxy", serverSide = "proxy.ServerProxy")
 		lateinit var proxy: CommonProxy
+
+		@Mod.Instance
+		lateinit var instance: Core
 
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
@@ -72,6 +78,14 @@ class Core {
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
 		val SAVINGRATE = AttributeUtils.addAttribute("savingrate", 0.0, 0.0, 100.0)
 		val MPRECOVERRATE = AttributeUtils.addAttribute("mprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
+
+		//EquipmentSlot
+		val ACCESSORY = SlotExtension.addSlotType("ACCESSORY", 2)
+		val NECKLACE = SlotExtension.addEquipmentSlot("NECKLACE", 6, ACCESSORY, 0, 1, "necklace")
+		val AMULET = SlotExtension.addEquipmentSlot("AMULET", 7, ACCESSORY, 1, 2, "amulet")
+		val GLOVE = SlotExtension.addEquipmentSlot("GLOVE", 8, ACCESSORY, 2, 3, "glove")
+		val GEM = SlotExtension.addEquipmentSlot("GEM", 9, ACCESSORY, 3, 4, "gem")
+
 	}
 
 	@Mod.EventHandler
@@ -88,7 +102,7 @@ class Core {
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
 		}
-
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
 		CapabilityManager.INSTANCE.register(IMp::class.java, MpStorage()) { Mp() }
 		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { Accessory() }
 	}

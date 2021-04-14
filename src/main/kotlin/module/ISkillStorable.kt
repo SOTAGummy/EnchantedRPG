@@ -1,5 +1,6 @@
 package module
 
+import capability.mp.MpProvider
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -62,7 +63,7 @@ interface ISkillStorable{
 			val stack = player.heldItemMainhand
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(stack, it) != null){
+					if (getItemSkill(stack, it) != null && player.getCapability(MpProvider.MP!!, null)?.useMp(getItemSkill(stack, it)?.cost!!) == true){
 						clientThread.addScheduledTask(){
 							getItemSkill(stack, it)?.serverFunction(world, player, hand)
 						}
@@ -75,7 +76,7 @@ interface ISkillStorable{
 			val stack = player.heldItemMainhand
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(stack, it) != null){
+					if (getItemSkill(stack, it) != null && player.getCapability(MpProvider.MP!!, null)?.useMp(getItemSkill(stack, it)?.cost!!) == true){
 						serverThread.addScheduledTask(){
 							getItemSkill(stack, it)?.serverFunction(world, player, hand)
 						}

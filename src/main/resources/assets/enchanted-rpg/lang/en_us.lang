@@ -1,0 +1,6 @@
+#GeneralRPG English Language File
+item.enchanted_dust.name=EnchantedDust
+
+tile.pedestal.name=Pedestal
+
+text.skill_cost=Cost0

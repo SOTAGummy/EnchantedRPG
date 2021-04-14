@@ -6,6 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import module.ISkillStorable
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
@@ -30,22 +31,10 @@ object TestContainer: RootItem("test_container"), ISkillStorable{
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-		call(world, player, hand)
-		if (!world.isRemote){
-			val thread = world as WorldServer
-			thread.addScheduledTask(){
-				world.createExplosion(player, player.posX, player.posY, player.posZ, 1F, false)
-				GlobalScope.launch {
-					delay(1000)
-					thread.addScheduledTask(){
-						repeat(20){
-							val arrow = EntityItem(world, player.posX, player.posY, player.posZ, ItemStack(Core.enchanted_dust))
-							world.spawnEntity(arrow)
-						}
-					}
-				}
-			}
-		}
 		return super.onItemRightClick(world, player, hand)
+	}
+
+	override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+		addToolTip(stack, tooltip)
 	}
 }

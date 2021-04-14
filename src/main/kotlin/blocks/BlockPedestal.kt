@@ -49,15 +49,13 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 					player.setHeldItem(hand, itemHandler?.extractItem(0, 64, false)!!)
 				} else {
 					if (player.heldItemMainhand.item is ISkillStorable && tile.inventory.getStackInSlot(0).item is ItemSkill){
-						val operator = object: ISkillStorable {
-							override fun getSkillCapacity(): Int {
-								return 0
-							}
-						}
 						val stack = player.heldItemMainhand
-						operator.addItemSkill(stack, tile.inventory.getStackInSlot(0))
-						tile.inventory.setStackInSlot(0, ItemStack.EMPTY)
-						player.setHeldItem(hand, stack)
+						val operator = stack.item as ISkillStorable
+						if (operator.canAddItemSkill(stack)){
+							operator.addItemSkill(stack, tile.inventory.getStackInSlot(0))
+							tile.inventory.setStackInSlot(0, ItemStack.EMPTY)
+							player.setHeldItem(hand, stack)
+						}
 					} else {
 						player.setHeldItem(hand, itemHandler?.insertItem(0, player.getHeldItem(hand), false)!!)
 					}

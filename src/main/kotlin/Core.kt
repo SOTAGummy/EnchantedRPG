@@ -1,10 +1,18 @@
+import attribute.AttributeUtils
 import blocks.BlockPedestal
 import blocks.TESRPedestal
 import blocks.TileEntityPedestal
+import capability.mp.IMp
+import capability.mp.Mp
+import capability.mp.MpStorage
 import creativeTab.EnchantedRPGItemsTab
+import event.Events
 import items.EnchantedDust
 import items.container.TestContainer
 import items.skill.TestSkill
+import capability.accessory.Accessory
+import capability.accessory.AccessoryStorage
+import capability.accessory.IAccessory
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
@@ -13,6 +21,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.Mod
@@ -42,19 +51,29 @@ class Core {
 		@SidedProxy(clientSide = "proxy.ClientProxy", serverSide = "proxy.ServerProxy")
 		lateinit var proxy: CommonProxy
 
+		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
 
+		//Item
 		val enchanted_dust = EnchantedDust
 
+		//Block
 		val pedestal = BlockPedestal
 
+		//SkillContainer
 		val test = TestContainer
+
+		//Skill
 		val test_skill = TestSkill
+
+		//Attribute
+		val MAXMP = AttributeUtils.addAttribute("maxmp", 100.0, 0.0, Double.MAX_VALUE)
 	}
 
 	@Mod.EventHandler
 	fun construct(event: FMLConstructionEvent?) {
 		MinecraftForge.EVENT_BUS.register(this)
+		MinecraftForge.EVENT_BUS.register(Events())
 	}
 
 	@Mod.EventHandler
@@ -65,6 +84,9 @@ class Core {
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
 		}
+
+		CapabilityManager.INSTANCE.register(IMp::class.java, MpStorage()) { Mp() }
+		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { Accessory() }
 	}
 
 	@Mod.EventHandler

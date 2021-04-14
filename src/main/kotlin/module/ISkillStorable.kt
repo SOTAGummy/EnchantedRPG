@@ -59,6 +59,7 @@ interface ISkillStorable{
 
 		} else {
 			val serverThread = world as WorldServer
+
 		}
 	}
 

@@ -47,8 +47,8 @@ interface ISkillStorable{
 				} else {
 					repeat(getSkillCapacity()){
 						if (stack.tagCompound?.getIntArray("skills")!![it] == 0){
-							val array = stack.tagCompound?.getIntArray("skills")
-							array?.set(it, Item.getIdFromItem(skill.item))
+							val array = stack.tagCompound?.getIntArray("skills")!!
+							array[it] = Item.getIdFromItem(skill.item)
 							stack.tagCompound?.setIntArray("skills", array)
 						}
 					}

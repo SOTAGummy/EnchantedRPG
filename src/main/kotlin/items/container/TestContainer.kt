@@ -31,6 +31,7 @@ object TestContainer: RootItem("test_container"), ISkillStorable{
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+		call(world, player, hand)
 		return super.onItemRightClick(world, player, hand)
 	}
 

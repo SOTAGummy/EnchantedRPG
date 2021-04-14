@@ -1,6 +1,9 @@
 package module
 
 import items.baseItem.ItemSkill
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
@@ -56,10 +59,30 @@ interface ISkillStorable{
 	fun call(world: World, player: EntityPlayer, hand: EnumHand){
 		if (world.isRemote){
 			val clientThread = Minecraft.getMinecraft()
-
+			val stack = player.heldItemMainhand
+			GlobalScope.launch {
+				repeat(getSkillCapacity()){
+					if (getItemSkill(stack, it) != null){
+						clientThread.addScheduledTask(){
+							getItemSkill(stack, it)?.serverFunction(world, player, hand)
+						}
+						delay(1000)
+					}
+				}
+			}
 		} else {
 			val serverThread = world as WorldServer
-
+			val stack = player.heldItemMainhand
+			GlobalScope.launch {
+				repeat(getSkillCapacity()){
+					if (getItemSkill(stack, it) != null){
+						serverThread.addScheduledTask(){
+							getItemSkill(stack, it)?.serverFunction(world, player, hand)
+						}
+						delay(1000)
+					}
+				}
+			}
 		}
 	}
 

@@ -13,7 +13,7 @@ class AccessoryItemContainer : ItemStackHandler(4) {
 				0 -> equipmentSlot == Core.NECKLACE
 				1 -> equipmentSlot == Core.AMULET
 				2 -> equipmentSlot == Core.GLOVE
-				3 -> equipmentSlot == Core.GEM
+				3 -> equipmentSlot == Core.RING
 				else -> false
 			}
 		} else false

@@ -5,8 +5,8 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.SlotItemHandler
 
-class GemSlot(inventory: IItemHandler, index: Int, x: Int, y: Int) : SlotItemHandler(inventory, index, x, y) {
+class RingSlot(inventory: IItemHandler, index: Int, x: Int, y: Int): SlotItemHandler(inventory, index, x, y) {
 	override fun isItemValid(stack: ItemStack): Boolean {
-		return stack.item is ItemAccessory && (stack.item as ItemAccessory).equipmentSlot == Core.GEM
+		return stack.item is ItemAccessory && (stack.item as ItemAccessory).equipmentSlot == Core.RING
 	}
 }

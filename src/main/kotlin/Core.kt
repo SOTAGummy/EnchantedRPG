@@ -14,6 +14,11 @@ import capability.accessory.Accessory
 import capability.accessory.AccessoryStorage
 import capability.accessory.IAccessory
 import gui.accessory.GuiAccessoryHandler
+import items.accessory.TestAmulet
+import items.accessory.TestGlove
+import items.accessory.TestNecklace
+import items.accessory.TestRing
+import items.baseItem.ItemAccessory
 import mod.util.SlotExtension
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -24,6 +29,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.capabilities.CapabilityManager
+import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.Mod
@@ -57,6 +63,14 @@ class Core {
 		@Mod.Instance
 		lateinit var instance: Core
 
+		//EquipmentSlot
+		val ACCESSORY = SlotExtension.addSlotType("ACCESSORY", 2)
+		val NECKLACE = SlotExtension.addEquipmentSlot("NECKLACE", 6, ACCESSORY, 0, 1, "necklace")
+		val AMULET = SlotExtension.addEquipmentSlot("AMULET", 7, ACCESSORY, 1, 2, "amulet")
+		val GLOVE = SlotExtension.addEquipmentSlot("GLOVE", 8, ACCESSORY, 2, 3, "glove")
+		val RING = SlotExtension.addEquipmentSlot("RING", 9, ACCESSORY, 3, 4, "ring")
+		val accessoryType = EnumHelper.addEnchantmentType("ACCESSORY") { item: Item? -> item is ItemAccessory }!!
+
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
 
@@ -72,20 +86,18 @@ class Core {
 		//Skill
 		val test_skill = TestSkill
 
+		//Accessory
+		val test_necklace = TestNecklace
+		val test_amulet = TestAmulet
+		val test_glove = TestGlove
+		val test_ring = TestRing
+
 		//Attribute
 		val MAXMP = AttributeUtils.addAttribute("maxmp", 100.0, 0.0, Double.MAX_VALUE)
 		val EXP = AttributeUtils.addAttribute("exp", 0.0, 0.0, Double.MAX_VALUE)
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
 		val SAVINGRATE = AttributeUtils.addAttribute("savingrate", 0.0, 0.0, 100.0)
 		val MPRECOVERRATE = AttributeUtils.addAttribute("mprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
-
-		//EquipmentSlot
-		val ACCESSORY = SlotExtension.addSlotType("ACCESSORY", 2)
-		val NECKLACE = SlotExtension.addEquipmentSlot("NECKLACE", 6, ACCESSORY, 0, 1, "necklace")
-		val AMULET = SlotExtension.addEquipmentSlot("AMULET", 7, ACCESSORY, 1, 2, "amulet")
-		val GLOVE = SlotExtension.addEquipmentSlot("GLOVE", 8, ACCESSORY, 2, 3, "glove")
-		val GEM = SlotExtension.addEquipmentSlot("GEM", 9, ACCESSORY, 3, 4, "gem")
-
 	}
 
 	@Mod.EventHandler

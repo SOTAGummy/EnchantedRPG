@@ -15,8 +15,6 @@ import java.io.File
 
 abstract class ItemSkill(name: String, val cost: Int): RootItem(name){
 	init {
-		registryName = ResourceLocation(Core.ID, name)
-		unlocalizedName = name
 		creativeTab = Core.itemsTab
 		maxStackSize = 1
 	}

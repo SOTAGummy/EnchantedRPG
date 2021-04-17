@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
@@ -52,5 +53,10 @@ class Events {
 	fun guiPostInit(event: GuiScreenEvent.InitGuiEvent.Post) {
 		if (event.gui is GuiInventory)
 			event.buttonList.add(AccessoryButton(70, event.gui.mc.displayWidth / 2 - 314, event.gui.mc.displayHeight / 2 - 190, 12, 14, ""))
+	}
+
+	@SubscribeEvent
+	fun textureEvent(event: TextureStitchEvent.Pre){
+		Core.test_texture = event.map.registerSprite(ResourceLocation(Core.ID, "blocks/pedestal/texture1"))
 	}
 }

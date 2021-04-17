@@ -2,28 +2,33 @@ import attribute.AttributeUtils
 import blocks.BlockPedestal
 import blocks.TESRPedestal
 import blocks.TileEntityPedestal
+import capability.accessory.Accessory
+import capability.accessory.AccessoryStorage
+import capability.accessory.IAccessory
 import capability.mp.IMp
 import capability.mp.Mp
 import capability.mp.MpStorage
 import creativeTab.EnchantedRPGItemsTab
 import event.Events
-import items.EnchantedDust
-import items.container.TestContainer
-import items.skill.TestSkill
-import capability.accessory.Accessory
-import capability.accessory.AccessoryStorage
-import capability.accessory.IAccessory
 import gui.accessory.GuiAccessoryHandler
+import items.EnchantedDust
 import items.accessory.TestAmulet
 import items.accessory.TestGlove
 import items.accessory.TestNecklace
 import items.accessory.TestRing
 import items.baseItem.ItemAccessory
-import mod.util.SlotExtension
+import items.container.SkillBook
+import items.skill.CodeTest
+import items.skill.ToggleMode
+import utils.EnumExtension
 import net.minecraft.block.Block
+import net.minecraft.client.Minecraft
+import net.minecraft.client.particle.ParticleManager
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
+import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -45,6 +50,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
+import particle.TestParticle
 import proxy.CommonProxy
 import utils.Storage
 
@@ -64,12 +70,14 @@ class Core {
 		lateinit var instance: Core
 
 		//EquipmentSlot
-		val ACCESSORY = SlotExtension.addSlotType("ACCESSORY", 2)
-		val NECKLACE = SlotExtension.addEquipmentSlot("NECKLACE", 6, ACCESSORY, 0, 1, "necklace")
-		val AMULET = SlotExtension.addEquipmentSlot("AMULET", 7, ACCESSORY, 1, 2, "amulet")
-		val GLOVE = SlotExtension.addEquipmentSlot("GLOVE", 8, ACCESSORY, 2, 3, "glove")
-		val RING = SlotExtension.addEquipmentSlot("RING", 9, ACCESSORY, 3, 4, "ring")
+		val ACCESSORY = EnumExtension.addSlotType("ACCESSORY", 2)
+		val NECKLACE = EnumExtension.addEquipmentSlot("NECKLACE", 6, ACCESSORY, 0, 1, "necklace")
+		val AMULET = EnumExtension.addEquipmentSlot("AMULET", 7, ACCESSORY, 1, 2, "amulet")
+		val GLOVE = EnumExtension.addEquipmentSlot("GLOVE", 8, ACCESSORY, 2, 3, "glove")
+		val RING = EnumExtension.addEquipmentSlot("RING", 9, ACCESSORY, 3, 4, "ring")
 		val accessoryType = EnumHelper.addEnchantmentType("ACCESSORY") { item: Item? -> item is ItemAccessory }!!
+
+		val TEST = EnumExtension.addParticleType("test", EnumParticleTypes.values().size, 49, false)
 
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
@@ -81,10 +89,11 @@ class Core {
 		val pedestal = BlockPedestal
 
 		//SkillContainer
-		val test = TestContainer
+		val skill_book = SkillBook
 
 		//Skill
-		val test_skill = TestSkill
+		val toggle_mode = ToggleMode
+		val code_test = CodeTest
 
 		//Accessory
 		val test_necklace = TestNecklace
@@ -98,6 +107,9 @@ class Core {
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
 		val SAVINGRATE = AttributeUtils.addAttribute("savingrate", 0.0, 0.0, 100.0)
 		val MPRECOVERRATE = AttributeUtils.addAttribute("mprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
+
+		//Texture
+		lateinit var test_texture: TextureAtlasSprite
 	}
 
 	@Mod.EventHandler
@@ -113,6 +125,7 @@ class Core {
 		if (event.side.isClient){
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
+			ParticleManager(Minecraft.getMinecraft().world, Minecraft.getMinecraft().renderEngine).registerParticle(Core.TEST.particleID, TestParticle.Factory())
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
 		CapabilityManager.INSTANCE.register(IMp::class.java, MpStorage()) { Mp() }

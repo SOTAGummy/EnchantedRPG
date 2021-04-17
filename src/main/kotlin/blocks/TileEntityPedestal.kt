@@ -22,16 +22,19 @@ class TileEntityPedestal: TileEntity(){
 		}
 	}
 	private var lastChangeTime: Long = 0
+	var isCenter: Boolean = false
 
 	override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound? {
 		compound.setTag("inventory", inventory.serializeNBT())
 		compound.setLong("lastChangeTime", lastChangeTime)
+		compound.setBoolean("isCenter", isCenter)
 		return super.writeToNBT(compound)
 	}
 
 	override fun readFromNBT(compound: NBTTagCompound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"))
 		lastChangeTime = compound.getLong("lastChangeTime")
+		isCenter = compound.getBoolean("isCenter")
 		super.readFromNBT(compound)
 	}
 

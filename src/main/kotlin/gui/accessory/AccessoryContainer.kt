@@ -105,11 +105,6 @@ class AccessoryContainer(val player: EntityPlayer, val customInventory: Accessor
 			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(1, customInventory.getStackInSlot(1))
 			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(2, customInventory.getStackInSlot(2))
 			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(3, customInventory.getStackInSlot(3))
-		}else{ // CLIENT
-			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(0, customInventory.getStackInSlot(0))
-			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(1, customInventory.getStackInSlot(1))
-			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(2, customInventory.getStackInSlot(2))
-			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(3, customInventory.getStackInSlot(3))
 
 			repeat(4){
 				val stack = player.getCapability(AccessoryProvider.ACCESSORY, null)?.getItem(it)!!
@@ -125,6 +120,11 @@ class AccessoryContainer(val player: EntityPlayer, val customInventory: Accessor
 				}
 				old[it] = stack
 			}
+		}else{ // CLIENT
+			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(0, customInventory.getStackInSlot(0))
+			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(1, customInventory.getStackInSlot(1))
+			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(2, customInventory.getStackInSlot(2))
+			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(3, customInventory.getStackInSlot(3))
 		}
 	}
 

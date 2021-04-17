@@ -45,11 +45,12 @@ interface ISkillStorable{
 					array[0] = Item.getIdFromItem(skill.item)
 					stack.tagCompound?.setIntArray("skills", array)
 				} else {
-					repeat(getSkillCapacity()){
-						if (stack.tagCompound?.getIntArray("skills")!![it] == 0){
+					for(i in 0 until getSkillCapacity()){
+						if (stack.tagCompound?.getIntArray("skills")!![i] == 0){
 							val array = stack.tagCompound?.getIntArray("skills")!!
-							array[it] = Item.getIdFromItem(skill.item)
+							array[i] = Item.getIdFromItem(skill.item)
 							stack.tagCompound?.setIntArray("skills", array)
+							break
 						}
 					}
 				}
@@ -65,7 +66,7 @@ interface ISkillStorable{
 				repeat(getSkillCapacity()){
 					if (getItemSkill(stack, it) != null && player.getCapability(MpProvider.MP!!, null)?.useMp(getItemSkill(stack, it)?.cost!!) == true){
 						clientThread.addScheduledTask(){
-							getItemSkill(stack, it)?.serverFunction(world, player, hand)
+							getItemSkill(stack, it)?.clientFunction(world, player, hand)
 						}
 						delay(1000)
 					}

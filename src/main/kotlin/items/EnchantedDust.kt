@@ -17,8 +17,6 @@ import net.minecraft.world.World
 object EnchantedDust: RootItem("enchanted_dust"){
 	init {
 		maxStackSize = 64
-		registryName = ResourceLocation(Core.ID, "enchanted_dust")
-		unlocalizedName = "enchanted_dust"
 		creativeTab = Core.itemsTab
 	}
 

@@ -19,8 +19,6 @@ abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlo
 	init{
 		maxStackSize = 1
 		creativeTab = Core.itemsTab
-		registryName = ResourceLocation(Core.ID, name)
-		unlocalizedName = name
 	}
 
 	companion object {

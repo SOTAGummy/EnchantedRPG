@@ -1,5 +1,7 @@
 #GeneralRPG English Language File
 item.enchanted_dust.name=EnchantedDust
+item.skill_book.name=SkillBook
+item.toggle_mode.name=ToggleMode
 
 tile.pedestal.name=Pedestal
 

@@ -6,6 +6,7 @@ import module.ISkillStorable
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -17,6 +18,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.items.CapabilityItemHandler
+import java.util.*
 
 object BlockPedestal: BlockContainer(Material.ROCK){
 	init {
@@ -43,6 +45,20 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 	override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
 		if (!world.isRemote){
 			val tile = world.getTileEntity(pos) as TileEntityPedestal
+			val flagN = world.getBlockState(pos.add(3, 0, 0)).block == Core.pedestal
+			val flagS = world.getBlockState(pos.add(-3, 0, 0)).block == Core.pedestal
+			val flagW = world.getBlockState(pos.add(0, 0, 3)).block == Core.pedestal
+			val flagE = world.getBlockState(pos.add(0, 0, -3)).block == Core.pedestal
+			val flagNE = world.getBlockState(pos.add(2, 0, -2)).block == Core.pedestal
+			val flagNW = world.getBlockState(pos.add(2, 0, 2)).block == Core.pedestal
+			val flagSE = world.getBlockState(pos.add(-2, 0, -2)).block == Core.pedestal
+			val flagSW = world.getBlockState(pos.add(-2, 0, 2)).block == Core.pedestal
+			if (flagN && flagS && flagW && flagE && flagNE && flagNW && flagSE && flagSW){
+				tile.isCenter = true
+			}
+
+			println(tile.isCenter)
+
 			val itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)
 			if (!player.isSneaking){
 				if (player.heldItemMainhand.isEmpty){
@@ -71,11 +87,26 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 		val itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
 		val stack = itemHandler?.getStackInSlot(0)!!
 
-		if (!stack.isEmpty){
+		if (!stack.isEmpty) {
 			val item = EntityItem(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
 			world.spawnEntity(item)
 		}
 
 		super.breakBlock(world, pos, state)
+	}
+
+	override fun onBlockAdded(world: World, pos: BlockPos, state: IBlockState) {
+		val tile = world.getTileEntity(pos) as TileEntityPedestal
+		val flagN = world.getBlockState(pos.add(3, 0, 0)).block == Core.pedestal
+		val flagS = world.getBlockState(pos.add(-3, 0, 0)).block == Core.pedestal
+		val flagW = world.getBlockState(pos.add(0, 0, 3)).block == Core.pedestal
+		val flagE = world.getBlockState(pos.add(0, 0, -3)).block == Core.pedestal
+		val flagNE = world.getBlockState(pos.add(2, 0, -2)).block == Core.pedestal
+		val flagNW = world.getBlockState(pos.add(2, 0, 2)).block == Core.pedestal
+		val flagSE = world.getBlockState(pos.add(-2, 0, -2)).block == Core.pedestal
+		val flagSW = world.getBlockState(pos.add(-2, 0, 2)).block == Core.pedestal
+		if (flagN && flagS && flagW && flagE && flagNE && flagNW && flagSE && flagSW){
+			tile.isCenter = true
+		}
 	}
 }

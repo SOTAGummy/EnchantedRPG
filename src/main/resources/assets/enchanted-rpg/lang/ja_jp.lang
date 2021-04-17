@@ -1,5 +1,7 @@
 #GeneralRPG 日本語言語ファイル
 item.enchanted_dust.name=エンチャントの粉
+item.skill_book.name=スキルブック
+item.toggle_mode.name=トグルモード
 
 tile.pedestal.name=台座
 

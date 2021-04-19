@@ -20,21 +20,25 @@ class TileEntityPedestal: TileEntity(){
 				PacketHandler.network.sendToAllAround(PacketUpdatePedestal(this@TileEntityPedestal), TargetPoint(world.provider.dimension, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 64.0))
 			}
 		}
+
+		override fun getSlotLimit(slot: Int): Int {
+			return 1
+		}
 	}
 	private var lastChangeTime: Long = 0
-	var isCenter: Boolean = false
+	var location: String = ""
 
 	override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound? {
 		compound.setTag("inventory", inventory.serializeNBT())
 		compound.setLong("lastChangeTime", lastChangeTime)
-		compound.setBoolean("isCenter", isCenter)
+		compound.setString("location", location)
 		return super.writeToNBT(compound)
 	}
 
 	override fun readFromNBT(compound: NBTTagCompound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"))
 		lastChangeTime = compound.getLong("lastChangeTime")
-		isCenter = compound.getBoolean("isCenter")
+		location = compound.getString("location")
 		super.readFromNBT(compound)
 	}
 

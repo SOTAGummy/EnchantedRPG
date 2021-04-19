@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -18,6 +19,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.items.CapabilityItemHandler
+import recipe.PedestalRecipeHandler
 import java.util.*
 
 object BlockPedestal: BlockContainer(Material.ROCK){
@@ -45,24 +47,47 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 	override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
 		if (!world.isRemote){
 			val tile = world.getTileEntity(pos) as TileEntityPedestal
-			val flagN = world.getBlockState(pos.add(3, 0, 0)).block == Core.pedestal
-			val flagS = world.getBlockState(pos.add(-3, 0, 0)).block == Core.pedestal
-			val flagW = world.getBlockState(pos.add(0, 0, 3)).block == Core.pedestal
-			val flagE = world.getBlockState(pos.add(0, 0, -3)).block == Core.pedestal
-			val flagNE = world.getBlockState(pos.add(2, 0, -2)).block == Core.pedestal
-			val flagNW = world.getBlockState(pos.add(2, 0, 2)).block == Core.pedestal
-			val flagSE = world.getBlockState(pos.add(-2, 0, -2)).block == Core.pedestal
-			val flagSW = world.getBlockState(pos.add(-2, 0, 2)).block == Core.pedestal
-			if (flagN && flagS && flagW && flagE && flagNE && flagNW && flagSE && flagSW){
-				tile.isCenter = true
-			}
-
-			println(tile.isCenter)
-
 			val itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)
+			println(tile.location)
 			if (!player.isSneaking){
 				if (player.heldItemMainhand.isEmpty){
-					player.setHeldItem(hand, itemHandler?.extractItem(0, 64, false)!!)
+					if (tile.location == "Center" && tile.inventory.getStackInSlot(0).isEmpty) {
+						val tileN = world.getTileEntity(pos.add(-3, 0, 0)) as TileEntityPedestal
+						val tileS = world.getTileEntity(pos.add(3, 0, 0)) as TileEntityPedestal
+						val tileW = world.getTileEntity(pos.add(0, 0, -3)) as TileEntityPedestal
+						val tileE = world.getTileEntity(pos.add(0, 0, 3)) as TileEntityPedestal
+						val tileNE = world.getTileEntity(pos.add(-2, 0, 2)) as TileEntityPedestal
+						val tileNW = world.getTileEntity(pos.add(-2, 0, -2)) as TileEntityPedestal
+						val tileSE = world.getTileEntity(pos.add(2, 0, 2)) as TileEntityPedestal
+						val tileSW = world.getTileEntity(pos.add(2, 0, -2)) as TileEntityPedestal
+						val array = arrayListOf(
+							tileN.inventory.getStackInSlot(0),
+							tileS.inventory.getStackInSlot(0),
+							tileW.inventory.getStackInSlot(0),
+							tileE.inventory.getStackInSlot(0),
+							tileNE.inventory.getStackInSlot(0),
+							tileNW.inventory.getStackInSlot(0),
+							tileSE.inventory.getStackInSlot(0),
+							tileSW.inventory.getStackInSlot(0)
+						)
+
+						if (!PedestalRecipeHandler.getCraftResult(array).isEmpty){
+							tileN.inventory.extractItem(0, 1, false)
+							tileS.inventory.extractItem(0, 1, false)
+							tileE.inventory.extractItem(0, 1, false)
+							tileW.inventory.extractItem(0, 1, false)
+							tileNE.inventory.extractItem(0, 1, false)
+							tileNW.inventory.extractItem(0, 1, false)
+							tileSE.inventory.extractItem(0, 1, false)
+							tileSW.inventory.extractItem(0, 1, false)
+							tile.inventory.setStackInSlot(0, PedestalRecipeHandler.getCraftResult(array))
+						}
+					}else {
+						player.setHeldItem(hand, itemHandler?.extractItem(0, 1, false)!!)
+					}
+				} else if (player.heldItemMainhand.item == tile.inventory.getStackInSlot(0).item && player.heldItemMainhand.count < player.heldItemMainhand.item.getItemStackLimit(player.heldItemMainhand)){
+					itemHandler?.extractItem(0, 1, false)
+					player.heldItemMainhand.count++
 				} else {
 					if (player.heldItemMainhand.item is ISkillStorable && tile.inventory.getStackInSlot(0).item is ItemSkill){
 						val stack = player.heldItemMainhand
@@ -92,11 +117,22 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 			world.spawnEntity(item)
 		}
 
+		when(tile.location){
+			"N" -> { (world.getTileEntity(pos.add(-3, 0, 0)) as TileEntityPedestal).location = "" }
+			"S" -> { (world.getTileEntity(pos.add(3, 0, 0)) as TileEntityPedestal).location = "" }
+			"W" -> { (world.getTileEntity(pos.add(0, 0, -3)) as TileEntityPedestal).location = "" }
+			"E" -> { (world.getTileEntity(pos.add(0, 0, 3)) as TileEntityPedestal).location = "" }
+			"NE" -> { (world.getTileEntity(pos.add(-2, 0, 2)) as TileEntityPedestal).location = "" }
+			"NW" -> { (world.getTileEntity(pos.add(-2, 0, -2)) as TileEntityPedestal).location = "" }
+			"SE" -> { (world.getTileEntity(pos.add(2, 0, 2)) as TileEntityPedestal).location = "" }
+			"SW" -> { (world.getTileEntity(pos.add(2, 0, -2)) as TileEntityPedestal).location = "" }
+		}
+
 		super.breakBlock(world, pos, state)
 	}
 
 	override fun onBlockAdded(world: World, pos: BlockPos, state: IBlockState) {
-		val tile = world.getTileEntity(pos) as TileEntityPedestal
+		var tile = world.getTileEntity(pos) as TileEntityPedestal
 		val flagN = world.getBlockState(pos.add(3, 0, 0)).block == Core.pedestal
 		val flagS = world.getBlockState(pos.add(-3, 0, 0)).block == Core.pedestal
 		val flagW = world.getBlockState(pos.add(0, 0, 3)).block == Core.pedestal
@@ -106,7 +142,23 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 		val flagSE = world.getBlockState(pos.add(-2, 0, -2)).block == Core.pedestal
 		val flagSW = world.getBlockState(pos.add(-2, 0, 2)).block == Core.pedestal
 		if (flagN && flagS && flagW && flagE && flagNE && flagNW && flagSE && flagSW){
-			tile.isCenter = true
+			tile.location = "Center"
+			tile = world.getTileEntity(pos.add(3, 0, 0)) as TileEntityPedestal
+			tile.location = "N"
+			tile = world.getTileEntity(pos.add(-3, 0, 0)) as TileEntityPedestal
+			tile.location = "S"
+			tile = world.getTileEntity(pos.add(0, 0, 3)) as TileEntityPedestal
+			tile.location = "W"
+			tile = world.getTileEntity(pos.add(0, 0, -3)) as TileEntityPedestal
+			tile.location = "E"
+			tile = world.getTileEntity(pos.add(2, 0, -2)) as TileEntityPedestal
+			tile.location = "NE"
+			tile = world.getTileEntity(pos.add(2, 0, 2)) as TileEntityPedestal
+			tile.location = "NW"
+			tile = world.getTileEntity(pos.add(-2, 0, -2)) as TileEntityPedestal
+			tile.location = "SE"
+			tile = world.getTileEntity(pos.add(-2, 0, 2)) as TileEntityPedestal
+			tile.location = "SW"
 		}
 	}
 }

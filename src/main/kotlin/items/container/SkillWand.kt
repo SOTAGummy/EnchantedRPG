@@ -10,19 +10,13 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object SkillBook: RootItem("skill_book"), ISkillStorable{
-	init {
-		maxStackSize = 1
-		creativeTab = Core.itemsTab
-	}
-
-
+object SkillWand: RootItem("skill_wand"), ISkillStorable{
 	override fun getSkillCapacity(): Int {
-		return 4
+		return 6
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-		call(world, player, hand)
+		call(world,player, hand)
 		return ActionResult(EnumActionResult.SUCCESS, player.heldItemMainhand)
 	}
 

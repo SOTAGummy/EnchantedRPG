@@ -18,17 +18,13 @@ import items.accessory.TestNecklace
 import items.accessory.TestRing
 import items.baseItem.ItemAccessory
 import items.container.SkillBook
+import items.container.SkillWand
 import items.skill.CodeTest
 import items.skill.ToggleMode
-import utils.EnumExtension
 import net.minecraft.block.Block
-import net.minecraft.client.Minecraft
-import net.minecraft.client.particle.ParticleManager
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
-import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -50,8 +46,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
-import particle.TestParticle
 import proxy.CommonProxy
+import utils.EnumExtension
 import utils.Storage
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
@@ -77,8 +73,6 @@ class Core {
 		val RING = EnumExtension.addEquipmentSlot("RING", 9, ACCESSORY, 3, 4, "ring")
 		val accessoryType = EnumHelper.addEnchantmentType("ACCESSORY") { item: Item? -> item is ItemAccessory }!!
 
-		val TEST = EnumExtension.addParticleType("test", EnumParticleTypes.values().size, 49, false)
-
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
 
@@ -90,6 +84,7 @@ class Core {
 
 		//SkillContainer
 		val skill_book = SkillBook
+		val skill_wand = SkillWand
 
 		//Skill
 		val toggle_mode = ToggleMode
@@ -107,9 +102,6 @@ class Core {
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
 		val SAVINGRATE = AttributeUtils.addAttribute("savingrate", 0.0, 0.0, 100.0)
 		val MPRECOVERRATE = AttributeUtils.addAttribute("mprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
-
-		//Texture
-		lateinit var test_texture: TextureAtlasSprite
 	}
 
 	@Mod.EventHandler
@@ -125,7 +117,6 @@ class Core {
 		if (event.side.isClient){
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
-			ParticleManager(Minecraft.getMinecraft().world, Minecraft.getMinecraft().renderEngine).registerParticle(Core.TEST.particleID, TestParticle.Factory())
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
 		CapabilityManager.INSTANCE.register(IMp::class.java, MpStorage()) { Mp() }

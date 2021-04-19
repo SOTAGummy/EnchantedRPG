@@ -33,18 +33,6 @@ object EnumExtension {
 		return result
 	}
 
-	fun addParticleType(name: String, ordinal: Int, id: Int, ignoreRange: Boolean): EnumParticleTypes{
-		val method: Method = Constructor::class.java.getDeclaredMethod("acquireConstructorAccessor")
-		method.isAccessible = true
-
-		val cls: Constructor<EnumParticleTypes> = EnumParticleTypes::class.java.getDeclaredConstructor(String::class.java, Int::class.java, String::class.java, Int::class.java, Boolean::class.java)
-		val ca: ConstructorAccessor = method.invoke(cls) as ConstructorAccessor
-
-		val result: EnumParticleTypes = ca.newInstance(arrayOf(name.toUpperCase(), ordinal, name, id, ignoreRange)) as EnumParticleTypes
-		addValueToEnum(result)
-		return result
-	}
-
 	private fun <T : Enum<*>> addValueToEnum(value: T) {
 		val field: Field = value::class.java.getDeclaredField("\$VALUES")
 		field.isAccessible = true

@@ -126,6 +126,8 @@ class AccessoryContainer(val player: EntityPlayer, val customInventory: Accessor
 			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(2, customInventory.getStackInSlot(2))
 			player.getCapability(AccessoryProvider.ACCESSORY, null)?.setItem(3, customInventory.getStackInSlot(3))
 		}
+
+		(customInventory.getStackInSlot(0).item as ItemAccessory).onEquipped(customInventory.getStackInSlot(0), player, player.world)
 	}
 
 	override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {

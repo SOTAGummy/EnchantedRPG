@@ -58,4 +58,6 @@ abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlo
 		return multimap
 	}
 
+
+	fun onEquipped(stack: ItemStack, player: EntityPlayer, world: World){}
 }

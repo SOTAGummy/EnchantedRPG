@@ -9,8 +9,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
 
-class GuiAccessoryContainer(player: EntityPlayer, customInv: AccessoryItemContainer) :
-	GuiContainer(AccessoryContainer(player, customInv)) {
+class GuiAccessoryContainer(player: EntityPlayer, customInv: AccessoryItemContainer): GuiContainer(AccessoryContainer(player, customInv)) {
 	init {
 		this.xSize = 192
 		this.ySize = 166

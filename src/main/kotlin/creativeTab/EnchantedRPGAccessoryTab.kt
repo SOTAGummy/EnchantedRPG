@@ -3,8 +3,8 @@ package creativeTab
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 
-object EnchantedRPGItemsTab: CreativeTabs("${Core.ID}.items"){
+object EnchantedRPGAccessoryTab: CreativeTabs("${Core.ID}.accessories"){
 	override fun getTabIconItem(): ItemStack {
-		return ItemStack(Core.skill_book)
+		return ItemStack(Core.test_ring)
 	}
 }

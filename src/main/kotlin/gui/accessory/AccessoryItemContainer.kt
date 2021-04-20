@@ -1,11 +1,13 @@
 package gui.accessory
 
 import Core
+import capability.accessory.AccessoryProvider
 import items.baseItem.ItemAccessory
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 
-class AccessoryItemContainer : ItemStackHandler(4) {
+class AccessoryItemContainer: ItemStackHandler(4) {
 	override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 		return if (stack.item is ItemAccessory) {
 			val equipmentSlot = (stack.item as ItemAccessory).equipmentSlot
@@ -29,4 +31,5 @@ class AccessoryItemContainer : ItemStackHandler(4) {
 			super.setStackInSlot(slot, stack)
 		}
 	}
+
 }

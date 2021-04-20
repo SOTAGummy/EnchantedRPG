@@ -15,7 +15,7 @@ import java.io.File
 
 abstract class ItemSkill(name: String, val cost: Int): RootItem(name){
 	init {
-		creativeTab = Core.itemsTab
+		creativeTab = Core.skillsTab
 		maxStackSize = 1
 	}
 

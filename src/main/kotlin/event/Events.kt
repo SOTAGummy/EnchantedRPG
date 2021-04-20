@@ -8,16 +8,20 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import packet.PacketAccessory
+import packet.PacketHandler
 import utils.Storage
 class Events {
 	@SubscribeEvent
@@ -53,5 +57,15 @@ class Events {
 	fun guiPostInit(event: GuiScreenEvent.InitGuiEvent.Post) {
 		if (event.gui is GuiInventory)
 			event.buttonList.add(AccessoryButton(70, event.gui.mc.displayWidth / 2 - 314, event.gui.mc.displayHeight / 2 - 190, 12, 14, ""))
+	}
+
+	@SubscribeEvent
+	fun onPlayerTrackingEvent(event: PlayerEvent.StartTracking){
+		if (event.target is EntityPlayerMP){
+			val player = event.target as EntityPlayerMP
+			repeat(4){
+				PacketHandler.network.sendTo(PacketAccessory(player, it.toByte(), player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it)!!), player)
+			}
+		}
 	}
 }

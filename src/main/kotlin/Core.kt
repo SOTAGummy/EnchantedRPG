@@ -8,7 +8,10 @@ import capability.accessory.IAccessory
 import capability.mp.IMp
 import capability.mp.Mp
 import capability.mp.MpStorage
+import creativeTab.EnchantedRPGAccessoryTab
+import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
+import creativeTab.EnchantedRPGSkillsTab
 import event.Events
 import gui.accessory.GuiAccessoryHandler
 import items.EnchantedDust
@@ -75,6 +78,9 @@ class Core {
 
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
+		val skillsTab = EnchantedRPGSkillsTab
+		val accessoriesTab = EnchantedRPGAccessoryTab
+		val enchantmentsTab = EnchantedRPGEnchantmentTab
 
 		//Item
 		val enchanted_dust = EnchantedDust

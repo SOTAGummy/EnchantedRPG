@@ -18,7 +18,7 @@ import java.util.*
 abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlot): RootItem(name){
 	init{
 		maxStackSize = 1
-		creativeTab = Core.itemsTab
+		creativeTab = Core.accessoriesTab
 	}
 
 	companion object {

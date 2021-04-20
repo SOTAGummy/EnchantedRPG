@@ -2,9 +2,12 @@ package gui.accessory
 
 import capability.accessory.AccessoryProvider
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
+import packet.PacketAccessory
+import packet.PacketHandler
 
 class GuiAccessoryHandler : IGuiHandler {
 	companion object {

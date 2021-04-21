@@ -19,21 +19,19 @@ import packet.PacketAccessory
 import packet.PacketHandler
 
 
-class AccessoryContainer(val player: EntityPlayer, val customInventory: AccessoryItemContainer): Container() {
+class AccessoryContainer(val player: EntityPlayer, private val customInventory: AccessoryItemContainer): Container() {
 	val playerInv: InventoryPlayer = player.inventory
 	val inventory = AccessoryItemContainer()
 	private val craftMatrix = InventoryCrafting(this, 2, 2)
 	private val craftResult = InventoryCraftResult()
 	private val equipmentSlots = arrayOf(EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET)
 	private val accessorySlots = arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)
-	private val old = arrayOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
 
 	init {
 		repeat(4){
-			old[it] = player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it)
+			customInventory.old[it] = player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it)
 		}
-
-		println(old)
+		customInventory.player = player
 
 		//CRAFTRESULTSLOT
 		addSlotToContainer(SlotCrafting(playerInv.player, craftMatrix, craftResult, 0, 154, 28))
@@ -107,34 +105,10 @@ class AccessoryContainer(val player: EntityPlayer, val customInventory: Accessor
 	}
 
 	override fun onContainerClosed(player: EntityPlayer) {
-
 		super.onContainerClosed(player)
 		craftResult.clear()
 		if (!player.world.isRemote) { // SERVER
 			clearContainer(player, player.world, craftMatrix)
-			println(old)
-			repeat(4){
-				val stack = customInventory.getStackInSlot(it)
-				if (old[it] != stack){
-					if (old[it].isEmpty && !stack.isEmpty){
-						player.attributeMap.applyAttributeModifiers(stack.getAttributeModifiers(accessorySlots[it]))
-						println("input")
-					}else if (!old[it].isEmpty && stack.isEmpty){
-						player.attributeMap.removeAttributeModifiers(old[it].getAttributeModifiers(accessorySlots[it]))
-						println("output")
-					}else if (!old[it].isEmpty && !stack.isEmpty){
-						player.attributeMap.removeAttributeModifiers(old[it].getAttributeModifiers(accessorySlots[it]))
-						player.attributeMap.applyAttributeModifiers(stack.getAttributeModifiers(accessorySlots[it]))
-						println("input & output")
-					}
-				}
-
-				println(old)
-				println(stack.isEmpty)
-				println(old[it].isEmpty)
-				old[it] = stack
-			}
-
 			repeat(4){
 				player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(it, customInventory.getStackInSlot(it))
 			}

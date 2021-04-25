@@ -1,8 +1,20 @@
 #GeneralRPG English Language File
+#Items
 item.enchanted_dust.name=EnchantedDust
 item.skill_book.name=SkillBook
+item.wooden_wand.name=WoodenStaff
 item.toggle_mode.name=ToggleMode
-
+item.code_test.name=CodeTest
+#Blocks
 tile.pedestal.name=Pedestal
-
-text.skill_cost=Cost0
+#CreativeTabs
+itemGroup.enchanted-rpg.items=EnchantedRPG
+itemGroup.enchanted-rpg.skills=Skills
+itemGroup.enchanted-rpg.accessories=Accessories
+itemGroup.enchanted-rpg.enchantments=Enchantments
+#Attribute
+attribute.name.enchanted-rpg.maxsp=MaxSP
+attribute.name.enchanted-rpg.spsavingrate=SPSavingRate
+attribute.name.enchanted-rpg.sprecoverrate=SPRecoverRate
+#Text
+text.skill_cost=Cost

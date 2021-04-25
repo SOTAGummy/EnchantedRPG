@@ -5,9 +5,9 @@ import blocks.TileEntityPedestal
 import capability.accessory.Accessory
 import capability.accessory.AccessoryStorage
 import capability.accessory.IAccessory
-import capability.mp.IMp
-import capability.mp.Mp
-import capability.mp.MpStorage
+import capability.sp.ISP
+import capability.sp.SP
+import capability.sp.SPStorage
 import creativeTab.EnchantedRPGAccessoryTab
 import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
@@ -21,7 +21,7 @@ import items.accessory.TestNecklace
 import items.accessory.TestRing
 import items.baseItem.ItemAccessory
 import items.container.SkillBook
-import items.container.SkillWand
+import items.container.WoodenWand
 import items.skill.CodeTest
 import items.skill.ToggleMode
 import net.minecraft.block.Block
@@ -90,7 +90,7 @@ class Core {
 
 		//SkillContainer
 		val skill_book = SkillBook
-		val skill_wand = SkillWand
+		val skill_wand = WoodenWand
 
 		//Skill
 		val toggle_mode = ToggleMode
@@ -103,11 +103,11 @@ class Core {
 		val test_ring = TestRing
 
 		//Attribute
-		val MAXMP = AttributeUtils.addAttribute("maxmp", 100.0, 0.0, Double.MAX_VALUE)
+		val MAXSP = AttributeUtils.addAttribute("maxsp", 100.0, 0.0, Double.MAX_VALUE)
 		val EXP = AttributeUtils.addAttribute("exp", 0.0, 0.0, Double.MAX_VALUE)
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
-		val SAVINGRATE = AttributeUtils.addAttribute("savingrate", 0.0, 0.0, 100.0)
-		val MPRECOVERRATE = AttributeUtils.addAttribute("mprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
+		val SPSAVINGRATE = AttributeUtils.addAttribute("spsavingrate", 0.0, 0.0, 100.0)
+		val SPRECOVERRATE = AttributeUtils.addAttribute("sprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
 	}
 
 	@Mod.EventHandler
@@ -125,7 +125,7 @@ class Core {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
-		CapabilityManager.INSTANCE.register(IMp::class.java, MpStorage()) { Mp() }
+		CapabilityManager.INSTANCE.register(ISP::class.java, SPStorage()) { SP() }
 		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { Accessory() }
 	}
 

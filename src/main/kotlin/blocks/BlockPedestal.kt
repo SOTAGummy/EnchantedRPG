@@ -85,7 +85,7 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 					}else {
 						player.setHeldItem(hand, itemHandler?.extractItem(0, 1, false)!!)
 					}
-				} else if (player.heldItemMainhand.item == tile.inventory.getStackInSlot(0).item && player.heldItemMainhand.count < player.heldItemMainhand.item.getItemStackLimit(player.heldItemMainhand)){
+				} else if (player.heldItemMainhand.isItemEqual(tile.inventory.getStackInSlot(0)) && player.heldItemMainhand.count < player.heldItemMainhand.maxStackSize){
 					itemHandler?.extractItem(0, 1, false)
 					player.heldItemMainhand.count++
 				} else {

@@ -1,27 +1,20 @@
 package event
 
+import Core
 import capability.accessory.AccessoryProvider
-import capability.mp.MpProvider
+import capability.sp.SPProvider
 import gui.accessory.button.AccessoryButton
 import gui.mp.MPIndicator
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.init.Items
-import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
-import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
-import net.minecraftforge.event.entity.living.LivingEvent
-import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -30,6 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
 import utils.Storage
+
 class Events {
 	private val accessorySlots = arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)
 
@@ -46,7 +40,7 @@ class Events {
 	@SubscribeEvent
 	fun attachCapabilityEvent(event: AttachCapabilitiesEvent<Entity>){
 		if (event.`object` is EntityPlayer) {
-			event.addCapability(ResourceLocation(Core.ID, "mp"), MpProvider())
+			event.addCapability(ResourceLocation(Core.ID, "sp"), SPProvider())
 			event.addCapability(ResourceLocation(Core.ID, "accessory"), AccessoryProvider())
 		}
 	}

@@ -30,7 +30,7 @@ abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlo
 		)
 	}
 
-	fun getUUID(slot: EntityEquipmentSlot): UUID? {
+	fun getUUID(slot: EntityEquipmentSlot): UUID {
 		return ACCESSORY_MODIFIER[slot.index]
 	}
 

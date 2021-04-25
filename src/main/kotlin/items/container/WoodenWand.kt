@@ -10,7 +10,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object SkillWand: RootItem("skill_wand"), ISkillStorable{
+object WoodenWand: RootItem("wooden_wand"), ISkillStorable{
 	override fun getSkillCapacity(): Int {
 		return 6
 	}

@@ -1,6 +1,6 @@
 package gui.mp
 
-import capability.mp.MpProvider
+import capability.sp.SPProvider
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
@@ -17,12 +17,12 @@ class MPIndicator(mc: Minecraft, correction: Int): Gui() {
 		val player = mc.player
 		val scaled = ScaledResolution(mc)
 		val width = scaled.scaledWidth
-		val MP = player.getCapability(MpProvider.MP!!, null)?.getMp()!!
-		val MaxMP = player.getEntityAttribute(Core.MAXMP).attributeValue.toInt()
+		val sp = player.getCapability(SPProvider.MP!!, null)?.getSP()!!
+		val maxSP = player.getEntityAttribute(Core.MAXSP).attributeValue.toInt()
 		val height = scaled.scaledHeight
 		val hp = (mc.player.health + 0.999999).toInt().toString() + "/" + mc.player.maxHealth.toInt().toString()
-		val currentMP = ((MP.toFloat() / MaxMP.toFloat()) * 81).toInt()
-		val mp = "$MP/$MaxMP"
+		val currentMP = ((sp.toFloat() / maxSP.toFloat()) * 81).toInt()
+		val mp = "$sp/$maxSP"
 
 		mc.textureManager.bindTexture(texture)
 		this.drawTexturedModalRect(width / 2 + 10, height - 48 + correction, 0, 0, 81, 8)

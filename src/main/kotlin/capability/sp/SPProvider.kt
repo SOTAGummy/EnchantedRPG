@@ -1,4 +1,4 @@
-package capability.mp
+package capability.sp
 
 import net.minecraft.nbt.NBTBase
 import net.minecraft.util.EnumFacing
@@ -6,10 +6,10 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
 
-class MpProvider: ICapabilitySerializable<NBTBase?> {
+class SPProvider: ICapabilitySerializable<NBTBase?> {
 	companion object {
-		@CapabilityInject(IMp::class)
-		val MP: Capability<IMp?>? = null
+		@CapabilityInject(ISP::class)
+		val MP: Capability<ISP?>? = null
 	}
 
 	private val instance = MP!!.defaultInstance

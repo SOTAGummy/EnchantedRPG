@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
 
-class MpProvider : ICapabilitySerializable<NBTBase?> {
+class MpProvider: ICapabilitySerializable<NBTBase?> {
 	companion object {
 		@CapabilityInject(IMp::class)
 		val MP: Capability<IMp?>? = null

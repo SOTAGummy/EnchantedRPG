@@ -1,10 +1,7 @@
 package gui.accessory
 
 import capability.accessory.AccessoryProvider
-import gui.accessory.slot.AmuletSlot
-import gui.accessory.slot.RingSlot
-import gui.accessory.slot.GloveSlot
-import gui.accessory.slot.NecklaceSlot
+import gui.accessory.slot.*
 import items.baseItem.ItemAccessory
 import net.minecraft.client.Minecraft
 import net.minecraft.enchantment.EnchantmentHelper
@@ -25,14 +22,8 @@ class AccessoryContainer(val player: EntityPlayer, private val customInventory: 
 	private val craftMatrix = InventoryCrafting(this, 2, 2)
 	private val craftResult = InventoryCraftResult()
 	private val equipmentSlots = arrayOf(EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET)
-	private val accessorySlots = arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)
 
 	init {
-		repeat(4){
-			customInventory.old[it] = player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it)
-		}
-		customInventory.player = player
-
 		//CRAFTRESULTSLOT
 		addSlotToContainer(SlotCrafting(playerInv.player, craftMatrix, craftResult, 0, 154, 28))
 
@@ -46,7 +37,7 @@ class AccessoryContainer(val player: EntityPlayer, private val customInventory: 
 		//ARMORSLOT
 		for (k in 0..3) {
 			val slot: EntityEquipmentSlot = equipmentSlots[k]
-			addSlotToContainer(object : Slot(playerInv, 36 + (3 - k), 8, 8 + k * 18) {
+			addSlotToContainer(object: Slot(playerInv, 36 + (3 - k), 8, 8 + k * 18) {
 				override fun getSlotStackLimit(): Int {
 					return 1
 				}
@@ -81,7 +72,7 @@ class AccessoryContainer(val player: EntityPlayer, private val customInventory: 
 		}
 
 		//OFFHANDSLOT
-		addSlotToContainer(object : Slot(playerInv, 40, 77, 62) {
+		addSlotToContainer(object: Slot(playerInv, 40, 77, 62) {
 			override fun isItemValid(stack: ItemStack): Boolean {
 				return super.isItemValid(stack)
 			}
@@ -105,16 +96,14 @@ class AccessoryContainer(val player: EntityPlayer, private val customInventory: 
 	}
 
 	override fun onContainerClosed(player: EntityPlayer) {
-		super.onContainerClosed(player)
 		craftResult.clear()
 		if (!player.world.isRemote) { // SERVER
 			clearContainer(player, player.world, craftMatrix)
 			repeat(4){
 				player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(it, customInventory.getStackInSlot(it))
 			}
-		} else { // CLIENT
-
 		}
+		super.onContainerClosed(player)
 	}
 
 	override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {

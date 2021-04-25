@@ -12,6 +12,7 @@ object TestAmulet: ItemAccessory("test_amulet", Core.AMULET){
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == Core.AMULET){
 			multimap.put(SharedMonsterAttributes.MAX_HEALTH.name, AttributeModifier(getUUID(slot), "hp", 10.0, 0))
+			multimap.put(Core.MAXMP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
 		}
 		return multimap
 	}

@@ -1,12 +1,16 @@
 package gui.accessory
 
 import Core
+import capability.accessory.AccessoryProvider
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.ResourceLocation
+import packet.PacketAccessory
+import packet.PacketHandler
 
 
 class GuiAccessoryContainer(player: EntityPlayer, customInv: AccessoryItemContainer): GuiContainer(AccessoryContainer(player, customInv)) {

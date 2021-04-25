@@ -2,7 +2,7 @@ package capability.mp
 
 import net.minecraft.entity.player.EntityPlayer
 
-class Mp : IMp {
+class Mp: IMp {
 	private var mpValue: Int = 100
 
 	override fun getMp(): Int {

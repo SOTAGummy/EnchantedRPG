@@ -37,8 +37,8 @@ class PacketAccessory(): IMessage{
 		override fun onMessage(message: PacketAccessory?, ctx: MessageContext?): IMessage? {
 			val mainThread = Minecraft.getMinecraft()
 			mainThread.addScheduledTask(){
-				val player = Minecraft.getMinecraft().player
-				player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(message?.slotId?.toInt()!!, message.stack)
+				val player = Minecraft.getMinecraft().world.getEntityByID(message?.playerId!!)
+				player?.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(message.slotId.toInt(), message.stack)
 			}
 			return null
 		}

@@ -1,6 +1,5 @@
 package capability.accessory
 
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTBase
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -8,20 +7,16 @@ import net.minecraftforge.common.capabilities.Capability
 
 class AccessoryStorage : Capability.IStorage<IAccessory> {
 	override fun readNBT(capability: Capability<IAccessory>?, instance: IAccessory?, side: EnumFacing?, nbt: NBTBase?) {
-		val tag = nbt as NBTTagCompound
-		val array = arrayOf("necklace", "amulet", "glove", "gem", "necklace", "amulet", "glove", "gem")
-		repeat(8) { i ->
-			(tag.getTag(array[i]) as NBTTagCompound?)?.let { it -> capability?.defaultInstance?.setItem(i, ItemStack(it)) }
+		repeat(8) {
+
 		}
 	}
 
-	override fun writeNBT(capability: Capability<IAccessory>?, instance: IAccessory?, side: EnumFacing?): NBTBase {
-		val nbt = NBTTagCompound()
-		val array = arrayOf("necklace", "amulet", "glove", "gem", "necklace", "amulet", "glove", "gem")
+	override fun writeNBT(capability: Capability<IAccessory>?, instance: IAccessory?, side: EnumFacing?): NBTTagCompound? {
+		val container = AccessoryItemContainer()
 		repeat(8) {
-			if (capability?.defaultInstance?.getItem(it) != ItemStack.EMPTY)
-				nbt.setTag(array[it], capability?.defaultInstance?.getItem(it)?.writeToNBT(NBTTagCompound()))
+			container.setStackInSlot(it, capability?.defaultInstance?.getStackInSlot(it)!!)
 		}
-		return nbt
+		return container.serializeNBT()
 	}
 }

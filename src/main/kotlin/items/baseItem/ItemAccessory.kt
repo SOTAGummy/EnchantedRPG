@@ -1,7 +1,6 @@
 package items.baseItem
 
 import com.google.common.collect.Multimap
-import items.rootItem.RootItem
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
@@ -9,7 +8,6 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import utils.AccessoryAPI
 import utils.Storage

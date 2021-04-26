@@ -1,6 +1,7 @@
 package event
 
 import Core
+import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import capability.sp.SPProvider
 import gui.accessory.button.AccessoryButton
@@ -15,6 +16,7 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -41,7 +43,7 @@ class Events {
 	fun attachCapabilityEvent(event: AttachCapabilitiesEvent<Entity>){
 		if (event.`object` is EntityPlayer) {
 			event.addCapability(ResourceLocation(Core.ID, "sp"), SPProvider())
-			event.addCapability(ResourceLocation(Core.ID, "accessory"), AccessoryProvider())
+			event.addCapability(ResourceLocation(Core.ID, "accessory"), AccessoryProvider(AccessoryItemContainer()))
 		}
 	}
 
@@ -67,15 +69,15 @@ class Events {
 		if (event.phase == TickEvent.Phase.END && event.player is EntityPlayerMP){
 			val player = event.player as EntityPlayerMP
 			repeat(4){
-				PacketHandler.network.sendTo(PacketAccessory(player, it.toByte(), player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it)!!), player as EntityPlayerMP?)
+				PacketHandler.network.sendTo(PacketAccessory(player, it.toByte(), player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getStackInSlot(it)!!), player as EntityPlayerMP?)
 			}
 		}
 
 		if (event.side == Side.SERVER){
 			repeat(4){
 				val cap = event.player.getCapability(AccessoryProvider.ACCESSORY!!, null)!!
-				val current = cap.getItem(it)
-				val old = cap.getItem(it + 4)
+				val current = cap.getStackInSlot(it)
+				val old = cap.getStackInSlot(it + 4)
 				if (!old.isItemEqual(current)){
 					if (old.isEmpty && !current.isEmpty){
 						event.player.attributeMap.applyAttributeModifiers(current.getAttributeModifiers(accessorySlots[it]))
@@ -86,12 +88,22 @@ class Events {
 						event.player.attributeMap.removeAttributeModifiers(old.getAttributeModifiers(accessorySlots[it]))
 					}
 				}
-				cap.setItem(it + 4, cap.getItem(it).copy())
+				cap.setStackInSlot(it + 4, cap.getStackInSlot(it).copy())
 			}
 
 			if (event.player.health > event.player.maxHealth){
 				event.player.health = event.player.maxHealth
 			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onCloneEvent(event: PlayerEvent.Clone){
+		val player = event.entityPlayer
+		val currentItemHandler = player.getCapability(AccessoryProvider.ACCESSORY!!, null)
+		val oldItemHandler = event.original.getCapability(AccessoryProvider.ACCESSORY, null)
+		repeat(8){
+			currentItemHandler?.setStackInSlot(it, oldItemHandler?.getStackInSlot(it)!!)
 		}
 	}
 }

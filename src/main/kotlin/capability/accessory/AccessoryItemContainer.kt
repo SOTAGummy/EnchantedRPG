@@ -1,4 +1,4 @@
-package gui.accessory
+package capability.accessory
 
 import Core
 import capability.accessory.AccessoryProvider
@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 
-class AccessoryItemContainer: ItemStackHandler(8) {
+class AccessoryItemContainer: ItemStackHandler(8), IAccessory{
 	override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 		return if (stack.item is ItemAccessory) {
 			val equipmentSlot = (stack.item as ItemAccessory).equipmentSlot
@@ -30,9 +30,12 @@ class AccessoryItemContainer: ItemStackHandler(8) {
 		else super.insertItem(slot, stack, simulate)
 	}
 
+	override fun getSlotLimit(slot: Int): Int {
+		return 8
+	}
+
 	override fun setStackInSlot(slot: Int, stack: ItemStack) {
-		if (isItemValid(slot, stack)) {
-			super.setStackInSlot(slot, stack)
-		}
+		if (isItemValid(slot, stack))
+		super.setStackInSlot(slot, stack)
 	}
 }

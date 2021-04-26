@@ -1,7 +1,7 @@
 package utils
 
 import enchantment.AccessoryEnchantment
-import items.rootItem.RootItem
+import items.baseItem.RootItem
 import net.minecraft.entity.ai.attributes.IAttribute
 
 object Storage {

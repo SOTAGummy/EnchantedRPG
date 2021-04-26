@@ -16,5 +16,10 @@ itemGroup.enchanted-rpg.enchantments=エンチャント
 attribute.name.enchanted-rpg.maxsp=最大SP
 attribute.name.enchanted-rpg.spsavingrate=SP節約率
 attribute.name.enchanted-rpg.sprecoverrate=自然SP回復量
+#装備欄
+item.modifiers.necklace=装備したとき
+item.modifiers.amulet=装備したとき
+item.modifiers.glove=装備したとき
+item.modifiers.ring=装備したとき
 #テキスト
 text.skill_cost=コスト

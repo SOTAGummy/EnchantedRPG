@@ -1,6 +1,6 @@
 package items.container
 
-import items.rootItem.RootItem
+import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer

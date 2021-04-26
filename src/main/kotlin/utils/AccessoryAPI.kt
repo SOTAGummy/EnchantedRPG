@@ -9,7 +9,7 @@ import net.minecraft.util.EnumHand
 object AccessoryAPI {
 	fun getAccessory(player: EntityPlayer, equipmentSlot: EntityEquipmentSlot): ItemStack?{
 		return if (equipmentSlot.slotType == Core.ACCESSORY){
-			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(equipmentSlot.index)
+			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getStackInSlot(equipmentSlot.index)
 		} else {
 			null
 		}
@@ -18,7 +18,7 @@ object AccessoryAPI {
 	fun setAccessory(player: EntityPlayer, equipmentSlot: EntityEquipmentSlot, stack: ItemStack){
 		if (getAccessory(player, equipmentSlot) == null || getAccessory(player, equipmentSlot)?.isEmpty == false) return
 		else {
-			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(equipmentSlot.index, stack)
+			player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setStackInSlot(equipmentSlot.index, stack)
 			player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY)
 		}
 	}

@@ -1,19 +1,17 @@
 package gui.accessory
 
+import Core
+import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import gui.accessory.slot.*
 import items.baseItem.ItemAccessory
-import net.minecraft.client.Minecraft
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.*
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
-import packet.PacketAccessory
-import packet.PacketHandler
 
 
 class AccessoryContainer(val player: EntityPlayer, private val customInventory: AccessoryItemContainer): Container() {
@@ -100,7 +98,7 @@ class AccessoryContainer(val player: EntityPlayer, private val customInventory: 
 		if (!player.world.isRemote) { // SERVER
 			clearContainer(player, player.world, craftMatrix)
 			repeat(4){
-				player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setItem(it, customInventory.getStackInSlot(it))
+				player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.setStackInSlot(it, customInventory.getStackInSlot(it))
 			}
 		}
 		super.onContainerClosed(player)

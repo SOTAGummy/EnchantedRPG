@@ -1,6 +1,7 @@
 package gui.accessory
 
 import Core
+import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.gui.inventory.GuiInventory

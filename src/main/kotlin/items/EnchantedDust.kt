@@ -1,17 +1,12 @@
 package items
 
 import Core
-import items.rootItem.RootItem
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import net.minecraft.entity.item.EntityItem
+import items.baseItem.RootItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 
 object EnchantedDust: RootItem("enchanted_dust"){

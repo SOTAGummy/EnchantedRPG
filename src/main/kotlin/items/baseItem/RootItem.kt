@@ -1,6 +1,5 @@
-package items.rootItem
+package items.baseItem
 
-import items.baseItem.ItemSkill
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 import utils.Storage

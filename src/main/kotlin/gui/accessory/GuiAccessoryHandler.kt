@@ -1,5 +1,6 @@
 package gui.accessory
 
+import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -18,8 +19,8 @@ class GuiAccessoryHandler : IGuiHandler {
 		if (ID == AccessoryGui) {
 			val inv = AccessoryItemContainer()
 			repeat(4) {
-				if (player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it) != ItemStack.EMPTY) {
-					inv.setStackInSlot(it, player.getCapability(AccessoryProvider.ACCESSORY, null)?.getItem(it)!!)
+				if (player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getStackInSlot(it) != ItemStack.EMPTY) {
+					inv.setStackInSlot(it, player.getCapability(AccessoryProvider.ACCESSORY, null)?.getStackInSlot(it)!!)
 				}
 			}
 			return GuiAccessoryContainer(player, inv)
@@ -31,8 +32,8 @@ class GuiAccessoryHandler : IGuiHandler {
 		if (ID == AccessoryGui) {
 			val inv = AccessoryItemContainer()
 			repeat(4) {
-				if (player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getItem(it) != ItemStack.EMPTY) {
-					inv.setStackInSlot(it, player.getCapability(AccessoryProvider.ACCESSORY, null)?.getItem(it)!!)
+				if (player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getStackInSlot(it) != ItemStack.EMPTY) {
+					inv.setStackInSlot(it, player.getCapability(AccessoryProvider.ACCESSORY, null)?.getStackInSlot(it)!!)
 				}
 			}
 			return AccessoryContainer(player, inv)

@@ -2,7 +2,7 @@ import attribute.AttributeUtils
 import blocks.BlockPedestal
 import blocks.TESRPedestal
 import blocks.TileEntityPedestal
-import capability.accessory.Accessory
+import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryStorage
 import capability.accessory.IAccessory
 import capability.sp.ISP
@@ -48,6 +48,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.items.IItemHandler
 import packet.PacketHandler
 import proxy.CommonProxy
 import utils.EnumExtension
@@ -126,7 +127,7 @@ class Core {
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
 		CapabilityManager.INSTANCE.register(ISP::class.java, SPStorage()) { SP() }
-		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { Accessory() }
+		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { AccessoryItemContainer() }
 	}
 
 	@Mod.EventHandler

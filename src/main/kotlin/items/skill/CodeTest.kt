@@ -16,5 +16,6 @@ object CodeTest: ItemSkill("code_test", 0){
 		player.attributeMap.removeAttributeModifiers(ItemStack(Core.test_amulet).getAttributeModifiers(Core.AMULET))
 		player.attributeMap.removeAttributeModifiers(ItemStack(Core.test_glove).getAttributeModifiers(Core.GLOVE))
 		player.attributeMap.removeAttributeModifiers(ItemStack(Core.test_ring).getAttributeModifiers(Core.RING))
+
 	}
 }

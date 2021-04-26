@@ -12,7 +12,6 @@ class AccessoryProvider(container: AccessoryItemContainer): ICapabilitySerializa
 		val ACCESSORY: Capability<IAccessory?>? = null
 	}
 
-	private val instance = ACCESSORY!!.defaultInstance
 	private var container: AccessoryItemContainer? = null
 
 	init {
@@ -28,9 +27,6 @@ class AccessoryProvider(container: AccessoryItemContainer): ICapabilitySerializa
 	}
 
 	override fun serializeNBT(): NBTTagCompound {
-		repeat(8){
-			this.container?.setStackInSlot(it, ACCESSORY?.defaultInstance?.getStackInSlot(it)!!)
-		}
 		return this.container?.serializeNBT()!!
 	}
 

@@ -22,7 +22,7 @@ class AccessoryItemContainer: ItemStackHandler(8), IAccessory{
 				7 -> equipmentSlot == Core.RING
 				else -> false
 			}
-		} else false
+		} else stack.isEmpty
 	}
 
 	override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
@@ -35,7 +35,12 @@ class AccessoryItemContainer: ItemStackHandler(8), IAccessory{
 	}
 
 	override fun setStackInSlot(slot: Int, stack: ItemStack) {
-		if (isItemValid(slot, stack))
-		super.setStackInSlot(slot, stack)
+		if (isItemValid(slot, stack)){
+			this.stacks[slot] = stack
+		}
+	}
+
+	override fun getStackInSlot(slot: Int): ItemStack {
+		return super.getStackInSlot(slot)
 	}
 }

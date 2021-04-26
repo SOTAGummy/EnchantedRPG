@@ -7,11 +7,15 @@ import capability.sp.SPProvider
 import gui.accessory.button.AccessoryButton
 import gui.mp.MPIndicator
 import net.minecraft.client.Minecraft
+import net.minecraft.client.audio.Sound
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.SoundEvent
+import net.minecraft.util.math.BlockPos
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
@@ -79,12 +83,11 @@ class Events {
 				val current = cap.getStackInSlot(it)
 				val old = cap.getStackInSlot(it + 4)
 				if (!old.isItemEqual(current)){
-					if (old.isEmpty && !current.isEmpty){
+					if (!current.isEmpty){
 						event.player.attributeMap.applyAttributeModifiers(current.getAttributeModifiers(accessorySlots[it]))
-					} else if (!old.isEmpty && current.isEmpty){
-						event.player.attributeMap.removeAttributeModifiers(old.getAttributeModifiers(accessorySlots[it]))
-					} else if (!old.isEmpty && !current.isEmpty){
-						event.player.attributeMap.applyAttributeModifiers(current.getAttributeModifiers(accessorySlots[it]))
+						event.player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 1.0F, 1.0F)
+					}
+					if (!old.isEmpty){
 						event.player.attributeMap.removeAttributeModifiers(old.getAttributeModifiers(accessorySlots[it]))
 					}
 				}

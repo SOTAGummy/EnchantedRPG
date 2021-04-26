@@ -8,6 +8,7 @@ import capability.accessory.IAccessory
 import capability.sp.ISP
 import capability.sp.SP
 import capability.sp.SPStorage
+import com.google.common.collect.Multimap
 import creativeTab.EnchantedRPGAccessoryTab
 import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
@@ -15,10 +16,7 @@ import creativeTab.EnchantedRPGSkillsTab
 import event.Events
 import gui.accessory.GuiAccessoryHandler
 import items.EnchantedDust
-import items.accessory.TestAmulet
-import items.accessory.TestGlove
-import items.accessory.TestNecklace
-import items.accessory.TestRing
+import items.accessory.*
 import items.baseItem.ItemAccessory
 import items.container.SkillBook
 import items.container.WoodenWand
@@ -26,8 +24,12 @@ import items.skill.CodeTest
 import items.skill.ToggleMode
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.entity.SharedMonsterAttributes
+import net.minecraft.entity.ai.attributes.AttributeModifier
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -98,10 +100,10 @@ class Core {
 		val code_test = CodeTest
 
 		//Accessory
-		val test_necklace = TestNecklace
-		val test_amulet = TestAmulet
-		val test_glove = TestGlove
-		val test_ring = TestRing
+		val diamond_necklace = DiamondNecklace
+		val diamond_amulet = DiamondAmulet
+		val diamond_glove = DiamondGlove
+		val diamond_ring = DiamondRing
 
 		//Attribute
 		val MAXSP = AttributeUtils.addAttribute("maxsp", 100.0, 0.0, Double.MAX_VALUE)

@@ -5,6 +5,6 @@ import net.minecraft.item.ItemStack
 
 object EnchantedRPGAccessoryTab: CreativeTabs("${Core.ID}.accessories"){
 	override fun getTabIconItem(): ItemStack {
-		return ItemStack(Core.test_ring)
+		return ItemStack(Core.diamond_ring)
 	}
 }

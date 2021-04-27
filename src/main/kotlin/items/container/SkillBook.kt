@@ -1,5 +1,6 @@
 package items.container
 
+import enum.IItemRarity
 import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
@@ -10,7 +11,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object SkillBook: RootItem("skill_book"), ISkillStorable{
+object SkillBook: RootItem("skill_book", IItemRarity.UNCOMMON), ISkillStorable{
 	init {
 		maxStackSize = 1
 		creativeTab = Core.itemsTab

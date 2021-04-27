@@ -1,6 +1,7 @@
 package items
 
 import Core
+import enum.IItemRarity
 import items.baseItem.RootItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -9,7 +10,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object EnchantedDust: RootItem("enchanted_dust"){
+object EnchantedDust: RootItem("enchanted_dust", IItemRarity.UNCOMMON){
 	init {
 		maxStackSize = 64
 		creativeTab = Core.itemsTab

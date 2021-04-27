@@ -1,9 +1,11 @@
 package items.baseItem
 
 import com.google.common.collect.Multimap
+import enum.IItemRarity
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
@@ -13,7 +15,7 @@ import utils.AccessoryAPI
 import utils.Storage
 import java.util.*
 
-abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlot): RootItem(name){
+abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlot, rarity: IItemRarity): RootItem(name, rarity){
 	init{
 		maxStackSize = 1
 		creativeTab = Core.accessoriesTab
@@ -34,6 +36,7 @@ abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlo
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
 		AccessoryAPI.setAccessory(player, equipmentSlot, player.heldItemMainhand)
+		player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1F, 1F)
 		return super.onItemRightClick(world, player, hand)
 	}
 
@@ -55,7 +58,6 @@ abstract class ItemAccessory(name: String, val equipmentSlot: EntityEquipmentSlo
 		}
 		return multimap
 	}
-
 
 	fun onEquipped(stack: ItemStack, player: EntityPlayer, world: World){}
 }

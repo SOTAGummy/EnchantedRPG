@@ -5,6 +5,10 @@ item.skill_book.name=スキルブック
 item.wooden_wand.name=木製の杖
 item.toggle_mode.name=トグルモード
 item.code_test.name=コードテスト
+item.diamond_necklace.name=ダイヤモンドのネックレス
+item.diamond_amulet.name=ダイヤモンドのお守り
+item.diamond_glove.name=ダイヤモンドのグローブ
+item.diamond_ring.name=ダイヤモンドの指輪
 #ブロック
 tile.pedestal.name=台座
 #クリエイティブタブ

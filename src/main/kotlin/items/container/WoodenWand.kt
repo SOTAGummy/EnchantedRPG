@@ -1,5 +1,6 @@
 package items.container
 
+import enum.IItemRarity
 import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
@@ -10,7 +11,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object WoodenWand: RootItem("wooden_wand"), ISkillStorable{
+object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
 	override fun getSkillCapacity(): Int {
 		return 6
 	}

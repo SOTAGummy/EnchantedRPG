@@ -5,6 +5,10 @@ item.skill_book.name=SkillBook
 item.wooden_wand.name=WoodenStaff
 item.toggle_mode.name=ToggleMode
 item.code_test.name=CodeTest
+item.diamond_necklace.name=DiamondNecklace
+item.diamond_amulet.name=DiamondAmulet
+item.diamond_glove.name=DiamondGlove
+item.diamond_ring.name=DiamondRing
 #Blocks
 tile.pedestal.name=Pedestal
 #CreativeTabs

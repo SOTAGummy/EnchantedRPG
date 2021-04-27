@@ -64,7 +64,7 @@ interface ISkillStorable{
 			val stack = player.heldItemMainhand
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(stack, it) != null && player.getCapability(SPProvider.MP!!, null)?.useSP(getItemSkill(stack, it)?.cost!!) == true){
+					if (getItemSkill(stack, it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(stack, it)?.cost!!) == true){
 						clientThread.addScheduledTask(){
 							getItemSkill(stack, it)?.clientFunction(world, player, hand)
 						}
@@ -77,7 +77,7 @@ interface ISkillStorable{
 			val stack = player.heldItemMainhand
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(stack, it) != null && player.getCapability(SPProvider.MP!!, null)?.useSP(getItemSkill(stack, it)?.cost!!) == true){
+					if (getItemSkill(stack, it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(stack, it)?.cost!!) == true){
 						serverThread.addScheduledTask(){
 							getItemSkill(stack, it)?.serverFunction(world, player, hand)
 						}

@@ -1,6 +1,7 @@
 package items.baseItem
 
 import Core
+import enum.IItemRarity
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
@@ -10,7 +11,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 
-abstract class ItemSkill(name: String, val cost: Int): RootItem(name){
+abstract class ItemSkill(name: String, val cost: Int, rarity: IItemRarity): RootItem(name, rarity){
 	init {
 		creativeTab = Core.skillsTab
 		maxStackSize = 1

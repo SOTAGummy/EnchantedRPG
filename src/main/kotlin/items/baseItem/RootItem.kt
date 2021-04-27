@@ -1,11 +1,14 @@
 package items.baseItem
 
+import enum.IItemRarity
+import net.minecraft.client.resources.I18n
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import utils.Storage
 import java.io.File
 
-abstract class RootItem(name: String): Item(){
+abstract class RootItem(name: String, val rarity: IItemRarity): Item(){
 	init {
 		Storage.Items.add(this)
 		registryName = ResourceLocation(Core.ID, name)
@@ -30,5 +33,9 @@ abstract class RootItem(name: String): Item(){
 					"  }\n" +
 					"}")
 		}
+	}
+
+	override fun getItemStackDisplayName(stack: ItemStack): String {
+		return "${rarity.colorChar}${I18n.format(super.getItemStackDisplayName(stack))}"
 	}
 }

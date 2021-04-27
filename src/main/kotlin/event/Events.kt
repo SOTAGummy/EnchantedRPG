@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
+import packet.PacketSP
 import utils.Storage
 
 class Events {
@@ -68,6 +69,8 @@ class Events {
 			event.buttonList.add(AccessoryButton(70, event.gui.mc.displayWidth / 2 - 314, event.gui.mc.displayHeight / 2 - 190, 12, 14, ""))
 	}
 
+	private var count = 0
+
 	@SubscribeEvent
 	fun onTickEvent(event: TickEvent.PlayerTickEvent){
 		if (event.phase == TickEvent.Phase.END && event.player is EntityPlayerMP){
@@ -78,6 +81,14 @@ class Events {
 		}
 
 		if (event.side == Side.SERVER){
+			count++
+
+			if (count == 40){
+				count = 0
+				event.player.getCapability(SPProvider.SP!!, null)?.addSP(event.player, 1)
+				PacketHandler.network.sendTo(PacketSP(event.player.getCapability(SPProvider.SP, null)?.getSP()!!, event.player), event.player as EntityPlayerMP?)
+			}
+
 			repeat(4){
 				val cap = event.player.getCapability(AccessoryProvider.ACCESSORY!!, null)!!
 				val current = cap.getStackInSlot(it)
@@ -85,7 +96,6 @@ class Events {
 				if (!old.isItemEqual(current)){
 					if (!current.isEmpty){
 						event.player.attributeMap.applyAttributeModifiers(current.getAttributeModifiers(accessorySlots[it]))
-						event.player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 1.0F, 1.0F)
 					}
 					if (!old.isEmpty){
 						event.player.attributeMap.removeAttributeModifiers(old.getAttributeModifiers(accessorySlots[it]))

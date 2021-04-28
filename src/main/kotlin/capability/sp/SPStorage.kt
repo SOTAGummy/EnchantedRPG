@@ -7,12 +7,12 @@ import net.minecraftforge.common.capabilities.Capability
 
 class SPStorage: Capability.IStorage<ISP> {
 	override fun readNBT(capability: Capability<ISP>?, instance: ISP?, side: EnumFacing?, nbt: NBTBase?) {
-		capability?.defaultInstance?.setSP((nbt as NBTTagCompound).getInteger("mp"))
+		instance?.setSP((nbt as NBTTagCompound).getInteger("sp"))
 	}
 
 	override fun writeNBT(capability: Capability<ISP>?, instance: ISP?, side: EnumFacing?): NBTBase? {
 		val nbt = NBTTagCompound()
-		nbt.setInteger("mp", instance?.getSP()!!)
+		nbt.setInteger("sp", instance?.getSP()!!)
 		return nbt
 	}
 }

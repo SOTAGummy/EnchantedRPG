@@ -14,7 +14,6 @@ class SPProvider: ICapabilitySerializable<NBTBase?> {
 	}
 
 	private val instance = SP!!.defaultInstance
-	private var sp = 0
 
 	override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
 		return capability === SP
@@ -25,12 +24,10 @@ class SPProvider: ICapabilitySerializable<NBTBase?> {
 	}
 
 	override fun serializeNBT(): NBTTagCompound {
-		val nbt = NBTTagCompound()
-		nbt.setInteger("SP", this.sp)
-		return nbt
+		return SP?.storage?.writeNBT(SP, instance, null) as NBTTagCompound
 	}
 
 	override fun deserializeNBT(nbt: NBTBase?) {
-		this.sp = (nbt as NBTTagCompound).getInteger("SP")
+		SP?.storage?.readNBT(SP, instance, null, nbt)
 	}
 }

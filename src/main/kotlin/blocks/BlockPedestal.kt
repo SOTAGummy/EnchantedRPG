@@ -2,25 +2,24 @@ package blocks
 
 import Core
 import items.baseItem.ItemSkill
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import module.ISkillStorable
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.EntityLivingBase
+import net.minecraft.client.Minecraft
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumBlockRenderType
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.ResourceLocation
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraft.world.WorldServer
 import net.minecraftforge.items.CapabilityItemHandler
 import recipe.PedestalRecipeHandler
-import java.util.*
 
 object BlockPedestal: BlockContainer(Material.ROCK){
 	init {
@@ -80,7 +79,20 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 							tileNW.inventory.extractItem(0, 1, false)
 							tileSE.inventory.extractItem(0, 1, false)
 							tileSW.inventory.extractItem(0, 1, false)
-							tile.inventory.setStackInSlot(0, PedestalRecipeHandler.getCraftResult(array))
+							world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, tile.pos.x.toDouble(), tile.pos.y.toDouble() + 1, tile.pos.z.toDouble(), 0.0, 1.0, 0.0)
+							val serverThread = world as WorldServer
+							val clientThread = Minecraft.getMinecraft()
+							GlobalScope.launch {
+								delay(1000)
+								serverThread.addScheduledTask(){
+									if (!tile.inventory.getStackInSlot(0).isEmpty){
+										val item = EntityItem(world, tile.pos.x.toDouble(), tile.pos.y.toDouble(), tile.pos.z.toDouble(), tile.inventory.getStackInSlot(0))
+										world.spawnEntity(item)
+										itemHandler?.extractItem(0, 1, false)
+									}
+									tile.inventory.setStackInSlot(0, PedestalRecipeHandler.getCraftResult(array))
+								}
+							}
 						}
 					}else {
 						player.setHeldItem(hand, itemHandler?.extractItem(0, 1, false)!!)

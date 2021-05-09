@@ -1,0 +1,10 @@
+{
+  "craft_sound": {
+    "category" : "player",
+    "sounds": [{
+      "name": "enchanted-rpg:craft_sound",
+      "stream": false
+    }
+    ]
+  }
+}

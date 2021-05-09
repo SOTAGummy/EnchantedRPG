@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.*
@@ -83,6 +84,9 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 							val serverThread = world as WorldServer
 							val clientThread = Minecraft.getMinecraft()
 							GlobalScope.launch {
+								clientThread.addScheduledTask(){
+									clientThread.player.playSound(Core.CRAFT_SOUND, 1F, 1F)
+								}
 								delay(1000)
 								serverThread.addScheduledTask(){
 									if (!tile.inventory.getStackInSlot(0).isEmpty){
@@ -91,6 +95,13 @@ object BlockPedestal: BlockContainer(Material.ROCK){
 										itemHandler?.extractItem(0, 1, false)
 									}
 									tile.inventory.setStackInSlot(0, PedestalRecipeHandler.getCraftResult(array))
+								}
+
+								clientThread.addScheduledTask(){
+									clientThread.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 1.0, 1.0, 1.0)
+									clientThread.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), -1.0, 1.0, 1.0)
+									clientThread.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), -1.0, 1.0, -1.0)
+									clientThread.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 1.0, 1.0, -1.0)
 								}
 							}
 						}

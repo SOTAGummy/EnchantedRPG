@@ -47,12 +47,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.IItemHandler
 import packet.PacketHandler
 import proxy.CommonProxy
+import sound.SoundHandler
 import utils.EnumExtension
 import utils.Storage
 
@@ -111,6 +113,9 @@ class Core {
 		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
 		val SPSAVINGRATE = AttributeUtils.addAttribute("spsavingrate", 0.0, 0.0, 100.0)
 		val SPRECOVERRATE = AttributeUtils.addAttribute("sprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
+
+		//Sound
+		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
 	}
 
 	@Mod.EventHandler
@@ -134,7 +139,9 @@ class Core {
 
 	@Mod.EventHandler
 	fun initEvent(event: FMLInitializationEvent){
-
+		repeat(Storage.Sounds.size){
+			ForgeRegistries.SOUND_EVENTS.register(Storage.Sounds[it])
+		}
 	}
 
 	@Mod.EventHandler

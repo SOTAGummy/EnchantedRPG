@@ -97,10 +97,12 @@ class Core {
 		val skill_wand = WoodenWand
 
 		//Skill
-		val toggle_mode = ToggleMode
 		val code_test = CodeTest
+		val toggle_mode = ToggleMode
 		val full_fill = FullFill
 		val heal = Heal
+		val heal_plus = HealPlus
+		val heal_plus_plus = HealPlusPlus
 		val leap = Leap
 		val leap_plus = LeapPlus
 		val leap_plus_plus = LeapPlusPlus

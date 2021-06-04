@@ -20,8 +20,7 @@ import items.accessory.*
 import items.baseItem.ItemAccessory
 import items.container.SkillBook
 import items.container.WoodenWand
-import items.skill.CodeTest
-import items.skill.ToggleMode
+import items.skill.*
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.SharedMonsterAttributes
@@ -100,6 +99,14 @@ class Core {
 		//Skill
 		val toggle_mode = ToggleMode
 		val code_test = CodeTest
+		val full_fill = FullFill
+		val heal = Heal
+		val leap = Leap
+		val leap_plus = LeapPlus
+		val leap_plus_plus = LeapPlusPlus
+		val arrow_rain = ArrowRain
+		val arrow_rain_plus = ArrowRainPlus
+		val arrow_rain_plus_plus = ArrowRainPlusPlus
 
 		//Accessory
 		val diamond_necklace = DiamondNecklace
@@ -116,6 +123,7 @@ class Core {
 
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
+		val HEAL_SOUND = SoundHandler.registerSound("heal")
 	}
 
 	@Mod.EventHandler

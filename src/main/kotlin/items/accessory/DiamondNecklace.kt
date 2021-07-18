@@ -13,7 +13,7 @@ object DiamondNecklace: ItemAccessory("diamond_necklace", Core.NECKLACE, IItemRa
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == Core.NECKLACE){
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(getUUID(slot), "atk", 1.0, 0))
-			multimap.put(Core.MAXSP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
+			multimap.put(Core.MAX_SP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
 		}
 		return multimap
 	}

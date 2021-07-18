@@ -13,6 +13,6 @@ object FullFill: ItemSkill("full_fill", 0, IItemRarity.MASTER){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.getCapability(SPProvider.SP!!, null)?.setSP(player.getEntityAttribute(Core.MAXSP).attributeValue.toInt())
+		player.getCapability(SPProvider.SP!!, null)?.setSP(player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt())
 	}
 }

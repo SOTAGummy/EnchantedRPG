@@ -12,8 +12,8 @@ object DiamondAmulet: ItemAccessory("diamond_amulet", Core.AMULET, IItemRarity.R
 	override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == Core.AMULET){
-			multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.name, AttributeModifier(getUUID(slot), "speed", 0.1, 1))
-			multimap.put(Core.MAXSP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
+			multimap.put(SharedMonsterAttributes.MAX_HEALTH.name, AttributeModifier(getUUID(slot), "hp", 10.0, 1))
+			multimap.put(Core.MAX_SP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
 		}
 		return multimap
 	}

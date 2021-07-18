@@ -18,7 +18,7 @@ class MPIndicator(mc: Minecraft, correction: Int): Gui() {
 		val scaled = ScaledResolution(mc)
 		val width = scaled.scaledWidth
 		val sp = player.getCapability(SPProvider.SP!!, null)?.getSP()!!
-		val maxSP = player.getEntityAttribute(Core.MAXSP).attributeValue.toInt()
+		val maxSP = player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt()
 		val height = scaled.scaledHeight
 		val hp = (mc.player.health + 0.999999).toInt().toString() + "/" + mc.player.maxHealth.toInt().toString()
 		val currentMP = ((sp.toFloat() / maxSP.toFloat()) * 81).toInt()

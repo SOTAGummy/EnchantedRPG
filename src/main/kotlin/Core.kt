@@ -117,11 +117,11 @@ class Core {
 		val diamond_ring = DiamondRing
 
 		//Attribute
-		val MAXSP = AttributeUtils.addAttribute("maxsp", 100.0, 0.0, Double.MAX_VALUE)
-		val EXP = AttributeUtils.addAttribute("exp", 0.0, 0.0, Double.MAX_VALUE)
-		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, Double.MAX_VALUE)
-		val SPSAVINGRATE = AttributeUtils.addAttribute("spsavingrate", 0.0, 0.0, 100.0)
-		val SPRECOVERRATE = AttributeUtils.addAttribute("sprecoverrate", 2.0, 2.0, Double.MAX_VALUE)
+		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)
+		val SP_SAVING_RATE = AttributeUtils.addAttribute("spSavingRate", 0.0, 0.0, 100.0)
+		val SP_RECOVER_RATE = AttributeUtils.addAttribute("spRecoverRate", 2.0, 2.0, Double.MAX_VALUE)
+		val CRITICAL_RATE = AttributeUtils.addAttribute("criticalRate", 0.0, 0.0, 100.0)
+		val CRITICAL_DAMAGE = AttributeUtils.addAttribute("criticalDamage", 0.0, 0.0, Double.MAX_VALUE)
 
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")

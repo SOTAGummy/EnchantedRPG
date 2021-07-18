@@ -13,7 +13,7 @@ object DiamondGlove: ItemAccessory("diamond_glove", Core.GLOVE, IItemRarity.RARE
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == Core.GLOVE){
 			multimap.put(SharedMonsterAttributes.MAX_HEALTH.name, AttributeModifier(getUUID(slot), "hp", 10.0, 0))
-			multimap.put(Core.MAXSP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
+			multimap.put(Core.MAX_SP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
 		}
 		return multimap
 	}

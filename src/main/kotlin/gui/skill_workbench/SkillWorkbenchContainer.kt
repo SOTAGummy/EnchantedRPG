@@ -2,6 +2,7 @@ package gui.skill_workbench
 
 import blocks.TileEntitySkillWorkbench
 import gui.skill_workbench.slot.SkillContainerSlot
+import gui.skill_workbench.slot.SkillSlot
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.inventory.IInventory
@@ -22,6 +23,10 @@ class SkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench): Co
 		}
 
 		addSlotToContainer(SkillContainerSlot(inventory, 0, 81, 10))
+
+		for (i in 0 .. 7){
+			addSlotToContainer(SkillSlot(inventory, i + 1, 18 + i * 18, 45))
+		}
 	}
 
 	override fun canInteractWith(playerIn: EntityPlayer): Boolean {

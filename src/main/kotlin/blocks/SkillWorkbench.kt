@@ -26,7 +26,7 @@ object SkillWorkbench: BlockContainer(Material.ROCK){
 		blockResistance = 100F
 	}
 
-	override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity? {
+	override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
 		return TileEntitySkillWorkbench()
 	}
 

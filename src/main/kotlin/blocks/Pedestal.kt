@@ -18,7 +18,7 @@ import net.minecraftforge.items.CapabilityItemHandler
 import recipe.PedestalRecipe
 import recipe.PedestalRecipeHandler
 
-object BlockPedestal: BlockContainer(Material.ROCK){
+object Pedestal: BlockContainer(Material.ROCK){
 	init {
 		this.setCreativeTab(Core.itemsTab)
 		registryName = ResourceLocation(Core.ID, "pedestal")

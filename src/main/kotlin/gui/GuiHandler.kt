@@ -1,21 +1,25 @@
-package gui.accessory
+package gui
 
+import blocks.TileEntitySkillWorkbench
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
+import gui.accessory.AccessoryContainer
+import gui.accessory.GuiAccessoryContainer
+import gui.skill_workbench.GuiSkillWorkbenchContainer
+import gui.skill_workbench.SkillWorkbenchContainer
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
-import packet.PacketAccessory
-import packet.PacketHandler
 
-class GuiAccessoryHandler : IGuiHandler {
+class GuiHandler : IGuiHandler {
 	companion object {
 		const val AccessoryGui = 1
+		const val SkillWorkbenchGui = 2
 	}
 
-	override fun getClientGuiElement(ID: Int, player: EntityPlayer, world: World?, x: Int, y: Int, z: Int): Any? {
+	override fun getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
 		if (ID == AccessoryGui) {
 			val inv = AccessoryItemContainer()
 			repeat(4) {
@@ -24,11 +28,13 @@ class GuiAccessoryHandler : IGuiHandler {
 				}
 			}
 			return GuiAccessoryContainer(player, inv)
+		} else if (ID == SkillWorkbenchGui) {
+			return GuiSkillWorkbenchContainer(player.inventory, world.getTileEntity(BlockPos(x, y, z)) as TileEntitySkillWorkbench)
 		}
 		return null
 	}
 
-	override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World?, x: Int, y: Int, z: Int): Any? {
+	override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
 		if (ID == AccessoryGui) {
 			val inv = AccessoryItemContainer()
 			repeat(4) {
@@ -37,6 +43,9 @@ class GuiAccessoryHandler : IGuiHandler {
 				}
 			}
 			return AccessoryContainer(player, inv)
+		} else if (ID == SkillWorkbenchGui) {
+			world.setTileEntity(BlockPos(x, y, z), TileEntitySkillWorkbench())
+			return SkillWorkbenchContainer(player.inventory, world.getTileEntity(BlockPos(x, y, z)) as TileEntitySkillWorkbench)
 		}
 		return null
 	}

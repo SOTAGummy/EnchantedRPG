@@ -1,8 +1,5 @@
 import attribute.AttributeUtils
-import blocks.BlockPedestal
-import blocks.SkillWorkbench
-import blocks.TESRPedestal
-import blocks.TileEntityPedestal
+import blocks.*
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryStorage
 import capability.accessory.IAccessory
@@ -14,7 +11,7 @@ import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
 import creativeTab.EnchantedRPGSkillsTab
 import event.Events
-import gui.accessory.GuiAccessoryHandler
+import gui.GuiHandler
 import items.EnchantedDust
 import items.accessory.DiamondAmulet
 import items.accessory.DiamondGlove
@@ -30,7 +27,6 @@ import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
-import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -52,7 +48,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.oredict.RecipeSorter
 import packet.PacketHandler
 import proxy.CommonProxy
 import recipe.PedestalRecipe
@@ -93,7 +88,7 @@ class Core {
 		val enchanted_dust = EnchantedDust
 
 		//Block
-		val pedestal = BlockPedestal
+		val pedestal = Pedestal
 		val skill_workbench = SkillWorkbench
 
 		//SkillContainer
@@ -154,11 +149,12 @@ class Core {
 	fun preInitEvent(event: FMLPreInitializationEvent){
 		PacketHandler()
 
-		if (event.side.isClient){
+		//if (event.side.isClient){
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
+			GameRegistry.registerTileEntity(TileEntitySkillWorkbench::class.java, ResourceLocation(ID, "skill_workbench"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
-		}
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiAccessoryHandler())
+		//}
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler())
 		CapabilityManager.INSTANCE.register(ISP::class.java, SPStorage()) { SP() }
 		CapabilityManager.INSTANCE.register(IAccessory::class.java, AccessoryStorage()) { AccessoryItemContainer() }
 	}

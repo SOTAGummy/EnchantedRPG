@@ -15,5 +15,7 @@ class PacketHandler {
 		network.registerMessage(PacketOpenAccessoryGui(), PacketOpenAccessoryGui::class.java, 2, Side.SERVER)
 		network.registerMessage(PacketAccessory.Handler(), PacketAccessory::class.java, 3, Side.CLIENT)
 		network.registerMessage(PacketSP.Handler(), PacketSP::class.java, 4, Side.CLIENT)
+		network.registerMessage(PacketUpdateSkillWorkbench.Handler(), PacketUpdateSkillWorkbench::class.java, 5, Side.CLIENT)
+		network.registerMessage(PacketRequestUpdateSkillWorkbench.Handler(), PacketRequestUpdateSkillWorkbench::class.java, 6, Side.SERVER)
 	}
 }

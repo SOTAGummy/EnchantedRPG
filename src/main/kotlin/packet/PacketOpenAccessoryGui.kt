@@ -1,6 +1,6 @@
 package packet
 
-import gui.accessory.GuiAccessoryHandler
+import gui.GuiHandler
 import io.netty.buffer.ByteBuf
 import net.minecraft.world.WorldServer
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
@@ -16,7 +16,7 @@ class PacketOpenAccessoryGui: IMessage, IMessageHandler<PacketOpenAccessoryGui, 
 		val mainThread = ctx?.serverHandler?.player?.world as WorldServer
 		mainThread.addScheduledTask {
 			ctx.serverHandler.player.openContainer.onContainerClosed(ctx.serverHandler.player);
-			ctx.serverHandler.player.openGui(Core.instance, GuiAccessoryHandler.AccessoryGui, ctx.serverHandler.player.world, 0, 0, 0)
+			ctx.serverHandler.player.openGui(Core.instance, GuiHandler.AccessoryGui, ctx.serverHandler.player.world, 0, 0, 0)
 		}
 		return null
 	}

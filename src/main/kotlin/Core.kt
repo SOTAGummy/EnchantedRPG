@@ -1,5 +1,6 @@
 import attribute.AttributeUtils
 import blocks.BlockPedestal
+import blocks.SkillWorkbench
 import blocks.TESRPedestal
 import blocks.TileEntityPedestal
 import capability.accessory.AccessoryItemContainer
@@ -8,7 +9,6 @@ import capability.accessory.IAccessory
 import capability.sp.ISP
 import capability.sp.SP
 import capability.sp.SPStorage
-import com.google.common.collect.Multimap
 import creativeTab.EnchantedRPGAccessoryTab
 import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
@@ -16,19 +16,21 @@ import creativeTab.EnchantedRPGSkillsTab
 import event.Events
 import gui.accessory.GuiAccessoryHandler
 import items.EnchantedDust
-import items.accessory.*
+import items.accessory.DiamondAmulet
+import items.accessory.DiamondGlove
+import items.accessory.DiamondNecklace
+import items.accessory.DiamondRing
 import items.baseItem.ItemAccessory
 import items.container.SkillBook
 import items.container.WoodenWand
 import items.skill.*
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.entity.SharedMonsterAttributes
-import net.minecraft.entity.ai.attributes.AttributeModifier
-import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -50,9 +52,10 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.oredict.RecipeSorter
 import packet.PacketHandler
 import proxy.CommonProxy
+import recipe.PedestalRecipe
 import sound.SoundHandler
 import utils.EnumExtension
 import utils.Storage
@@ -91,6 +94,7 @@ class Core {
 
 		//Block
 		val pedestal = BlockPedestal
+		val skill_workbench = SkillWorkbench
 
 		//SkillContainer
 		val skill_book = SkillBook
@@ -126,6 +130,18 @@ class Core {
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
 		val HEAL_SOUND = SoundHandler.registerSound("heal")
+
+		//Recipe
+		val testRecipe = PedestalRecipe(ItemStack(Items.DIAMOND, 1), arrayOf(
+				ItemStack.EMPTY,
+				ItemStack.EMPTY,
+				ItemStack.EMPTY,
+				ItemStack.EMPTY,
+				ItemStack.EMPTY,
+				ItemStack.EMPTY,
+				ItemStack(Items.APPLE, 1),
+				ItemStack(Items.APPLE, 1)
+		))
 	}
 
 	@Mod.EventHandler
@@ -165,11 +181,13 @@ class Core {
 			event.registry.register(Storage.Items[it])
 		}
 		event.registry.register(ItemBlock(pedestal).setRegistryName(ResourceLocation(ID, "pedestal")))
+		event.registry.register(ItemBlock(skill_workbench).setRegistryName(ResourceLocation(ID, "skill_workbench")))
 	}
 
 	@SubscribeEvent
 	fun registerBlocks(event: RegistryEvent.Register<Block>){
 		event.registry.register(pedestal)
+		event.registry.register(skill_workbench)
 	}
 
 	@SubscribeEvent
@@ -179,5 +197,6 @@ class Core {
 			ModelLoader.setCustomModelResourceLocation(model, 0, ModelResourceLocation(ResourceLocation(ID, model.unlocalizedName.split(".")[1]), "inventory"))
 		}
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ResourceLocation(ID, "pedestal"), "inventory"))
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(skill_workbench), 0, ModelResourceLocation(ResourceLocation(ID, "skill_workbench"), "inventory"))
 	}
 }

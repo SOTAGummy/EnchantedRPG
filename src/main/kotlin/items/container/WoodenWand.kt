@@ -17,7 +17,10 @@ object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-		call(world,player, hand)
+		if (!player.isSneaking){
+			call(world, player, hand)
+		}
+
 		return ActionResult(EnumActionResult.SUCCESS, player.heldItemMainhand)
 	}
 

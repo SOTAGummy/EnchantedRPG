@@ -13,7 +13,7 @@ import packet.PacketRequestUpdatePedestal
 import packet.PacketUpdatePedestal
 
 class TileEntityPedestal: TileEntity(){
-	val inventory = object: ItemStackHandler(1){
+	var inventory = object: ItemStackHandler(8){
 		override fun onContentsChanged(slot: Int) {
 			if (!world.isRemote){
 				lastChangeTime = world.totalWorldTime
@@ -26,19 +26,19 @@ class TileEntityPedestal: TileEntity(){
 		}
 	}
 	private var lastChangeTime: Long = 0
-	var location: String = ""
+	private var crafting: Boolean = false
 
 	override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound? {
 		compound.setTag("inventory", inventory.serializeNBT())
 		compound.setLong("lastChangeTime", lastChangeTime)
-		compound.setString("location", location)
+		compound.setBoolean("crafting", crafting)
 		return super.writeToNBT(compound)
 	}
 
 	override fun readFromNBT(compound: NBTTagCompound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"))
 		lastChangeTime = compound.getLong("lastChangeTime")
-		location = compound.getString("location")
+		crafting = compound.getBoolean("crafting")
 		super.readFromNBT(compound)
 	}
 
@@ -66,5 +66,17 @@ class TileEntityPedestal: TileEntity(){
 
 	fun setLastChangeTime(amount: Long){
 		lastChangeTime = amount
+	}
+
+	fun isCrafting(): Boolean{
+		return crafting
+	}
+
+	fun startCrafting(){
+		crafting = true
+	}
+
+	fun endCrafting(){
+		crafting = false
 	}
 }

@@ -1,6 +1,5 @@
 package recipe
 
-import extension.isEqualStack
 import net.minecraft.item.ItemStack
 import utils.Storage
 
@@ -21,7 +20,7 @@ class PedestalRecipe(private val output: ItemStack, private val input: Array<Ite
 		var count = 0
 		for (i in 0 .. 7){
 			first@ for (j in 0 .. 7){
-				if (ingredient[i].isEqualStack(input[j])){
+				if (ItemStack.areItemStacksEqual(ingredient[i], input[j])){
 					count++
 					break@first
 				}

@@ -24,20 +24,21 @@ class PacketRequestUpdateSkillWorkbench(): IMessage {
 	}
 
 	override fun fromBytes(buf: ByteBuf) {
-		pos = BlockPos.fromLong(buf.readLong());
-		dimensionId = buf.readInt();
+		pos = BlockPos.fromLong(buf.readLong())
+		dimensionId = buf.readInt()
 	}
 
 	override fun toBytes(buf: ByteBuf) {
-		pos?.toLong()?.let { buf.writeLong(it) };
-		buf.writeInt(dimensionId);
+		pos?.toLong()?.let { buf.writeLong(it) }
+		buf.writeInt(dimensionId)
 	}
 
 	class Handler: IMessageHandler<PacketRequestUpdateSkillWorkbench, IMessage> {
 		override fun onMessage(message: PacketRequestUpdateSkillWorkbench?, ctx: MessageContext?): IMessage? {
 			val world = FMLCommonHandler.instance().minecraftServerInstance.getWorld(message?.dimensionId!!)
-			val te = world.getTileEntity(message.pos) as TileEntityPedestal?
-			return if (te != null) PacketUpdatePedestal(te) else null
+			val te = world.getTileEntity(message.pos) as TileEntitySkillWorkbench?
+			println(te?.inventory?.getStackInSlot(0))
+			return if (te != null) PacketUpdateSkillWorkbench(te) else null
 		}
 	}
 }

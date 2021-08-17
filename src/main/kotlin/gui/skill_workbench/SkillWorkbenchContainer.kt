@@ -8,11 +8,14 @@ import net.minecraft.inventory.Container
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
+import packet.PacketHandler
+import packet.PacketRequestUpdateSkillWorkbench
 
 
-class SkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench): Container(){
+class SkillWorkbenchContainer(inv: IInventory, private val te: TileEntitySkillWorkbench): Container(){
 	init {
 		val inventory = te.inventory
+		println(te.inventory.getStackInSlot(0))
 		for (i in 0 .. 2) {
 			for (j in 0 .. 8) {
 				addSlotToContainer(Slot(inv, i * 9 + j + 9, 8 + j * 18, 84 + i * 18))
@@ -34,7 +37,7 @@ class SkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench): Co
 	}
 
 	override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {
-		var itemstack = ItemStack.EMPTY
+		var itemstack: ItemStack
 		val slot = inventorySlots[index]
 
 		if (slot != null && slot.hasStack) {
@@ -59,5 +62,10 @@ class SkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench): Co
 		}
 
 		return super.transferStackInSlot(playerIn, index)
+	}
+
+	override fun onContainerClosed(playerIn: EntityPlayer) {
+		PacketHandler.network.sendToServer(PacketRequestUpdateSkillWorkbench(te))
+		super.onContainerClosed(playerIn)
 	}
 }

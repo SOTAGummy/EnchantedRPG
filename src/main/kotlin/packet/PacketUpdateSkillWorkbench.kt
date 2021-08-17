@@ -1,6 +1,5 @@
 package packet
 
-import blocks.TileEntityPedestal
 import blocks.TileEntitySkillWorkbench
 import io.netty.buffer.ByteBuf
 import net.minecraft.client.Minecraft
@@ -23,23 +22,20 @@ class PacketUpdateSkillWorkbench(): IMessage{
 
 	override fun fromBytes(buf: ByteBuf) {
 		this.pos = BlockPos.fromLong(buf.readLong())
-		repeat(9){
-			this.inventory.setStackInSlot(it, ByteBufUtils.readItemStack(buf))
-		}
+		this.inventory.deserializeNBT(ByteBufUtils.readTag(buf))
 	}
 
 	override fun toBytes(buf: ByteBuf) {
 		this.pos?.toLong()?.let { buf.writeLong(it) }
-		repeat(9){
-			ByteBufUtils.writeItemStack(buf, inventory.getStackInSlot(it))
-		}
+		ByteBufUtils.writeTag(buf, this.inventory.serializeNBT())
 	}
 
 	class Handler: IMessageHandler<PacketUpdateSkillWorkbench, IMessage> {
 		override fun onMessage(message: PacketUpdateSkillWorkbench?, ctx: MessageContext?): IMessage? {
 			Minecraft.getMinecraft().addScheduledTask(){
-				val te = Minecraft.getMinecraft().world.getTileEntity(message?.pos) as TileEntityPedestal
+				val te = Minecraft.getMinecraft().world.getTileEntity(message?.pos) as TileEntitySkillWorkbench
 				te.inventory = message?.inventory!!
+				println(te.inventory.getStackInSlot(0))
 			}
 			return null
 		}

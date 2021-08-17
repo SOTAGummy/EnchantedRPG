@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/block",
   "textures": {
     "top": "enchanted-rpg:blocks/skill_workbench/skill_workbench_top",
     "bottom":"enchanted-rpg:blocks/skill_workbench/skill_workbench_bottom",

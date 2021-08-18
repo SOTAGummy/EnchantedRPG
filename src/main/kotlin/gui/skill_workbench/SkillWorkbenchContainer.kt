@@ -3,6 +3,7 @@ package gui.skill_workbench
 import blocks.TileEntitySkillWorkbench
 import gui.skill_workbench.slot.SkillContainerSlot
 import gui.skill_workbench.slot.SkillSlot
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.inventory.IInventory
@@ -64,8 +65,14 @@ class SkillWorkbenchContainer(inv: IInventory, private val te: TileEntitySkillWo
 		return super.transferStackInSlot(playerIn, index)
 	}
 
-	override fun onContainerClosed(playerIn: EntityPlayer) {
-		PacketHandler.network.sendToServer(PacketRequestUpdateSkillWorkbench(te))
-		super.onContainerClosed(playerIn)
+	override fun onContainerClosed(player: EntityPlayer) {
+		if (!player.world.isRemote){
+			repeat(9){
+				val stack = te.inventory.extractItem(it, 1, false)
+				val item = EntityItem(player.world, te.pos.x.toDouble(), te.pos.y.toDouble(), te.pos.z.toDouble(), stack)
+				player.world.spawnEntity(item)
+			}
+		}
+		super.onContainerClosed(player)
 	}
 }

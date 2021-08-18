@@ -17,6 +17,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
+import net.minecraftforge.items.ItemStackHandler
 
 interface ISkillStorable{
 	fun getSkillCapacity(): Int

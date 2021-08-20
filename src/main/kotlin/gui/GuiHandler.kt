@@ -8,6 +8,7 @@ import gui.accessory.GuiAccessoryContainer
 import gui.skill_workbench.GuiSkillWorkbenchContainer
 import gui.skill_workbench.SkillWorkbenchContainer
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.Container
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -28,13 +29,13 @@ class GuiHandler : IGuiHandler {
 				}
 			}
 			return GuiAccessoryContainer(player, inv)
-		} else if (ID == SkillWorkbenchGui) {
-			return GuiSkillWorkbenchContainer(player.inventory, world.getTileEntity(BlockPos(x, y, z)) as TileEntitySkillWorkbench)
+		} else if (ID == SkillWorkbenchGui){
+			return GuiSkillWorkbenchContainer(getServerGuiElement(ID, player, world, x, y, z)!!, world.getTileEntity(BlockPos(x, y, z)) as TileEntitySkillWorkbench)
 		}
 		return null
 	}
 
-	override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
+	override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Container? {
 		if (ID == AccessoryGui) {
 			val inv = AccessoryItemContainer()
 			repeat(4) {
@@ -44,7 +45,6 @@ class GuiHandler : IGuiHandler {
 			}
 			return AccessoryContainer(player, inv)
 		} else if (ID == SkillWorkbenchGui) {
-			world.setTileEntity(BlockPos(x, y, z), TileEntitySkillWorkbench())
 			return SkillWorkbenchContainer(player.inventory, world.getTileEntity(BlockPos(x, y, z)) as TileEntitySkillWorkbench)
 		}
 		return null

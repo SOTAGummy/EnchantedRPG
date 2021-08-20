@@ -3,6 +3,7 @@ package gui.accessory
 import Core
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
+import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.client.renderer.GlStateManager

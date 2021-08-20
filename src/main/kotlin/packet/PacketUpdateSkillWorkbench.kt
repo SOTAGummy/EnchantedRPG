@@ -10,9 +10,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 import net.minecraftforge.items.ItemStackHandler
 
-class PacketUpdateSkillWorkbench(): IMessage{
+class PacketUpdateSkillWorkbench(): IMessage {
 	private var pos: BlockPos? = null
-	private var inventory = ItemStackHandler(9)
+	private var inventory = ItemStackHandler(8)
 
 	constructor(te: TileEntitySkillWorkbench): this(){
 		val itemHandler = te.inventory
@@ -27,15 +27,14 @@ class PacketUpdateSkillWorkbench(): IMessage{
 
 	override fun toBytes(buf: ByteBuf) {
 		this.pos?.toLong()?.let { buf.writeLong(it) }
-		ByteBufUtils.writeTag(buf, this.inventory.serializeNBT())
+		ByteBufUtils.writeTag(buf, inventory.serializeNBT())
 	}
 
 	class Handler: IMessageHandler<PacketUpdateSkillWorkbench, IMessage> {
 		override fun onMessage(message: PacketUpdateSkillWorkbench?, ctx: MessageContext?): IMessage? {
 			Minecraft.getMinecraft().addScheduledTask(){
 				val te = Minecraft.getMinecraft().world.getTileEntity(message?.pos) as TileEntitySkillWorkbench
-				te.inventory = message?.inventory!!
-				println(te.inventory.getStackInSlot(0))
+				te.inventory.deserializeNBT(message?.inventory?.serializeNBT())
 			}
 			return null
 		}

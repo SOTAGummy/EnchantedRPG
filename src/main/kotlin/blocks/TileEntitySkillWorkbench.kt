@@ -7,7 +7,9 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
-import packet.*
+import packet.PacketHandler
+import packet.PacketRequestUpdateSkillWorkbench
+import packet.PacketUpdateSkillWorkbench
 
 class TileEntitySkillWorkbench: TileEntity(){
 	var inventory = object: ItemStackHandler(9){
@@ -29,11 +31,16 @@ class TileEntitySkillWorkbench: TileEntity(){
 	}
 
 	override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-		return capability === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing)
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing)
 	}
 
-	override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-		return if (capability === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) inventory as T else super.getCapability(capability, facing)
+	@SuppressWarnings("unchecked")
+	override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
+		return if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+			inventory as T
+		} else {
+			super.getCapability(capability, facing)
+		}
 	}
 
 	override fun onLoad() {

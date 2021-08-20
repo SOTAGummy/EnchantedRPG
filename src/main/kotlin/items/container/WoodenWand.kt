@@ -1,6 +1,7 @@
 package items.container
 
 import enum.IItemRarity
+import extension.call
 import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
@@ -18,7 +19,7 @@ object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
 		if (!player.isSneaking){
-			call(world, player, hand)
+			player.heldItemMainhand.call(world, player, hand)
 		}
 
 		return ActionResult(EnumActionResult.SUCCESS, player.heldItemMainhand)

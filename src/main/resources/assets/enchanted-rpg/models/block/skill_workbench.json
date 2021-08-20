@@ -1,11 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "up": "enchanted-rpg:blocks/skill_workbench/skill_workbench_top",
+    "particle": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side",
     "down":"enchanted-rpg:blocks/skill_workbench/skill_workbench_bottom",
+    "up": "enchanted-rpg:blocks/skill_workbench/skill_workbench_top",
     "north": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side",
-    "east": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side",
     "south": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side",
+    "east": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side",
     "west": "enchanted-rpg:blocks/skill_workbench/skill_workbench_side"
   }
 }

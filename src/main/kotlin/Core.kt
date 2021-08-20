@@ -149,9 +149,11 @@ class Core {
 	fun preInitEvent(event: FMLPreInitializationEvent){
 		PacketHandler()
 
-		GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
-		GameRegistry.registerTileEntity(TileEntitySkillWorkbench::class.java, ResourceLocation(ID, "skill_workbench"))
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
+		if (event.side.isClient){
+			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
+			GameRegistry.registerTileEntity(TileEntitySkillWorkbench::class.java, ResourceLocation(ID, "skill_workbench"))
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal::class.java, TESRPedestal())
+		}
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler())
 		CapabilityManager.INSTANCE.register(ISP::class.java, SPStorage()) { SP() }

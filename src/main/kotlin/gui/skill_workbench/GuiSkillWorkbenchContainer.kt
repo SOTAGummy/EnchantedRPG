@@ -1,22 +1,28 @@
 package gui.skill_workbench
 
+import Core
 import blocks.TileEntitySkillWorkbench
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.inventory.IInventory
+import net.minecraft.entity.player.InventoryPlayer
+import net.minecraft.inventory.Container
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.FMLCommonHandler
+import packet.PacketHandler
+import packet.PacketRequestUpdateSkillWorkbench
 
-class GuiSkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench): GuiContainer(SkillWorkbenchContainer(inv, te)){
-	init {
-		this.xSize = 175
-		this.ySize = 165
-	}
+
+class GuiSkillWorkbenchContainer(container: Container, val te: TileEntitySkillWorkbench): GuiContainer(container){
+	private val texture = ResourceLocation(Core.ID, "textures/gui/skill_workbench_gui.png")
 
 	override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
-		GlStateManager.color(1F, 1F, 1F,1F)
-		this.mc.textureManager.bindTexture(ResourceLocation(Core.ID,"textures/gui/skill_workbench_gui.png"))
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize,this.ySize)
+		GlStateManager.color(1f, 1f, 1f, 1f)
+		mc.textureManager.bindTexture(texture)
+		val x = (width - xSize) / 2
+		val y = (height - ySize) / 2
+		drawTexturedModalRect(x, y, 0, 0, xSize, ySize)
 		GlStateManager.color(0F, 0F, 0F, 0F)
 	}
 
@@ -28,7 +34,19 @@ class GuiSkillWorkbenchContainer(inv: IInventory, te: TileEntitySkillWorkbench):
 
 	override fun initGui() {
 		super.initGui()
-		this.addButton(GuiButton(1, 165, 125, 54, 12, "set"))
-		this.addButton(GuiButton(2, 240, 125, 54, 12, "remove"))
+		this.buttonList.add(GuiButton(1, this.guiLeft / 2, this.guiTop / 2, 60, 20, "set"))
+	}
+
+	override fun actionPerformed(button: GuiButton) {
+		when (button.id){
+			1 -> {
+				val world = FMLCommonHandler.instance().minecraftServerInstance.getWorld(te.world.provider.dimension)
+				world.addScheduledTask(){
+					(world.getTileEntity(te.pos) as TileEntitySkillWorkbench).inventory.setStackInSlot(0, ItemStack.EMPTY)
+				}
+			}
+			else -> {}
+		}
+		super.actionPerformed(button)
 	}
 }

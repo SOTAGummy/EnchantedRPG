@@ -1,18 +1,21 @@
 package items.skill
 
-import capability.sp.SPProvider
 import enum.IItemRarity
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object FullFill: ItemSkill("full_fill", 0, IItemRarity.MASTER){
+object HealMythic: ItemSkill("heal_mythic", 30, IItemRarity.MYTHIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-
+		player.playSound(Core.HEAL_SOUND, 0.5F, 1F)
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.getCapability(SPProvider.SP!!, null)?.setSP(player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt())
+		if (player.health + 15 < player.maxHealth){
+			player.health += 15
+		} else {
+			player.health = player.maxHealth
+		}
 	}
 }

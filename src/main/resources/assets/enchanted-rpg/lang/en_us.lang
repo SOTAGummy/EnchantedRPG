@@ -21,15 +21,18 @@ item.diamond_glove.name=DiamondGlove
 item.diamond_ring.name=DiamondRing
 #Blocks
 tile.pedestal.name=Pedestal
+tile.skill_workbench.name=SkillWorkbench
 #CreativeTabs
 itemGroup.enchanted-rpg.items=EnchantedRPG
 itemGroup.enchanted-rpg.skills=Skills
 itemGroup.enchanted-rpg.accessories=Accessories
 itemGroup.enchanted-rpg.enchantments=Enchantments
 #Attribute
-attribute.name.enchanted-rpg.maxsp=MaxSP
-attribute.name.enchanted-rpg.spsavingrate=SPSavingRate
-attribute.name.enchanted-rpg.sprecoverrate=SPRecoverRate
+attribute.name.enchanted-rpg.maxSp=MaxSP
+attribute.name.enchanted-rpg.spSavingRate=SPSavingRate
+attribute.name.enchanted-rpg.spRecoverRate=SPRecoverRate
+attribute.name.enchanted-rpg.criticalRate=CriticalRate
+attribute.name.enchanted-rpg.criticalDamage=CriticalDamage
 #EquipmentSlot
 item.modifiers.necklace=When equipped
 item.modifiers.amulet=When equipped

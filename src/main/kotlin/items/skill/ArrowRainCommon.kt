@@ -16,7 +16,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import kotlin.random.Random
 
-object ArrowRain: ItemSkill("arrow_rain", 30, IItemRarity.RARE){
+object ArrowRainCommon: ItemSkill("arrow_rain", 30, IItemRarity.COMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

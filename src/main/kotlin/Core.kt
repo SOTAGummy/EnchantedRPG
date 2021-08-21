@@ -96,18 +96,17 @@ class Core {
 		val skill_wand = WoodenWand
 
 		//Skill
-		val code_test = CodeTest
-		val toggle_mode = ToggleMode
-		val full_fill = FullFill
-		val heal = Heal
-		val heal_plus = HealPlus
-		val heal_plus_plus = HealPlusPlus
-		val leap = Leap
-		val leap_plus = LeapPlus
-		val leap_plus_plus = LeapPlusPlus
-		val arrow_rain = ArrowRain
-		val arrow_rain_plus = ArrowRainPlus
-		val arrow_rain_plus_plus = ArrowRainPlusPlus
+		val code_test_master = CodeTestMaster
+		val toggle_mode_master = ToggleModeMaster
+		val full_fill_master = FullFillMaster
+		val heal_common = HealCommon
+		val heal_uncommon = HealUncommon
+		val heal_rare = HealRare
+		val heal_epic = HealEpic
+		val heal_legend = HealLegend
+		val heal_mythic = HealMythic
+		val leap_common = LeapCommon
+		val arrow_rain_common = ArrowRainCommon
 
 		//Accessory
 		val diamond_necklace = DiamondNecklace

@@ -56,7 +56,7 @@ class GuiSkillWorkbenchContainer(container: Container, val te: TileEntitySkillWo
 						}
 						tile.inventory.setStackInSlot(0, stack)
 						count = 0
-						for(i in 0 .. 8){
+						for(i in 0 .. 7){
 							if (!tile.inventory.getStackInSlot(i + 1).isEmpty){
 								count = i
 								break

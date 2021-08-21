@@ -102,14 +102,15 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 }
 
 fun ItemStack.getSkillCount(): Int{
+	var count = 0
 	if (this.item is ISkillStorable && this.tagCompound != null){
 		repeat(this.getSkillCapacity()){
-			if (ItemStack(Item.getItemById(this.tagCompound!!.getIntArray("skills")[it])).isEmpty){
-				return it
+			if (this.tagCompound!!.getIntArray("skills")[it] != 0){
+				count++
 			}
 		}
 	}
-	return 0
+	return count
 }
 
 fun ItemStack.removeSkill(): ItemStack{

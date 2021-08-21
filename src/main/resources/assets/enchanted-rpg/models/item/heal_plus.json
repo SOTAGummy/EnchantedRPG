@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-	"layer0": "enchanted-rpg:items/skill_gem_uncommon"
-  }
-}

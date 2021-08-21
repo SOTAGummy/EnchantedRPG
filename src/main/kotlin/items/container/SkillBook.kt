@@ -27,10 +27,7 @@ object SkillBook: RootItem("skill_book", IItemRarity.UNCOMMON), ISkillStorable{
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
 		if (!player.isSneaking){
 			player.heldItemMainhand.call(world, player, hand)
-		} else {
-			player.heldItemMainhand.addItemSkill(ItemStack(Core.toggle_mode))
 		}
-
 		return ActionResult(EnumActionResult.SUCCESS, player.heldItemMainhand)
 	}
 

@@ -23,7 +23,7 @@ interface ISkillStorable{
 				tooltip.add("$count : ${TextFormatting.UNDERLINE}$format")
 			}
 		}
-		if (stack.tagCompound != null) {
+		if (stack.tagCompound != null && stack.tagCompound!!.getIntArray("skills")[0] != 0) {
 			tooltip.add("")
 			tooltip.add("${TextComponentTranslation("text.skill_cost").formattedText} : " + cost.toString() + "MP")
 		}

@@ -16,6 +16,13 @@ class TileEntitySkillWorkbench: TileEntity(){
 		override fun onContentsChanged(slot: Int) {
 			if (!world.isRemote){
 				PacketHandler.network.sendToAllAround(PacketUpdateSkillWorkbench(this@TileEntitySkillWorkbench), NetworkRegistry.TargetPoint(world.provider.dimension, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 64.0))
+				if (slot > 1){
+					repeat(slot - 1){
+						if (this.getStackInSlot(it + 1).isEmpty){
+							this.setStackInSlot(it + 1, this.extractItem(slot, 1, false))
+						}
+					}
+				}
 			}
 		}
 	}

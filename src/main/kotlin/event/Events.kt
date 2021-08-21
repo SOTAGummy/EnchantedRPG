@@ -10,9 +10,11 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.Sound
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
@@ -20,6 +22,7 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -66,7 +69,7 @@ class Events {
 	@SubscribeEvent
 	fun guiPostInit(event: GuiScreenEvent.InitGuiEvent.Post) {
 		if (event.gui is GuiInventory)
-			event.buttonList.add(AccessoryButton(70, event.gui.mc.displayWidth / 2, event.gui.mc.displayHeight / 2, 12, 14, ""))
+			event.buttonList.add(AccessoryButton(70, 10, 10, 12, 14, ""))
 	}
 
 	private var count = 0
@@ -93,7 +96,7 @@ class Events {
 				val cap = event.player.getCapability(AccessoryProvider.ACCESSORY!!, null)!!
 				val current = cap.getStackInSlot(it)
 				val old = cap.getStackInSlot(it + 4)
-				if (!old.isItemEqual(current)){
+				if (!ItemStack.areItemStacksEqual(old, current)){
 					if (!current.isEmpty){
 						event.player.attributeMap.applyAttributeModifiers(current.getAttributeModifiers(accessorySlots[it]))
 					}
@@ -115,8 +118,23 @@ class Events {
 		val player = event.entityPlayer
 		val currentItemHandler = player.getCapability(AccessoryProvider.ACCESSORY!!, null)
 		val oldItemHandler = event.original.getCapability(AccessoryProvider.ACCESSORY, null)
-		repeat(8){
-			currentItemHandler?.setStackInSlot(it, oldItemHandler?.getStackInSlot(it)!!)
+		if (!event.isWasDeath){
+			repeat(8){
+				currentItemHandler?.setStackInSlot(it, oldItemHandler?.getStackInSlot(it)!!)
+			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onDeathEvent(event: LivingDeathEvent){
+		if (event.entityLiving is EntityPlayer){
+			val player = event.entityLiving as EntityPlayer
+			if (!player.world.isRemote){
+				repeat(4){
+					val item = EntityItem(player.world, player.posX, player.posY, player.posZ, player.getCapability(AccessoryProvider.ACCESSORY!!, null)?.getStackInSlot(it))
+					player.world.spawnEntity(item)
+				}
+			}
 		}
 	}
 }

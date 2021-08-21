@@ -88,7 +88,6 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 		}
 	} else {
 		val serverThread = world as WorldServer
-		val stack = player.heldItemMainhand
 		GlobalScope.launch {
 			repeat(getSkillCapacity()){
 				if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
@@ -99,5 +98,33 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 				}
 			}
 		}
+	}
+}
+
+fun ItemStack.getSkillCount(): Int{
+	if (this.item is ISkillStorable && this.tagCompound != null){
+		repeat(this.getSkillCapacity()){
+			if (ItemStack(Item.getItemById(this.tagCompound!!.getIntArray("skills")[it])).isEmpty){
+				return it
+			}
+		}
+	}
+	return 0
+}
+
+fun ItemStack.removeSkill(): ItemStack{
+	return if (this.getSkillCount() != 0){
+		val stack = ItemStack(Item.getItemById(this.tagCompound!!.getIntArray("skills")[this.getSkillCount() - 1]))
+		val array = this.tagCompound!!.getIntArray("skills").clone()
+		array[0] = 0
+		repeat(this.getSkillCapacity() - 1){
+			array[it] = array[it + 1]
+		}
+		array[this.getSkillCapacity() - 1] = 0
+		println(array)
+		this.tagCompound!!.setIntArray("skills", array)
+		stack
+	} else {
+		ItemStack.EMPTY
 	}
 }

@@ -20,33 +20,13 @@ object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
 				ItemStack.EMPTY,
 				ItemStack.EMPTY,
 				ItemStack.EMPTY,
-				ItemStack.EMPTY
+				ItemStack(Items.APPLE, 1)
 		)
 
 		println(Core.testRecipe.canCraft(recipe1))
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		val recipe1 = arrayOf(
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack(Items.APPLE, 1),
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY
-		)
 
-		println(Core.testRecipe.canCraft(recipe1))
-	}
-
-	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-		if (world.isRemote){
-			clientFunction(world, player, hand)
-		} else {
-			serverFunction(world, player, hand)
-		}
-		return super.onItemRightClick(world, player, hand)
 	}
 }

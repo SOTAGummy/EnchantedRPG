@@ -79,7 +79,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val clientThread = Minecraft.getMinecraft()
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
+					if ((getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true) || player.isCreative){
 						clientThread.addScheduledTask(){
 							getItemSkill(it)?.clientFunction(world, player, hand)
 						}

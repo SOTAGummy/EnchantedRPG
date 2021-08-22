@@ -4,6 +4,7 @@ import Core
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.Minecraft
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -85,6 +86,9 @@ object Pedestal: BlockContainer(Material.ROCK){
 						tile.inventory.setStackInSlot(it, ItemStack.EMPTY)
 					}
 					tile.inventory.setStackInSlot(0, PedestalRecipeHandler.getCraftResult(items))
+					Minecraft.getMinecraft().addScheduledTask(){
+						Minecraft.getMinecraft().player.playSound(Core.CRAFT_SOUND, 1.0F, 1.0F)
+					}
 					tile.endCrafting()
 				}
 			}

@@ -10,7 +10,6 @@ object PedestalRecipeHandler {
 				return i.getCraftResult()
 			}
 		}
-
 		return ItemStack.EMPTY
 	}
 }

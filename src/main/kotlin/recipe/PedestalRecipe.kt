@@ -18,14 +18,14 @@ class PedestalRecipe(private val output: ItemStack, private val input: Array<Ite
 
 	fun canCraft(ingredient: Array<ItemStack>): Boolean{
 		var count = 0
-		val array1 = input.clone()
-		val array2 = ingredient.clone()
+		var array1 = input.clone()
+		var array2 = ingredient.clone()
 		for (i in array1){
 			first@ for (j in array2){
 				if (ItemStack.areItemStacksEqual(i, j)){
 					count++
-					array1.toList().minus(i).toTypedArray()
-					array2.toList().minus(j).toTypedArray()
+					array1 = array1.toList().minus(i).toTypedArray().clone()
+					array2 = array2.toList().minus(j).toTypedArray().clone()
 					break@first
 				}
 			}

@@ -74,27 +74,29 @@ fun ItemStack.getSkillCapacity(): Int{
 }
 
 fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
-	if (world.isRemote){
-		val clientThread = Minecraft.getMinecraft()
-		GlobalScope.launch {
-			repeat(getSkillCapacity()){
-				if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
-					clientThread.addScheduledTask(){
-						getItemSkill(it)?.clientFunction(world, player, hand)
+	if (this.tagCompound != null){
+		if (world.isRemote){
+			val clientThread = Minecraft.getMinecraft()
+			GlobalScope.launch {
+				repeat(getSkillCapacity()){
+					if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
+						clientThread.addScheduledTask(){
+							getItemSkill(it)?.clientFunction(world, player, hand)
+						}
+						delay(1000)
 					}
-					delay(1000)
 				}
 			}
-		}
-	} else {
-		val serverThread = world as WorldServer
-		GlobalScope.launch {
-			repeat(getSkillCapacity()){
-				if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
-					serverThread.addScheduledTask(){
-						getItemSkill(it)?.serverFunction(world, player, hand)
+		} else {
+			val serverThread = world as WorldServer
+			GlobalScope.launch {
+				repeat(getSkillCapacity()){
+					if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
+						serverThread.addScheduledTask(){
+							getItemSkill(it)?.serverFunction(world, player, hand)
+						}
+						delay(1000)
 					}
-					delay(1000)
 				}
 			}
 		}

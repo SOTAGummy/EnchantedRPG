@@ -10,7 +10,7 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object CodeTestMaster: ItemSkill("code_test", 0, IItemRarity.MASTER){
+object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val recipe1 = arrayOf(
 				ItemStack.EMPTY,

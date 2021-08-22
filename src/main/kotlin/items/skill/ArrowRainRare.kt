@@ -7,7 +7,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
-import net.minecraft.entity.projectile.EntityTippedArrow
 import net.minecraft.init.Items
 import net.minecraft.item.ItemArrow
 import net.minecraft.item.ItemStack
@@ -16,7 +15,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import kotlin.random.Random
 
-object ArrowRainCommon: ItemSkill("arrow_rain_common", 30, IItemRarity.COMMON){
+object ArrowRainRare: ItemSkill("arrow_rain_rare", 40, IItemRarity.RARE){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}
@@ -26,11 +25,11 @@ object ArrowRainCommon: ItemSkill("arrow_rain_common", 30, IItemRarity.COMMON){
 		val pos = player.rayTrace(15.0, 0F)?.blockPos!!
 
 		GlobalScope.launch {
-			repeat(20){
+			repeat(40){
 				val itemArrow = Items.ARROW as ItemArrow
 				val arrow = itemArrow.createArrow(world, ItemStack(itemArrow), player)
-				val randomX = Random.nextDouble(5.0)
-				val randomZ = Random.nextDouble(5.0)
+				val randomX = Random.nextDouble(4.5)
+				val randomZ = Random.nextDouble(4.5)
 				arrow.setPosition(pos.x + randomX, pos.y.toDouble() + 5.0, pos.z + randomZ)
 				arrow.setVelocity(0.0, -1.0, 0.0)
 				arrow.damage = 2.0
@@ -40,7 +39,7 @@ object ArrowRainCommon: ItemSkill("arrow_rain_common", 30, IItemRarity.COMMON){
 				server.addScheduledTask() {
 					world.spawnEntity(arrow)
 				}
-				delay(50)
+				delay(25)
 
 				GlobalScope.launch {
 					delay(1000)

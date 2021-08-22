@@ -13,7 +13,7 @@ interface ISkillStorable{
 	fun addToolTip(stack: ItemStack, tooltip: MutableList<String>){
 		var cost = 0
 		for (i in 0 until getSkillCapacity()) {
-			if (stack.tagCompound != null && stack.tagCompound!!.getIntArray("skills")[i] != 0 && !stack.isEmpty) {
+			if (stack.tagCompound != null && stack.tagCompound!!.getIntArray("skills").isNotEmpty() && stack.tagCompound!!.getIntArray("skills")[i] != 0 && !stack.isEmpty) {
 				val displayName = ItemStack(getItemById(stack.tagCompound!!.getIntArray("skills")[i])).displayName
 				val format = I18n.format(displayName)
 				val item = (getItemById(stack.tagCompound!!.getIntArray("skills")[i])) as ItemSkill

@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object FullFillMaster: ItemSkill("full_fill", 0, IItemRarity.MASTER){
+object FullFillMaster: ItemSkill("full_fill_master", 0, IItemRarity.MASTER){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

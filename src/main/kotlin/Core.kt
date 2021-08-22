@@ -106,7 +106,17 @@ class Core {
 		val heal_legend = HealLegend
 		val heal_mythic = HealMythic
 		val leap_common = LeapCommon
+		val leap_uncommon = LeapUncommon
+		val leap_rare = LeapRare
+		val leap_epic = LeapEpic
+		val leap_legend = LeapLegend
+		val leap_mythic = LeapMythic
 		val arrow_rain_common = ArrowRainCommon
+		val arrow_rain_uncommon = ArrowRainUncommon
+		val arrow_rain_rare = ArrowRainRare
+		val arrow_rain_epic = ArrowRainEpic
+		val arrow_rain_legend = ArrowRainLegend
+		val arrow_rain_mythic = ArrowRainMythic
 
 		//Accessory
 		val diamond_necklace = DiamondNecklace

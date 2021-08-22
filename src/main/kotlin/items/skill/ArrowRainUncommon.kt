@@ -25,21 +25,33 @@ object ArrowRainUncommon: ItemSkill("arrow_rain_uncommon", 35, IItemRarity.UNCOM
 		val pos = player.rayTrace(15.0, 0F)?.blockPos!!
 
 		GlobalScope.launch {
-			repeat(30){
+			repeat(40){
 				val itemArrow = Items.ARROW as ItemArrow
 				val arrow = itemArrow.createArrow(world, ItemStack(itemArrow), player)
-				val randomX = Random.nextDouble(5.0)
-				val randomZ = Random.nextDouble(5.0)
+				val i = (0 .. 1).random()
+				val randomCodeX = if (i == 0){
+					1
+				} else {
+					-1
+				}
+				val j = (0 .. 1).random()
+				val randomCodeZ = if (j == 0){
+					1
+				} else {
+					-1
+				}
+				val randomX = Random.nextDouble(5.0) * randomCodeX
+				val randomZ = Random.nextDouble(5.0) * randomCodeZ
 				arrow.setPosition(pos.x + randomX, pos.y.toDouble() + 5.0, pos.z + randomZ)
 				arrow.setVelocity(0.0, -1.0, 0.0)
-				arrow.damage = 2.0
+				arrow.damage = 3.0
 				arrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED
 				entityList.add(arrow)
 				val server = world as WorldServer
 				server.addScheduledTask() {
 					world.spawnEntity(arrow)
 				}
-				delay(33)
+				delay(25)
 
 				GlobalScope.launch {
 					delay(1000)

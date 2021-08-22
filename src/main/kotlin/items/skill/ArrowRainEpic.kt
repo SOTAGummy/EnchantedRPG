@@ -25,21 +25,33 @@ object ArrowRainEpic: ItemSkill("arrow_rain_epic", 45, IItemRarity.EPIC){
 		val pos = player.rayTrace(15.0, 0F)?.blockPos!!
 
 		GlobalScope.launch {
-			repeat(50){
+			repeat(80){
 				val itemArrow = Items.ARROW as ItemArrow
 				val arrow = itemArrow.createArrow(world, ItemStack(itemArrow), player)
-				val randomX = Random.nextDouble(4.5)
-				val randomZ = Random.nextDouble(4.5)
+				val i = (0 .. 1).random()
+				val randomCodeX = if (i == 0){
+					1
+				} else {
+					-1
+				}
+				val j = (0 .. 1).random()
+				val randomCodeZ = if (j == 0){
+					1
+				} else {
+					-1
+				}
+				val randomX = Random.nextDouble(4.5) * randomCodeX
+				val randomZ = Random.nextDouble(4.5) * randomCodeZ
 				arrow.setPosition(pos.x + randomX, pos.y.toDouble() + 5.0, pos.z + randomZ)
 				arrow.setVelocity(0.0, -1.0, 0.0)
-				arrow.damage = 2.0
+				arrow.damage = 6.0
 				arrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED
 				entityList.add(arrow)
 				val server = world as WorldServer
 				server.addScheduledTask() {
 					world.spawnEntity(arrow)
 				}
-				delay(20)
+				delay(12)
 
 				GlobalScope.launch {
 					delay(1000)

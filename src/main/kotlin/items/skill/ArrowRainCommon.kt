@@ -26,11 +26,23 @@ object ArrowRainCommon: ItemSkill("arrow_rain_common", 30, IItemRarity.COMMON){
 		val pos = player.rayTrace(15.0, 0F)?.blockPos!!
 
 		GlobalScope.launch {
-			repeat(20){
+			repeat(30){
 				val itemArrow = Items.ARROW as ItemArrow
 				val arrow = itemArrow.createArrow(world, ItemStack(itemArrow), player)
-				val randomX = Random.nextDouble(5.0)
-				val randomZ = Random.nextDouble(5.0)
+				val i = (0 .. 1).random()
+				val randomCodeX = if (i == 0){
+					1
+				} else {
+					-1
+				}
+				val j = (0 .. 1).random()
+				val randomCodeZ = if (j == 0){
+					1
+				} else {
+					-1
+				}
+				val randomX = Random.nextDouble(5.0) * randomCodeX
+				val randomZ = Random.nextDouble(5.0) * randomCodeZ
 				arrow.setPosition(pos.x + randomX, pos.y.toDouble() + 5.0, pos.z + randomZ)
 				arrow.setVelocity(0.0, -1.0, 0.0)
 				arrow.damage = 2.0
@@ -40,7 +52,7 @@ object ArrowRainCommon: ItemSkill("arrow_rain_common", 30, IItemRarity.COMMON){
 				server.addScheduledTask() {
 					world.spawnEntity(arrow)
 				}
-				delay(50)
+				delay(33)
 
 				GlobalScope.launch {
 					delay(1000)

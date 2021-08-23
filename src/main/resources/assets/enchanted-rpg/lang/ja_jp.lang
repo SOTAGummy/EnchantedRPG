@@ -31,6 +31,15 @@ item.diamond_ring.name=ダイヤモンドの指輪
 #ブロック
 tile.pedestal.name=台座
 tile.skill_workbench.name=スキル作業台
+#エンチャント
+enchantment.vitality=生命力
+enchantment.toughness=靭性
+enchantment.hardness=硬度
+enchantment.rapid=迅速
+enchantment.blessing=祝福
+enchantment.wise=賢者
+enchantment.insight=洞察
+enchantment.force=威圧
 #クリエイティブタブ
 itemGroup.enchanted-rpg.items=アイテム
 itemGroup.enchanted-rpg.skills=スキル

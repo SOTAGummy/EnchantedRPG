@@ -4,7 +4,9 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import items.baseItem.ItemAccessory
 import net.minecraft.enchantment.Enchantment
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.ai.attributes.AttributeModifier
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import utils.Storage
@@ -13,6 +15,7 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 	init {
 		Storage.Enchantments.add(this)
 		registryName = ResourceLocation(Core.ID, name)
+		this.name = name
 	}
 
 	open fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
@@ -24,7 +27,7 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 	}
 
 	override fun canApplyAtEnchantingTable(stack: ItemStack): Boolean {
-		return stack.item is ItemAccessory
+		return stack.item is ItemAccessory || stack.item == Items.BOOK
 	}
 
 	override fun getMinLevel(): Int {
@@ -32,6 +35,18 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 	}
 
 	override fun isTreasureEnchantment(): Boolean {
-		return true
+		return false
+	}
+
+	override fun getMaxLevel(): Int {
+		return 5
+	}
+
+	override fun getMaxEnchantability(enchantmentLevel: Int): Int {
+		return 30
+	}
+
+	override fun getMinEnchantability(enchantmentLevel: Int): Int {
+		return 30
 	}
 }

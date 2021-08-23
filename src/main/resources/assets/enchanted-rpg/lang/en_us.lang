@@ -31,6 +31,15 @@ item.diamond_ring.name=DiamondRing
 #Blocks
 tile.pedestal.name=Pedestal
 tile.skill_workbench.name=SkillWorkbench
+#Enchantment
+enchantment.vitality=Vitality
+enchantment.toughness=Toughness
+enchantment.hardness=Hardness
+enchantment.rapid=Rapid
+enchantment.blessing=Blessing
+enchantment.wise=Wise
+enchantment.insight=Insight
+enchantment.force=Force
 #CreativeTabs
 itemGroup.enchanted-rpg.items=EnchantedRPG
 itemGroup.enchanted-rpg.skills=Skills

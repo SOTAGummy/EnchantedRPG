@@ -10,6 +10,7 @@ import creativeTab.EnchantedRPGAccessoryTab
 import creativeTab.EnchantedRPGEnchantmentTab
 import creativeTab.EnchantedRPGItemsTab
 import creativeTab.EnchantedRPGSkillsTab
+import enchantment.*
 import event.Events
 import gui.GuiHandler
 import items.EnchantedDust
@@ -23,6 +24,7 @@ import items.container.WoodenWand
 import items.skill.*
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
@@ -146,6 +148,16 @@ class Core {
 				ItemStack(Items.APPLE, 1),
 				ItemStack(Items.APPLE, 1)
 		))
+
+		//Enchantment
+		val toughness = EnchantmentToughness
+		val vitality = EnchantmentVitality
+		val blessing = EnchantmentBlessing
+		val hardness = EnchantmentHardness
+		val insight = EnchantmentInsight
+		val rapid = EnchantmentRapid
+		val force = EnchantmentForce
+		val wise = EnchantmentWise
 	}
 
 	@Mod.EventHandler
@@ -194,6 +206,13 @@ class Core {
 	fun registerBlocks(event: RegistryEvent.Register<Block>){
 		event.registry.register(pedestal)
 		event.registry.register(skill_workbench)
+	}
+
+	@SubscribeEvent
+	fun registerEnchantments(event: RegistryEvent.Register<Enchantment>) {
+		repeat(Storage.Enchantments.size) {
+			event.registry.register(Storage.Enchantments[it])
+		}
 	}
 
 	@SubscribeEvent

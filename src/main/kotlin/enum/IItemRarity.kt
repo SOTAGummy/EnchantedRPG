@@ -9,6 +9,6 @@ enum class IItemRarity(val colorChar: TextFormatting) {
 	EPIC(TextFormatting.LIGHT_PURPLE),
 	LEGEND(TextFormatting.GOLD),
 	MYTHIC(TextFormatting.YELLOW),
-	EXTRA(TextFormatting.DARK_BLUE),
+	SPECIAL(TextFormatting.DARK_BLUE),
 	MASTER(TextFormatting.RED)
 }

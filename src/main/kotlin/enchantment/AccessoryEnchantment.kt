@@ -7,15 +7,26 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.init.Items
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import utils.Storage
+import java.util.*
 
 abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(rarity, Core.accessoryType, arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)){
 	init {
 		Storage.Enchantments.add(this)
 		registryName = ResourceLocation(Core.ID, name)
 		this.name = name
+	}
+
+	companion object{
+		private val ENCHANTMENT_MODIFIER = arrayOf(
+				UUID.fromString("e82d32e7-e2e3-44e1-bc7a-650678089058"),
+				UUID.fromString("6a5d6a90-9dd9-4c05-89ab-90b63144d2a1"),
+				UUID.fromString("e3c7b68e-4cb7-4727-97f9-7165750dee48"),
+				UUID.fromString("14b0dd2f-88a0-4355-9256-53d43ccbb26f")
+		)
 	}
 
 	open fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
@@ -48,5 +59,9 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 
 	override fun getMinEnchantability(enchantmentLevel: Int): Int {
 		return 30
+	}
+
+	fun getUUID(slot: EntityEquipmentSlot): UUID {
+		return ENCHANTMENT_MODIFIER[slot.index]
 	}
 }

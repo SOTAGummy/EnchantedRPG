@@ -12,7 +12,7 @@ object DiamondRing: ItemAccessory("diamond_ring", Core.RING, IItemRarity.RARE){
 	override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == Core.RING){
-			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.name, AttributeModifier(getUUID(slot), "resistance", 0.3, 1))
+			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.name, AttributeModifier(getUUID(slot), "resistance", 0.3, 0))
 			multimap.put(Core.MAX_SP.name, AttributeModifier(getUUID(slot), "maxmp", 50.0, 0))
 		}
 		return multimap

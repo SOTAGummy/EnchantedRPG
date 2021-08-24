@@ -10,7 +10,7 @@ object EnchantmentWise: AccessoryEnchantment("wise", Rarity.VERY_RARE){
 	override fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributes(stack, level)
 		val item = stack.item as ItemAccessory
-		multimap.put(Core.MAX_SP.name, AttributeModifier(item.getUUID(item.equipmentSlot), "sp", level * 10.0, 0))
+		multimap.put(Core.MAX_SP.name, AttributeModifier(getUUID(item.equipmentSlot), "sp", level * 10.0, 0))
 		return multimap
 	}
 }

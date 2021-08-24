@@ -9,7 +9,7 @@ object EnchantmentForce: AccessoryEnchantment("force", Rarity.VERY_RARE){
 	override fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributes(stack, level)
 		val item = stack.item as ItemAccessory
-		multimap.put(Core.CRITICAL_DAMAGE.name, AttributeModifier(item.getUUID(item.equipmentSlot), "force", level * 5.0, 0))
+		multimap.put(Core.CRITICAL_DAMAGE.name, AttributeModifier(getUUID(item.equipmentSlot), "force", level * 5.0, 0))
 		return multimap
 	}
 }

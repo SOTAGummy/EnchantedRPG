@@ -10,11 +10,13 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.Sound
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
+import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
@@ -22,7 +24,10 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
+import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.entity.living.LivingEvent
+import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -136,5 +141,21 @@ class Events {
 				}
 			}
 		}
+	}
+
+	@SubscribeEvent
+	fun onPlayerAttackEvent(event: AttackEntityEvent){
+		if (event.target is EntityLiving){
+			val entity = event.target as EntityLiving
+			entity.health -= event.entityPlayer.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat()
+		}
+	}
+
+	@SubscribeEvent
+	fun onAttackEvent(event: LivingAttackEvent){
+		if (event.source.damageType == "player"){
+			event.entityLiving
+		}
+		println(event.entityLiving)
 	}
 }

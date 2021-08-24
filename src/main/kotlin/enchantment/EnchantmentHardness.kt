@@ -10,7 +10,7 @@ object EnchantmentHardness: AccessoryEnchantment("hardness", Rarity.VERY_RARE){
 	override fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributes(stack, level)
 		val item = stack.item as ItemAccessory
-		multimap.put(SharedMonsterAttributes.ARMOR.name, AttributeModifier(item.getUUID(item.equipmentSlot), "armor", level * 0.5, 0))
+		multimap.put(SharedMonsterAttributes.ARMOR.name, AttributeModifier(getUUID(item.equipmentSlot), "armor", level * 0.5, 0))
 		return multimap
 	}
 }

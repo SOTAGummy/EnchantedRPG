@@ -10,7 +10,7 @@ object EnchantmentRapid: AccessoryEnchantment("rapid", Rarity.VERY_RARE){
 	override fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributes(stack, level)
 		val item = stack.item as ItemAccessory
-		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.name, AttributeModifier(item.getUUID(item.equipmentSlot), "knockbackResistance", 0.2 * level, 0))
+		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.name, AttributeModifier(getUUID(item.equipmentSlot), "knockbackResistance", 0.2 * level, 0))
 		return multimap
 	}
 }

@@ -10,7 +10,7 @@ object EnchantmentBlessing: AccessoryEnchantment("blessing", Rarity.VERY_RARE){
 	override fun getAttributes(stack: ItemStack, level: Int): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributes(stack, level)
 		val item = stack.item as ItemAccessory
-		multimap.put(SharedMonsterAttributes.LUCK.name, AttributeModifier(item.getUUID(item.equipmentSlot), "armor", level.toDouble(), 0))
+		multimap.put(SharedMonsterAttributes.LUCK.name, AttributeModifier(getUUID(item.equipmentSlot), "armor", level.toDouble(), 0))
 		return multimap
 	}
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XZZ",
+    "ZYZ",
+    "ZZX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot",
+      "data": 0
+    },
+    "Y": {
+      "item": "minecraft:stick",
+      "data": 0
+    },
+    "Z": {
+      "item": "enchanted-rpg:enchanted_dust",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:iron_wand",
+    "data": 0,
+    "count": 1
+  }
+}

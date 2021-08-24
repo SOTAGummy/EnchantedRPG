@@ -15,6 +15,7 @@ abstract class ItemSkill(name: String, val cost: Int, rarity: IItemRarity): Root
 	init {
 		creativeTab = Core.skillsTab
 		maxStackSize = 1
+		rarity.skills.add(this)
 	}
 
 	override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {

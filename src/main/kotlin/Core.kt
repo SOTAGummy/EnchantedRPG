@@ -19,16 +19,16 @@ import items.accessory.DiamondGlove
 import items.accessory.DiamondNecklace
 import items.accessory.DiamondRing
 import items.baseItem.ItemAccessory
-import items.container.SkillBook
-import items.container.WoodenWand
+import items.container.*
 import items.skill.*
+import items.token.*
 import net.minecraft.block.Block
+import net.minecraft.block.BlockPlanks
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.enchantment.Enchantment
-import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
-import net.minecraft.item.ItemStack
+import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -51,8 +51,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
+import potion.PotionNoGravity
 import proxy.CommonProxy
-import recipe.PedestalRecipe
+import recipe.Recipes
 import sound.SoundHandler
 import utils.EnumExtension
 import utils.Storage
@@ -95,7 +96,12 @@ class Core {
 
 		//SkillContainer
 		val skill_book = SkillBook
-		val skill_wand = WoodenWand
+		val wooden_wand = WoodenWand
+		val stone_wand = StoneWand
+		val iron_wand = IronWand
+		val diamond_wand = DiamondWand
+		val emerald_wand = EmeraldWand
+		val obsidian_wand = ObsidianWand
 
 		//Skill
 		val code_test_master = CodeTestMaster
@@ -119,6 +125,15 @@ class Core {
 		val arrow_rain_epic = ArrowRainEpic
 		val arrow_rain_legend = ArrowRainLegend
 		val arrow_rain_mythic = ArrowRainMythic
+		val dragon_breath_special = DragonBreathSpecial
+
+		//Token
+		val common_token = CommonToken
+		val uncommon_token = UncommonToken
+		val rare_token = RareToken
+		val epic_token = EpicToken
+		val legend_token = LegendToken
+		val mythic_token = MythicToken
 
 		//Accessory
 		val diamond_necklace = DiamondNecklace
@@ -128,26 +143,14 @@ class Core {
 
 		//Attribute
 		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)
-		val SP_SAVING_RATE = AttributeUtils.addAttribute("spSavingRate", 0.0, 0.0, 100.0)
-		val SP_RECOVER_RATE = AttributeUtils.addAttribute("spRecoverRate", 2.0, 2.0, Double.MAX_VALUE)
+		val SP_SAVING_RATE = AttributeUtils.addAttribute("spSavingRate", 0.0, -2147483647.0, 100.0)
+		val SP_RECOVER_RATE = AttributeUtils.addAttribute("spRecoverRate", 1.0, 1.0, Double.MAX_VALUE)
 		val CRITICAL_RATE = AttributeUtils.addAttribute("criticalRate", 0.0, 0.0, 100.0)
 		val CRITICAL_DAMAGE = AttributeUtils.addAttribute("criticalDamage", 0.0, 0.0, Double.MAX_VALUE)
 
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
 		val HEAL_SOUND = SoundHandler.registerSound("heal")
-
-		//Recipe
-		val testRecipe = PedestalRecipe(ItemStack(Items.DIAMOND, 1), arrayOf(
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack.EMPTY,
-				ItemStack(Items.APPLE, 1),
-				ItemStack(Items.APPLE, 1)
-		))
 
 		//Enchantment
 		val toughness = EnchantmentToughness
@@ -158,6 +161,9 @@ class Core {
 		val rapid = EnchantmentRapid
 		val force = EnchantmentForce
 		val wise = EnchantmentWise
+
+		//PotionEffect
+		val potion_no_gravity = PotionNoGravity()
 	}
 
 	@Mod.EventHandler
@@ -169,7 +175,7 @@ class Core {
 	@Mod.EventHandler
 	fun preInitEvent(event: FMLPreInitializationEvent){
 		PacketHandler()
-
+		Recipes
 		if (event.side.isClient){
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			GameRegistry.registerTileEntity(TileEntitySkillWorkbench::class.java, ResourceLocation(ID, "skill_workbench"))
@@ -213,6 +219,11 @@ class Core {
 		repeat(Storage.Enchantments.size) {
 			event.registry.register(Storage.Enchantments[it])
 		}
+	}
+
+	@SubscribeEvent
+	fun registerPotionEffects(event: RegistryEvent.Register<Potion>){
+		event.registry.register(potion_no_gravity)
 	}
 
 	@SubscribeEvent

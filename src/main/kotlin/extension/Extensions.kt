@@ -8,12 +8,14 @@ import kotlinx.coroutines.launch
 import module.ISkillStorable
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
+import kotlin.math.abs
 
 fun ItemStack.getItemSkill(index: Int): ItemSkill?{
 	if (this.tagCompound == null){
@@ -79,7 +81,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val clientThread = Minecraft.getMinecraft()
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if ((getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true) || player.isCreative){
+					if ((getItemSkill(it) != null && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
 						clientThread.addScheduledTask(){
 							getItemSkill(it)?.clientFunction(world, player, hand)
 						}
@@ -91,7 +93,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val serverThread = world as WorldServer
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if (getItemSkill(it) != null && player.getCapability(SPProvider.SP!!, null)?.useSP(getItemSkill(it)?.cost!!) == true){
+					if ((getItemSkill(it) != null && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
 						serverThread.addScheduledTask(){
 							getItemSkill(it)?.serverFunction(world, player, hand)
 						}
@@ -130,4 +132,13 @@ fun ItemStack.removeSkill(): ItemStack{
 	} else {
 		ItemStack.EMPTY
 	}
+}
+
+fun EntityPlayer.useSP(amount: Int): Boolean{
+	val consume = if (this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue <= 0){
+		amount * (abs(this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue) / 100 + 1)
+	} else {
+		amount * (this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue / 100)
+	}
+	return this.getCapability(SPProvider.SP!!, null)!!.useSP(consume.toInt())
 }

@@ -1,5 +1,7 @@
 package recipe
 
+import net.minecraft.init.Items
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import utils.Storage
 
@@ -7,6 +9,9 @@ class PedestalRecipe(private val output: ItemStack, private val input: Array<Ite
 	init {
 		Storage.Recipes.add(this)
 	}
+
+	constructor(output: Item, in1: Item, in2: Item, in3: Item, in4: Item, in5: Item, in6: Item, in7: Item, in8: Item)
+			: this(ItemStack(output), arrayOf(ItemStack(in1), ItemStack(in2), ItemStack(in3), ItemStack(in4), ItemStack(in5), ItemStack(in6), ItemStack(in7), ItemStack(in8)))
 
 	fun getIngredients(): Array<ItemStack>{
 		return input

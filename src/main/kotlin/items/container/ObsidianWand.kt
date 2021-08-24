@@ -12,9 +12,9 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
+object ObsidianWand: RootItem("obsidian_wand", IItemRarity.MYTHIC), ISkillStorable {
 	override fun getSkillCapacity(): Int {
-		return 1
+		return 6
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {

@@ -1,0 +1,72 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "enchanted-rpg:items/iron_wand/wand",
+    "1": "enchanted-rpg:items/iron_wand/head",
+    "particle": "block/wand"
+  },
+  "elements": [
+    {
+      "from": [7, 3, 8],
+      "to": [8, 17, 9],
+      "faces": {
+        "north": {"uv": [0, 0, 1, 14], "texture": "#0"},
+        "east": {"uv": [3, 0, 4, 14], "texture": "#0"},
+        "south": {"uv": [1, 0, 2, 14], "texture": "#0"},
+        "west": {"uv": [2, 0, 3, 14], "texture": "#0"},
+        "up": {"uv": [0, 0, 1, 1], "texture": "#0"},
+        "down": {"uv": [0, 0, 1, 1], "texture": "#0"}
+      }
+    },
+    {
+      "from": [6.75, 2, 7.75],
+      "to": [8.25, 3, 9.25],
+      "faces": {
+        "north": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "east": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "south": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "west": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "up": {"uv": [0, 0, 1.5, 1.5], "texture": "#1"},
+        "down": {"uv": [0, 0, 1.5, 1.5], "texture": "#1"}
+      }
+    },
+    {
+      "from": [6.75, 17, 7.75],
+      "to": [8.25, 18, 9.25],
+      "faces": {
+        "north": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "east": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "south": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "west": {"uv": [0, 0, 1.5, 1], "texture": "#1"},
+        "up": {"uv": [0, 0, 1.5, 1.5], "texture": "#1"},
+        "down": {"uv": [0, 0, 1.5, 1.5], "texture": "#1"}
+      }
+    }
+  ],
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [-45, 0, 0]
+    },
+    "firstperson_lefthand": {
+      "rotation": [-45, 0, 0]
+    },
+    "ground": {
+      "scale": [0.7, 0.7, 0.7]
+    },
+    "gui": {
+      "rotation": [0, 0, 45],
+      "translation": [1.25, -0.75, 0]
+    },
+    "fixed": {
+      "rotation": [0, 0, -45],
+      "translation": [-1, -1.5, -1.5]
+    }
+  },
+  "groups": [
+    {
+      "name": "group",
+      "origin": [0, 0, 0],
+      "children": [0, 1, 2]
+    }
+  ]
+}

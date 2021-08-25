@@ -14,5 +14,13 @@
       "stream": false
     }
     ]
+  },
+  "rage": {
+    "category" : "player",
+    "sounds": [{
+      "name": "enchanted-rpg:rage",
+      "stream": false
+    }
+    ]
   }
 }

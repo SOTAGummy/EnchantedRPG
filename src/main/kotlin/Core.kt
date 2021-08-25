@@ -125,6 +125,12 @@ class Core {
 		val arrow_rain_epic = ArrowRainEpic
 		val arrow_rain_legend = ArrowRainLegend
 		val arrow_rain_mythic = ArrowRainMythic
+		val rage_common = RageCommon
+		val rage_uncommon = RageUncommon
+		val rage_rare = RageRare
+		val rage_epic = RageEpic
+		val rage_legend = RageLegend
+		val rage_mythic = RageMythic
 		val dragon_breath_special = DragonBreathSpecial
 
 		//Token
@@ -151,6 +157,7 @@ class Core {
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
 		val HEAL_SOUND = SoundHandler.registerSound("heal")
+		val RAGE_SOUND = SoundHandler.registerSound("rage")
 
 		//Enchantment
 		val toughness = EnchantmentToughness

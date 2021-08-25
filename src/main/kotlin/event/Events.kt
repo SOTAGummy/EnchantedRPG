@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.boss.EntityDragon
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.entity.monster.*
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
@@ -173,6 +174,26 @@ class Events {
 	fun onDropEvent(event: LivingDropsEvent){
 		if (event.entityLiving is EntityDragon){
 			event.drops.add(EntityItem(event.entityLiving.world, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, ItemStack(Core.dragon_breath_special)))
+		}
+
+		if (event.source.trueSource is EntityPlayer && event.entityLiving.isNonBoss && event.entityLiving is IMob){
+			println("dropChance")
+			val entity = event.entityLiving
+			val commonWeight = 25 + event.lootingLevel
+			val uncommonWeight = 10 + event.lootingLevel
+			val rareWeight = 5 + event.lootingLevel
+			var dropChance = Random.nextInt(0, 500)
+			if (dropChance < rareWeight){
+				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.rare_token)))
+			}
+			dropChance -= rareWeight
+			if (dropChance in 1 until uncommonWeight){
+				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.uncommon_token)))
+			}
+			dropChance -= uncommonWeight
+			if (dropChance in 1 until commonWeight){
+				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.common_token)))
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@ package items.skill
 import enum.IItemRarity
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EnumHand
@@ -13,6 +14,6 @@ object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.addPotionEffect(PotionEffect(Core.potion_no_gravity, 60))
+		println(Blocks.CRAFTING_TABLE)
 	}
 }

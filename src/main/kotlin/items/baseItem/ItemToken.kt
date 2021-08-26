@@ -9,7 +9,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import kotlin.random.Random
 
-open class ItemToken(name: String, rarity: IItemRarity): RootItem(name, rarity){
+abstract class ItemToken(name: String, rarity: IItemRarity): RootItem(name, rarity){
 	override fun onItemRightClick(world: World, player: EntityPlayer, handIn: EnumHand): ActionResult<ItemStack> {
 		if (this.rarity.skills.isNotEmpty()) {
 			val random = Random.nextInt(this.rarity.skills.size)

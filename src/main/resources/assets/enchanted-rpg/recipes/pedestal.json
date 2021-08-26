@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " X ",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:cobblestone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:pedestal",
+    "data": 0,
+    "count": 1
+  }
+}

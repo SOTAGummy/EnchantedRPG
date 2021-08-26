@@ -1,26 +1,26 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XZZ",
+    "XXX",
     "ZYZ",
-    "ZZX"
+    "ZZZ"
   ],
   "key": {
     "X": {
-      "item": "minecraft:cobblestone",
+      "item": "enchanted-rpg:enchanted_dust",
       "data": 0
     },
     "Y": {
-      "item": "minecraft:stick",
+      "item": "minecraft:crafting_table",
       "data": 0
     },
     "Z": {
-      "item": "enchanted-rpg:enchanted_dust",
+      "item": "minecraft:obsidian",
       "data": 0
     }
   },
   "result": {
-    "item": "enchanted-rpg:stone_wand",
+    "item": "enchanted-rpg:skill_workbench",
     "data": 0,
     "count": 1
   }

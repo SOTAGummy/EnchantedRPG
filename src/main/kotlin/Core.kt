@@ -131,6 +131,24 @@ class Core {
 		val rage_epic = RageEpic
 		val rage_legend = RageLegend
 		val rage_mythic = RageMythic
+		val berserk_common = BerserkCommon
+		val berserk_uncommon = BerserkUncommon
+		val berserk_rare = BerserkRare
+		val berserk_epic = BerserkEpic
+		val berserk_legend = BerserkLegend
+		val berserk_mythic = BerserkMythic
+		val black_hole_common = BlackHoleCommon
+		val black_hole_uncommon = BlackHoleUncommon
+		val black_hole_rare = BlackHoleRare
+		val black_hole_epic = BlackHoleEpic
+		val black_hole_legend = BlackHoleLegend
+		val black_hole_mythic = BlackHoleMythic
+		val cure_common = CureCommon
+		val cure_uncommon = CureUncommon
+		val cure_rare = CureRare
+		val cure_epic = CureEpic
+		val cure_legend = CureLegend
+		val cure_mythic = CureMythic
 		val dragon_breath_special = DragonBreathSpecial
 
 		//Token
@@ -182,7 +200,7 @@ class Core {
 	@Mod.EventHandler
 	fun preInitEvent(event: FMLPreInitializationEvent){
 		PacketHandler()
-		Recipes
+
 		if (event.side.isClient){
 			GameRegistry.registerTileEntity(TileEntityPedestal::class.java, ResourceLocation(ID, "pedestal"))
 			GameRegistry.registerTileEntity(TileEntitySkillWorkbench::class.java, ResourceLocation(ID, "skill_workbench"))
@@ -203,7 +221,7 @@ class Core {
 
 	@Mod.EventHandler
 	fun postInitEvent(event: FMLPostInitializationEvent){
-
+		Recipes
 	}
 
 	@SubscribeEvent

@@ -19,7 +19,9 @@ object DragonBreathSpecial: ItemSkill("dragon_breath_special", 100, IItemRarity.
 		val vecX = -sin(Math.toRadians(player.rotationYaw.toDouble())) * cos(Math.toRadians(player.rotationPitch.toDouble()))
 		val vecZ = cos(Math.toRadians(player.rotationYaw.toDouble())) * cos(Math.toRadians(player.rotationPitch.toDouble()))
 		val vecY = -sin(Math.toRadians(player.rotationPitch.toDouble()))
-		val entity = EntityDragonFireball(world, player, vecX, vecY, vecZ)
+		val entity = EntityDragonFireball(world, player.posX, player.posY + 1, player.posZ, vecX, vecY, vecZ)
+		entity.shootingEntity = player
+		entity.setLocationAndAngles(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch)
 		world.spawnEntity(entity)
 	}
 }

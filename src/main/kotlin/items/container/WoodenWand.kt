@@ -1,12 +1,16 @@
 package items.container
 
+import com.google.common.collect.Multimap
 import enum.IItemRarity
 import extension.call
 import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
+import net.minecraft.item.ItemSword
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
@@ -27,5 +31,12 @@ object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
 
 	override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
 		addToolTip(stack, tooltip)
+	}
+
+	override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier> {
+		val multimap = super.getAttributeModifiers(slot, stack)
+		if (slot == EntityEquipmentSlot.MAINHAND)
+		multimap.put(Core.SP_SAVING_RATE.name, AttributeModifier(SKILL_CONTAINER_MODIFIER, "save", 10.0, 0))
+		return multimap
 	}
 }

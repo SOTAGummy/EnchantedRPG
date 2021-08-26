@@ -135,10 +135,6 @@ fun ItemStack.removeSkill(): ItemStack{
 }
 
 fun EntityPlayer.useSP(amount: Int): Boolean{
-	val consume = if (this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue <= 0){
-		amount * (abs(this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue) / 100 + 1)
-	} else {
-		amount * (this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue / 100)
-	}
+	val consume = amount * ((-1 * this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue + 100) / 100)
 	return this.getCapability(SPProvider.SP!!, null)!!.useSP(consume.toInt())
 }

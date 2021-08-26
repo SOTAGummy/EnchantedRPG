@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import utils.Storage
 import java.io.File
+import java.util.*
 
 abstract class RootItem(name: String, val rarity: IItemRarity): Item(){
 	init {
@@ -36,6 +37,10 @@ abstract class RootItem(name: String, val rarity: IItemRarity): Item(){
 					"}")
 		}
 
+	}
+
+	companion object{
+		val SKILL_CONTAINER_MODIFIER: UUID = UUID.fromString("a5abf643-c02d-48a3-880d-445a034179cc")
 	}
 
 	override fun getItemStackDisplayName(stack: ItemStack): String {

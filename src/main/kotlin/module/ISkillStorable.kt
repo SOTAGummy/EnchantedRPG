@@ -6,6 +6,7 @@ import net.minecraft.item.Item.getItemById
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
+import java.util.*
 
 interface ISkillStorable{
 	fun getSkillCapacity(): Int

@@ -3,24 +3,20 @@ package items.skill
 import enum.IItemRarity
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
-import net.minecraft.init.Items
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
+import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
-import recipe.PedestalRecipe
-import recipe.Recipes
 
-object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
+object BerserkUncommon: ItemSkill("berserk_uncommon", 60, IItemRarity.UNCOMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		Recipes.registerSkillRecipes("heal")
+
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-
+		player.attackEntityFrom(DamageSource.causePlayerDamage(player), player.health / 2)
+		player.addPotionEffect(PotionEffect(Potion.getPotionById(1)!!, 300, 0))
+		player.addPotionEffect(PotionEffect(Potion.getPotionById(5)!!, 300, 1))
 	}
 }

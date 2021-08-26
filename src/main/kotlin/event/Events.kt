@@ -177,7 +177,6 @@ class Events {
 		}
 
 		if (event.source.trueSource is EntityPlayer && event.entityLiving.isNonBoss && event.entityLiving is IMob){
-			println("dropChance")
 			val entity = event.entityLiving
 			val commonWeight = 25 + event.lootingLevel
 			val uncommonWeight = 10 + event.lootingLevel

@@ -58,7 +58,7 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 	}
 
 	override fun getMinEnchantability(enchantmentLevel: Int): Int {
-		return 30
+		return 1
 	}
 
 	fun getUUID(slot: EntityEquipmentSlot): UUID {

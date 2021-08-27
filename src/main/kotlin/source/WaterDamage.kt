@@ -1,6 +1,6 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class WaterDamage(player: EntityPlayer): CustomDamageSource("water", player) {
+class WaterDamage(entity: Entity): CustomDamageSource("water", entity) {
 }

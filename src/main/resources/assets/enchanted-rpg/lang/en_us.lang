@@ -99,6 +99,13 @@ attribute.name.enchanted-rpg.spSavingRate=SPSavingRate
 attribute.name.enchanted-rpg.spRecoverRate=SPRecoverRate
 attribute.name.enchanted-rpg.criticalRate=CriticalRate
 attribute.name.enchanted-rpg.criticalDamage=CriticalDamage
+#Potion
+potion.burning.name=Burning
+potion.frozen.name=Frozen
+potion.paralysis.name=Paralysis
+potion.muddy.name=Muddy
+potion.electric_shock.name=ElectricShock
+potion.flooded.name=Flooded
 #EquipmentSlot
 item.modifiers.necklace=When equipped
 item.modifiers.amulet=When equipped

@@ -51,7 +51,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
-import potion.PotionNoGravity
+import potion.*
 import proxy.CommonProxy
 import recipe.Recipes
 import sound.SoundHandler
@@ -200,7 +200,14 @@ class Core {
 		val wise = EnchantmentWise
 
 		//PotionEffect
-		val potion_no_gravity = PotionNoGravity()
+		val burning = PotionBurning()
+		val electric_shock = PotionElectricShock()
+		val flooded = PotionFlooded()
+		val frozen = PotionFrozen()
+		val muddy = PotionMuddy()
+		val paralysis = PotionParalysis()
+		val no_gravity = PotionNoGravity()
+		val sp_boost = PotionSPBoost()
 	}
 
 	@Mod.EventHandler
@@ -260,7 +267,9 @@ class Core {
 
 	@SubscribeEvent
 	fun registerPotionEffects(event: RegistryEvent.Register<Potion>){
-		event.registry.register(potion_no_gravity)
+		repeat(Storage.Potions.size){
+			event.registry.register(Storage.Potions[it])
+		}
 	}
 
 	@SubscribeEvent

@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
@@ -41,9 +42,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
 import packet.PacketSP
-import source.CriticalDamageSource
+import source.*
 import utils.Storage
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class Events {
 	private val accessorySlots = arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)
@@ -167,6 +169,72 @@ class Events {
 
 		if (event.source.damageType == "indirectMagic" && event.source.trueSource is EntityPlayer && event.entityLiving == event.source.trueSource){
 			event.isCanceled = true
+		}
+
+		if (event.source.trueSource != null){
+			when(event.source.damageType){
+				"lightning" -> {
+					if (event.entityLiving.isPotionActive(Core.electric_shock)){
+						event.entityLiving.attackEntityFrom(AdditionalLightningDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.electric_shock, 60, 0))
+						}
+					}
+				}
+				"earthen" -> {
+					if (event.entityLiving.isPotionActive(Core.muddy)){
+						event.entityLiving.attackEntityFrom(AdditionalEarthenDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.muddy, 60, 0))
+						}
+					}
+				}
+				"water" -> {
+					if (event.entityLiving.isPotionActive(Core.flooded)){
+						event.entityLiving.attackEntityFrom(AdditionalWaterDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.flooded, 60, 0))
+						}
+					}
+				}
+				"fire" -> {
+					if (event.entityLiving.isPotionActive(Core.burning)){
+						event.entityLiving.attackEntityFrom(AdditionalFireDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.burning, 60, 0))
+						}
+					}
+				}
+				"wind" -> {
+					if (event.entityLiving.isPotionActive(Core.paralysis)){
+						event.entityLiving.attackEntityFrom(AdditionalWindDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.paralysis, 60, 0))
+						}
+					}
+				}
+				"ice" -> {
+					if (event.entityLiving.isPotionActive(Core.frozen)){
+						event.entityLiving.attackEntityFrom(AdditionalIceDamage(event.source.trueSource!!), event.amount)
+					} else {
+						val chance = Random.nextInt(100)
+						if (chance < 30){
+							event.entityLiving.addPotionEffect(PotionEffect(Core.frozen, 60, 0))
+						}
+					}
+				}
+				else -> {}
+			}
 		}
 	}
 

@@ -1,5 +1,5 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class CriticalDamageSource(player: EntityPlayer): CustomDamageSource("critical", player){}
+class CriticalDamageSource(entity: Entity): CustomDamageSource("critical", entity){}

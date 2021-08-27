@@ -1,6 +1,6 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class EarthenDamage(player: EntityPlayer): CustomDamageSource("earthen", player){
+class EarthenDamage(entity: Entity): CustomDamageSource("earthen", entity){
 }

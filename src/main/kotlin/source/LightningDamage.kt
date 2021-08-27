@@ -1,6 +1,6 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class LightningDamage(player: EntityPlayer): CustomDamageSource("lightning", player){
+class LightningDamage(entity: Entity): CustomDamageSource("lightning", entity){
 }

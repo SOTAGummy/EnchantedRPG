@@ -1,6 +1,7 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class IceDamage(player: EntityPlayer): CustomDamageSource("ice", player){
+class IceDamage(entity: Entity): CustomDamageSource("ice", entity){
+
 }

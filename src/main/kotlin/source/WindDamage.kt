@@ -1,6 +1,6 @@
 package source
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.Entity
 
-class WindDamage(player: EntityPlayer): CustomDamageSource("wind", player){
+class WindDamage(entity: Entity): CustomDamageSource("wind", entity){
 }

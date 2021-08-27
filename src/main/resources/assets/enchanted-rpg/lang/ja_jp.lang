@@ -99,6 +99,13 @@ attribute.name.enchanted-rpg.spSavingRate=SP節約率
 attribute.name.enchanted-rpg.spRecoverRate=自然SP回復率
 attribute.name.enchanted-rpg.criticalRate=会心率
 attribute.name.enchanted-rpg.criticalDamage=会心ダメージ
+#ポーション
+potion.burning.name=火傷
+potion.frozen.name=凍結
+potion.paralysis.name=麻痺
+potion.muddy.name=泥だらけ
+potion.electric_shock.name=感電
+potion.flooded.name=水浸し
 #装備欄
 item.modifiers.necklace=装備したとき
 item.modifiers.amulet=装備したとき

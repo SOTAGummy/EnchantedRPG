@@ -2,30 +2,27 @@ package items.skill
 
 import enum.IItemRarity
 import items.baseItem.ItemSkill
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
-import net.minecraft.world.WorldServer
+import source.WindDamage
 import kotlin.math.sqrt
 
-object BlackHoleCommon: ItemSkill("black_hole_common", 70, IItemRarity.COMMON){
+object BlowCommon: ItemSkill("blow_common", 40, IItemRarity.COMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val entityList = world.loadedEntityList
-		val ray = player.rayTrace(15.0, 0F)?.blockPos!!
-		(world as WorldServer).addScheduledTask() {
-			repeat(entityList.size) {
+		val playerX = player.posX
+		val playerZ = player.posZ
+		repeat(entityList.size){
+			if (sqrt(entityList[it].getDistanceSqToCenter(player.position)) <= 9.0) {
 				val posX = entityList[it].posX
-				val posY = entityList[it].posY
 				val posZ = entityList[it].posZ
-				if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 3.0) {
-					entityList[it].addVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
-				}
+				entityList[it].addVelocity(posX - playerX, 0.8, posZ - playerZ)
+				entityList[it].attackEntityFrom(WindDamage(player), 2F)
 			}
 		}
 	}

@@ -149,6 +149,18 @@ class Core {
 		val cure_epic = CureEpic
 		val cure_legend = CureLegend
 		val cure_mythic = CureMythic
+		val blow_common = BlowCommon
+		val blow_uncommon = BlowUncommon
+		val blow_rare = BlowRare
+		val blow_epic = BlowEpic
+		val blow_legend = BlowLegend
+		val blow_mythic = BlowMythic
+		val lightning_common = LightningCommon
+		val lightning_uncommon = LightningUncommon
+		val lightning_rare = LightningRare
+		val lightning_epic = LightningEpic
+		val lightning_legend = LightningLegend
+		val lightning_mythic = LightningMythic
 		val dragon_breath_special = DragonBreathSpecial
 
 		//Token

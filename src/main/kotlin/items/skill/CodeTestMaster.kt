@@ -17,10 +17,18 @@ import recipe.Recipes
 
 object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		Recipes.registerSkillRecipes("heal")
+		repeat(world.loadedEntityList.size){
+			if (world.loadedEntityList[it] == player){
+				println(123)
+			}
+		}
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-
+		repeat(world.loadedEntityList.size){
+			if (world.loadedEntityList[it] == player){
+				println(123)
+			}
+		}
 	}
 }

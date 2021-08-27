@@ -152,7 +152,7 @@ class Events {
 
 	@SubscribeEvent
 	fun onAttackEvent(event: LivingAttackEvent){
-		if (event.source.damageType == "player"){
+		if (event.source.damageType == "player" || event.source.trueSource is EntityPlayer){
 			val player = event.source.trueSource as EntityPlayer
 			val entity = event.entityLiving
 			if (player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue != 0.0){

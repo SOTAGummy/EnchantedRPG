@@ -26,7 +26,7 @@ object BlackHoleLegend: ItemSkill("black_hole_legend", 110, IItemRarity.LEGEND){
 						val posX = entityList[it].posX
 						val posY = entityList[it].posY
 						val posZ = entityList[it].posZ
-						if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 4.5){
+						if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 10.0){
 							entityList[it].addVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
 						}
 					}

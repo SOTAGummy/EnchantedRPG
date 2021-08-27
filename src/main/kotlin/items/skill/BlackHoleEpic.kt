@@ -26,7 +26,7 @@ object BlackHoleEpic: ItemSkill("black_hole_epic", 100, IItemRarity.EPIC){
 						val posX = entityList[it].posX
 						val posY = entityList[it].posY
 						val posZ = entityList[it].posZ
-						if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 4.0){
+						if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 7.5){
 							entityList[it].addVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
 						}
 					}

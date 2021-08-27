@@ -21,6 +21,8 @@ object Recipes {
 		registerSkillRecipes("berserk")
 		registerSkillRecipes("black_hole")
 		registerSkillRecipes("cure")
+		registerSkillRecipes("blow")
+		registerSkillRecipes("lightning")
 
 		PedestalRecipe(Core.dragon_breath_special, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}

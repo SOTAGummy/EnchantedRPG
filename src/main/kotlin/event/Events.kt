@@ -4,14 +4,22 @@ import Core
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import capability.sp.SPProvider
+import extension.renderDamage
 import gui.accessory.button.AccessoryButton
 import gui.mp.MPIndicator
+import gui.skillList.SkillListIndicator
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.Sound
 import net.minecraft.client.gui.inventory.GuiInventory
+import net.minecraft.client.resources.I18n
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.boss.EntityDragon
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.*
 import net.minecraft.entity.player.EntityPlayer
@@ -24,8 +32,11 @@ import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.*
+import net.minecraft.world.WorldServer
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.client.event.RenderLivingEvent
 import net.minecraftforge.common.util.Constants
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
@@ -44,6 +55,9 @@ import packet.PacketHandler
 import packet.PacketSP
 import source.*
 import utils.Storage
+import java.awt.Color
+import java.awt.TextComponent
+import kotlin.math.max
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -76,6 +90,7 @@ class Events {
 			var correction = 0
 			if (event.type == RenderGameOverlayEvent.ElementType.AIR) correction = 8
 			MPIndicator(mc, correction)
+			SkillListIndicator(mc)
 		}
 	}
 
@@ -154,86 +169,81 @@ class Events {
 
 	@SubscribeEvent
 	fun onAttackEvent(event: LivingAttackEvent){
-		if (event.source.damageType == "player" || event.source.trueSource is EntityPlayer){
-			val player = event.source.trueSource as EntityPlayer
-			val entity = event.entityLiving
-			if (player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue != 0.0){
-				val chance = Random.nextDouble(100.0)
-				if (chance < player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue){
-					Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, entity.posX, entity.posY + 1, entity.posZ, 0.0, 1.0, 0.0)
-					val damage = player.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat() * event.amount
-					entity.attackEntityFrom(CriticalDamageSource(player), damage)
+		if (!event.entityLiving.world.isRemote){
+			if (event.source.damageType == "player" || event.source.trueSource is EntityPlayer){
+				val player = event.source.trueSource as EntityPlayer
+				val entity = event.entityLiving
+				if (player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue != 0.0){
+					val chance = Random.nextDouble(100.0)
+					if (chance < player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue){
+						Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, entity.posX, entity.posY + 1, entity.posZ, 0.0, 1.0, 0.0)
+						val damage = player.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat() * event.amount
+						entity.attackEntityFrom(CriticalDamageSource(player), damage)
+						entity.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_PURPLE)
+					} else {
+						entity.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
+					}
+				} else {
+					entity.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
 				}
 			}
 		}
-
 		if (event.source.damageType == "indirectMagic" && event.source.trueSource is EntityPlayer && event.entityLiving == event.source.trueSource){
 			event.isCanceled = true
 		}
 
-		if (event.source.trueSource != null){
+		if (event.source.trueSource is EntityPlayer){
+			val player = event.source.trueSource as EntityPlayer
+			val damage = player.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat() * event.amount
 			when(event.source.damageType){
 				"lightning" -> {
 					if (event.entityLiving.isPotionActive(Core.electric_shock)){
-						event.entityLiving.attackEntityFrom(AdditionalLightningDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.YELLOW)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.electric_shock, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.YELLOW)
 					}
 				}
 				"earthen" -> {
 					if (event.entityLiving.isPotionActive(Core.muddy)){
-						event.entityLiving.attackEntityFrom(AdditionalEarthenDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.GOLD)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.muddy, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.GOLD)
 					}
 				}
 				"water" -> {
 					if (event.entityLiving.isPotionActive(Core.flooded)){
-						event.entityLiving.attackEntityFrom(AdditionalWaterDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_BLUE)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.flooded, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_BLUE)
 					}
 				}
 				"fire" -> {
 					if (event.entityLiving.isPotionActive(Core.burning)){
-						event.entityLiving.attackEntityFrom(AdditionalFireDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.RED)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.burning, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.RED)
 					}
 				}
 				"wind" -> {
 					if (event.entityLiving.isPotionActive(Core.paralysis)){
-						event.entityLiving.attackEntityFrom(AdditionalWindDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_GREEN)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.paralysis, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_GREEN)
 					}
 				}
 				"ice" -> {
 					if (event.entityLiving.isPotionActive(Core.frozen)){
-						event.entityLiving.attackEntityFrom(AdditionalIceDamage(event.source.trueSource!!), event.amount)
+						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
+						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.BLUE)
 					} else {
-						val chance = Random.nextInt(100)
-						if (chance < 30){
-							event.entityLiving.addPotionEffect(PotionEffect(Core.frozen, 60, 0))
-						}
+						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.BLUE)
 					}
 				}
-				else -> {}
 			}
 		}
 	}

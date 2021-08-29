@@ -1,13 +1,18 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
+import source.EarthenDamage
+import source.LightningDamage
 import kotlin.math.sqrt
 
 object BlackHoleCommon: ItemSkill("black_hole_common", 70, IItemRarity.COMMON){
@@ -16,16 +21,20 @@ object BlackHoleCommon: ItemSkill("black_hole_common", 70, IItemRarity.COMMON){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		val entityList = world.loadedEntityList
 		val ray = player.rayTrace(15.0, 0F)?.blockPos!!
-		(world as WorldServer).addScheduledTask() {
-			repeat(entityList.size) {
-				val posX = entityList[it].posX
-				val posY = entityList[it].posY
-				val posZ = entityList[it].posZ
-				if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 3.0) {
-					entityList[it].addVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
+		GlobalScope.launch {
+			repeat(10){
+				(world as WorldServer).addScheduledTask(){
+					val entityList = world.getLivingEntitiesInArea(ray, 10)
+					repeat(entityList.size){
+						val posX = entityList[it].posX
+						val posY = entityList[it].posY
+						val posZ = entityList[it].posZ
+						entityList[it].setVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
+						entityList[it].attackEntityFrom(EarthenDamage(player), 1F)
+					}
 				}
+				delay(100)
 			}
 		}
 	}

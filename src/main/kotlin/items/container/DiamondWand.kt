@@ -15,9 +15,9 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object DiamondWand: RootItem("diamond_wand", IItemRarity.EPIC), ISkillStorable {
+object DiamondWand: RootItem("diamond_wand", IItemRarity.LEGEND), ISkillStorable {
 	override fun getSkillCapacity(): Int {
-		return 4
+		return 5
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {

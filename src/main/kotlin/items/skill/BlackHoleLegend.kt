@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
+import source.EarthenDamage
 import kotlin.math.sqrt
 
 object BlackHoleLegend: ItemSkill("black_hole_legend", 110, IItemRarity.LEGEND){
@@ -17,21 +19,20 @@ object BlackHoleLegend: ItemSkill("black_hole_legend", 110, IItemRarity.LEGEND){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		val entityList = world.loadedEntityList
 		val ray = player.rayTrace(15.0, 0F)?.blockPos!!
 		GlobalScope.launch {
-			repeat(5){
-				(world as WorldServer).addScheduledTask(){
-					repeat(entityList.size){
+			repeat(50) {
+				(world as WorldServer).addScheduledTask() {
+					val entityList = world.getLivingEntitiesInArea(ray, 10)
+					repeat(entityList.size) {
 						val posX = entityList[it].posX
 						val posY = entityList[it].posY
 						val posZ = entityList[it].posZ
-						if (sqrt(entityList[it].getDistanceSqToCenter(ray)) <= 10.0){
-							entityList[it].addVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
-						}
+						entityList[it].setVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
+						entityList[it].attackEntityFrom(EarthenDamage(player), 1F)
 					}
 				}
-				delay(1000)
+				delay(100)
 			}
 		}
 	}

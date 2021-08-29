@@ -30,6 +30,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.EnumHelperClient
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
@@ -161,6 +162,12 @@ class Core {
 		val lightning_epic = LightningEpic
 		val lightning_legend = LightningLegend
 		val lightning_mythic = LightningMythic
+		val explosion_common = ExplosionCommon
+		val explosion_uncommon = ExplosionUncommon
+		val explosion_rare = ExplosionRare
+		val explosion_epic = ExplosionEpic
+		val explosion_legend = ExplosionLegend
+		val explosion_mythic = ExplosionMythic
 		val dragon_breath_special = DragonBreathSpecial
 
 		//Token

@@ -7,12 +7,18 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import module.ISkillStorable
 import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.I18n
+import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import kotlin.math.abs
@@ -69,7 +75,11 @@ fun ItemStack.canAddItemSkill(): Boolean{
 
 fun ItemStack.getSkillCapacity(): Int{
 	return if (this.item is ISkillStorable){
-		(this.item as ISkillStorable).getSkillCapacity()
+		return if ((this.item as ISkillStorable).getSkillCapacity() <= 8){
+			(this.item as ISkillStorable).getSkillCapacity()
+		} else {
+			8
+		}
 	} else {
 		0
 	}
@@ -137,4 +147,33 @@ fun ItemStack.removeSkill(): ItemStack{
 fun EntityPlayer.useSP(amount: Int): Boolean{
 	val consume = amount * ((-1 * this.getEntityAttribute(Core.SP_SAVING_RATE).attributeValue + 100) / 100)
 	return this.getCapability(SPProvider.SP!!, null)!!.useSP(consume.toInt())
+}
+
+fun EntityLivingBase.renderDamage(damage: Int, color: TextFormatting){
+	val renderDamage = object: EntityArmorStand(this.world, this.posX, this.posY, this.posZ){
+		var time = 0
+
+		override fun onUpdate() {
+			time++
+			if (time == 20){
+				this.setDead()
+			}
+		}
+	}
+	renderDamage.isInvisible = true
+	renderDamage.customNameTag = "${TextFormatting.BOLD}${color}${I18n.format((damage.toString()))}"
+	renderDamage.alwaysRenderNameTag = true
+	this.world.spawnEntity(renderDamage)
+}
+
+
+fun World.getLivingEntitiesInArea(pos: BlockPos, distance: Int): ArrayList<EntityLiving>{
+	val array = arrayListOf<EntityLiving>()
+	val entities = this.loadedEntityList
+	repeat(entities.size){
+		if (entities[it] is EntityLiving && entities[it].getDistance(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()) <= distance && entities[it] !is EntityPlayer){
+			array.add(entities[it] as EntityLiving)
+		}
+	}
+	return array
 }

@@ -15,9 +15,9 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object EmeraldWand: RootItem("emerald_wand", IItemRarity.LEGEND), ISkillStorable {
+object EmeraldWand: RootItem("emerald_wand", IItemRarity.MYTHIC), ISkillStorable {
 	override fun getSkillCapacity(): Int {
-		return 5
+		return 6
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
@@ -35,7 +35,7 @@ object EmeraldWand: RootItem("emerald_wand", IItemRarity.LEGEND), ISkillStorable
 	override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == EntityEquipmentSlot.MAINHAND)
-		multimap.put(Core.SP_SAVING_RATE.name, AttributeModifier(SKILL_CONTAINER_MODIFIER, "save", 10.0, 0))
+		multimap.put(Core.SP_SAVING_RATE.name, AttributeModifier(SKILL_CONTAINER_MODIFIER, "save", 20.0, 0))
 		return multimap
 	}
 }

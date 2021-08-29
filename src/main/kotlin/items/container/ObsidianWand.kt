@@ -15,9 +15,9 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object ObsidianWand: RootItem("obsidian_wand", IItemRarity.MYTHIC), ISkillStorable {
+object ObsidianWand: RootItem("obsidian_wand", IItemRarity.EPIC), ISkillStorable {
 	override fun getSkillCapacity(): Int {
-		return 6
+		return 4
 	}
 
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
@@ -35,7 +35,7 @@ object ObsidianWand: RootItem("obsidian_wand", IItemRarity.MYTHIC), ISkillStorab
 	override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier> {
 		val multimap = super.getAttributeModifiers(slot, stack)
 		if (slot == EntityEquipmentSlot.MAINHAND)
-		multimap.put(Core.SP_SAVING_RATE.name, AttributeModifier(SKILL_CONTAINER_MODIFIER, "save", 20.0, 0))
+		multimap.put(Core.SP_SAVING_RATE.name, AttributeModifier(SKILL_CONTAINER_MODIFIER, "save", 10.0, 0))
 		return multimap
 	}
 }

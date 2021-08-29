@@ -25,4 +25,14 @@ object CureEpic: ItemSkill("cure_epic", 25, IItemRarity.EPIC){
 			}
 		}
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		val potions = arrayListOf<Potion>()
+		repeat(player.activePotionEffects.size){
+			if (player.activePotionEffects.toList()[it].potion.isBadEffect){
+				potions.add(player.activePotionEffects.toList()[it].potion)
+			}
+		}
+		return potions.isNotEmpty()
+	}
 }

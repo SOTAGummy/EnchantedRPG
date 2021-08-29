@@ -23,4 +23,14 @@ object CureCommon: ItemSkill("cure_common", 10, IItemRarity.COMMON){
 			player.removePotionEffect(potions[0])
 		}
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		val potions = arrayListOf<Potion>()
+		repeat(player.activePotionEffects.size){
+			if (player.activePotionEffects.toList()[it].potion.isBadEffect){
+				potions.add(player.activePotionEffects.toList()[it].potion)
+			}
+		}
+		return potions.isNotEmpty()
+	}
 }

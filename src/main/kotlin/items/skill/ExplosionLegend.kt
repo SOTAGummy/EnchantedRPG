@@ -18,4 +18,8 @@ object ExplosionLegend: ItemSkill("explosion_legend", 75, IItemRarity.LEGEND){
 			world.createExplosion(player, entity[it].posX, entity[it].posY, entity[it].posZ, 3F, false)
 		}
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return world.getLivingEntitiesInArea(player.position, 15).isNotEmpty()
+	}
 }

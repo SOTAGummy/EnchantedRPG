@@ -18,10 +18,12 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import kotlin.math.abs
+import kotlin.random.Random
 
 fun ItemStack.getItemSkill(index: Int): ItemSkill?{
 	if (this.tagCompound == null){
@@ -91,7 +93,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val clientThread = Minecraft.getMinecraft()
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if ((getItemSkill(it) != null && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
+					if ((getItemSkill(it) != null && getItemSkill(it)!!.canCall(world, player, hand) && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
 						clientThread.addScheduledTask(){
 							getItemSkill(it)?.clientFunction(world, player, hand)
 						}
@@ -103,7 +105,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val serverThread = world as WorldServer
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if ((getItemSkill(it) != null && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
+					if ((getItemSkill(it) != null && getItemSkill(it)!!.canCall(world, player, hand) && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
 						serverThread.addScheduledTask(){
 							getItemSkill(it)?.serverFunction(world, player, hand)
 						}
@@ -150,7 +152,9 @@ fun EntityPlayer.useSP(amount: Int): Boolean{
 }
 
 fun EntityLivingBase.renderDamage(damage: Int, color: TextFormatting){
-	val renderDamage = object: EntityArmorStand(this.world, this.posX, this.posY, this.posZ){
+	val randX = Random.nextDouble(1.5)
+	val randZ = Random.nextDouble(1.5)
+	val renderDamage = object: EntityArmorStand(this.world, this.posX + randX, this.posY, this.posZ + randZ){
 		var time = 0
 
 		override fun onUpdate() {
@@ -161,7 +165,7 @@ fun EntityLivingBase.renderDamage(damage: Int, color: TextFormatting){
 		}
 	}
 	renderDamage.isInvisible = true
-	renderDamage.customNameTag = "${TextFormatting.BOLD}${color}${I18n.format((damage.toString()))}"
+	renderDamage.customNameTag = "${TextFormatting.BOLD}${color}${I18n.format((damage.toString()))}${TextComponentTranslation("text.damage").formattedText}"
 	renderDamage.alwaysRenderNameTag = true
 	this.world.spawnEntity(renderDamage)
 }
@@ -175,5 +179,13 @@ fun World.getLivingEntitiesInArea(pos: BlockPos, distance: Int): ArrayList<Entit
 			array.add(entities[it] as EntityLiving)
 		}
 	}
+	array.sortBy { it.getDistance(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()) }
 	return array
+}
+
+fun <T : Any?> ArrayList<T>.times(time: Int): ArrayList<T>{
+	repeat(time - 1){
+		this.addAll(this)
+	}
+	return this
 }

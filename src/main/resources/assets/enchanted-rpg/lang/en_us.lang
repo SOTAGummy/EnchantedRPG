@@ -71,6 +71,12 @@ item.explosion_rare.name=Explosion
 item.explosion_epic.name=Explosion
 item.explosion_legend.name=Explosion
 item.explosion_mythic.name=Explosion
+item.fire_ball_common.name=FireBall
+item.fire_ball_uncommon.name=FireBall
+item.fire_ball_rare.name=FireBall
+item.fire_ball_epic.name=FireBall
+item.fire_ball_legend.name=FireBall
+item.fire_ball_mythic.name=FireBall
 item.dragon_breath_special.name=DragonBreath
 item.diamond_necklace.name=DiamondNecklace
 item.diamond_amulet.name=DiamondAmulet
@@ -119,3 +125,4 @@ item.modifiers.glove=When equipped
 item.modifiers.ring=When equipped
 #Text
 text.skill_cost=Cost
+text.damage=Damage

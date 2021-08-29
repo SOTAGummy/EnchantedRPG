@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import net.minecraft.client.renderer.entity.RenderEntity
 import net.minecraft.entity.item.EntityArmorStand
@@ -32,6 +33,8 @@ object CodeTestMaster: ItemSkill("code_test_master", 0, IItemRarity.MASTER){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-
+		val entityList = world.getLivingEntitiesInArea(player.position, 10)
+		entityList.addAll(entityList)
+		println(entityList)
 	}
 }

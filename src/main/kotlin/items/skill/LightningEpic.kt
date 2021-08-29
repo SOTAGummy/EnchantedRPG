@@ -1,6 +1,8 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getLivingEntitiesInArea
+import extension.times
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -21,31 +23,22 @@ object LightningEpic: ItemSkill("lightning_epic", 75, IItemRarity.EPIC){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		val entityList = arrayListOf<EntityLiving>()
-		val allEntities = world.loadedEntityList
-		repeat(allEntities.size){
-			if (allEntities[it] !is EntityPlayer && allEntities[it] is IMob && allEntities[it].getDistance(player) <= 10.0){
-				entityList.add(allEntities[it] as EntityLiving)
-			}
-		}
-		if (entityList.size != 0){
-			val count = if (entityList.size < 12){
-				entityList.size
-			} else {
-				12
-			}
-			GlobalScope.launch {
-				repeat(count){
-					val lightning = EntityLightningBolt(world, entityList[it].posX, entityList[it].posY, entityList[it].posZ, true)
-					lightning.setLocationAndAngles(entityList[it].posX, entityList[it].posY, entityList[it].posZ, 0F, 0F)
-					(world as WorldServer).addScheduledTask(){
-						world.addWeatherEffect(lightning)
-						if (entityList[it] !is EntityPlayerMP)
-							entityList[it].attackEntityFrom(LightningDamage(player), 8F)
-					}
-					delay(83)
+		val entityList = world.getLivingEntitiesInArea(player.position, 10)
+		entityList.times(12)
+		GlobalScope.launch {
+			repeat(12){
+				val lightning = EntityLightningBolt(world, entityList[it].posX, entityList[it].posY, entityList[it].posZ, true)
+				lightning.setLocationAndAngles(entityList[it].posX, entityList[it].posY, entityList[it].posZ, 0F, 0F)
+				(world as WorldServer).addScheduledTask(){
+					world.addWeatherEffect(lightning)
+					if (entityList[it] !is EntityPlayerMP) entityList[it].attackEntityFrom(LightningDamage(player), 8F)
 				}
+				delay(83)
 			}
 		}
+	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return world.getLivingEntitiesInArea(player.position, 10).isNotEmpty()
 	}
 }

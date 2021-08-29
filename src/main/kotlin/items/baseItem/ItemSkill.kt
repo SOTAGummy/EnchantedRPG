@@ -34,4 +34,8 @@ abstract class ItemSkill(name: String, val cost: Int, rarity: IItemRarity): Root
 	abstract fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand)
 
 	abstract fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand)
+
+	open fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean{
+		return true
+	}
 }

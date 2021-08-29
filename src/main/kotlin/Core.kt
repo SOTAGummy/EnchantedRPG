@@ -168,6 +168,12 @@ class Core {
 		val explosion_epic = ExplosionEpic
 		val explosion_legend = ExplosionLegend
 		val explosion_mythic = ExplosionMythic
+		val fire_ball_common = FireBallCommon
+		val fire_ball_uncommon = FireBallUncommon
+		val fire_ball_rare = FireBallRare
+		val fire_ball_epic = FireBallEpic
+		val fire_ball_legend = FireBallLegend
+		val fire_ball_mythic = FireBallMythic
 		val dragon_breath_special = DragonBreathSpecial
 
 		//Token

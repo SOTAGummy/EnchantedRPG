@@ -18,4 +18,8 @@ object HealRare: ItemSkill("heal_rare", 15, IItemRarity.RARE){
 			player.health = player.maxHealth
 		}
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return player.maxHealth <= player.health
+	}
 }

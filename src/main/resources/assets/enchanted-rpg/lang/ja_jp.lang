@@ -71,6 +71,12 @@ item.explosion_rare.name=エクスプロージョン
 item.explosion_epic.name=エクスプロージョン
 item.explosion_legend.name=エクスプロージョン
 item.explosion_mythic.name=エクスプロージョン
+item.fire_ball_common.name=ファイアボール
+item.fire_ball_uncommon.name=ファイアボール
+item.fire_ball_rare.name=ファイアボール
+item.fire_ball_epic.name=ファイアボール
+item.fire_ball_legend.name=ファイアボール
+item.fire_ball_mythic.name=ファイアボール
 item.dragon_breath_special.name=ドラゴンブレス
 item.diamond_necklace.name=ダイヤモンドのネックレス
 item.diamond_amulet.name=ダイヤモンドのお守り
@@ -119,3 +125,4 @@ item.modifiers.glove=装備したとき
 item.modifiers.ring=装備したとき
 #テキスト
 text.skill_cost=コスト
+text.damage=ダメージ

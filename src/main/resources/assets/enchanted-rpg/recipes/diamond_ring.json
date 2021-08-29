@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "X X",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:diamond",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:diamond_ring",
+    "data": 0,
+    "count": 1
+  }
+}

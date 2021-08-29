@@ -24,11 +24,12 @@ object Recipes {
 		registerSkillRecipes("blow")
 		registerSkillRecipes("lightning")
 		registerSkillRecipes("explosion")
+		registerSkillRecipes("fire_ball")
 
 		PedestalRecipe(Core.dragon_breath_special, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}
 
-	fun registerSkillRecipes(name: String){
+	private fun registerSkillRecipes(name: String){
 		PedestalRecipe(Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_uncommon"))!!,
 				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_common"))!!,
 				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_common"))!!,

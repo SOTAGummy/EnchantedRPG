@@ -18,4 +18,8 @@ object ExplosionUncommon: ItemSkill("explosion_uncommon", 45, IItemRarity.UNCOMM
 			world.createExplosion(player, entity[it].posX, entity[it].posY, entity[it].posZ, 2F, false)
 		}
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return world.getLivingEntitiesInArea(player.position, 15).isNotEmpty()
+	}
 }

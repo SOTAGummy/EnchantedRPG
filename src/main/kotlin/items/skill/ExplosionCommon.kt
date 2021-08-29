@@ -16,4 +16,8 @@ object ExplosionCommon: ItemSkill("explosion_common", 35, IItemRarity.COMMON){
 		val entity = world.getLivingEntitiesInArea(player.position, 15)[0]
 		world.createExplosion(player, entity.posX, entity.posY, entity.posZ, 1F, false)
 	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return world.getLivingEntitiesInArea(player.position, 15).isNotEmpty()
+	}
 }

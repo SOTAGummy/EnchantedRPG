@@ -14,8 +14,11 @@ class SP: ISP {
 	}
 
 	override fun addSP(player: EntityPlayer, value: Int) {
-		if ((player.getCapability(SPProvider.SP!!, null)?.getSP()?.plus(value))!! <= player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt())
+		if ((player.getCapability(SPProvider.SP!!, null)?.getSP()?.plus(value))!! <= player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt()){
 			this.spValue += value
+		} else {
+			this.spValue = player.getEntityAttribute(Core.MAX_SP).attributeValue.toInt()
+		}
 	}
 
 	override fun useSP(value: Int): Boolean {

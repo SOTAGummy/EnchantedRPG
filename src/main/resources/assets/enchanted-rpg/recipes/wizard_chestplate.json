@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "enchanted-rpg:witch_close",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:wizard_chestplate",
+    "data": 0,
+    "count": 1
+  }
+}

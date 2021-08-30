@@ -9,42 +9,28 @@ import gui.accessory.button.AccessoryButton
 import gui.mp.MPIndicator
 import gui.skillList.SkillListIndicator
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
-import net.minecraft.client.audio.Sound
 import net.minecraft.client.gui.inventory.GuiInventory
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLiving
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.boss.EntityDragon
-import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.entity.monster.*
+import net.minecraft.entity.monster.EntityWitch
+import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionEffect
-import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundEvent
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.*
-import net.minecraft.world.WorldServer
+import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
-import net.minecraftforge.client.event.RenderLivingEvent
-import net.minecraftforge.common.util.Constants
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
-import net.minecraftforge.event.entity.living.*
-import net.minecraftforge.event.entity.player.AttackEntityEvent
+import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.entity.living.LivingDropsEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
-import net.minecraftforge.event.world.ExplosionEvent
-import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -53,13 +39,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
 import packet.PacketSP
-import source.*
+import source.CriticalDamageSource
 import utils.Storage
-import java.awt.Color
-import java.awt.TextComponent
-import kotlin.math.max
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 class Events {
 	private val accessorySlots = arrayOf(Core.NECKLACE, Core.AMULET, Core.GLOVE, Core.RING)
@@ -193,56 +175,24 @@ class Events {
 		}
 
 		if (event.source.trueSource is EntityPlayer){
-			val player = event.source.trueSource as EntityPlayer
-			val damage = player.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat() * event.amount
 			when(event.source.damageType){
 				"lightning" -> {
-					if (event.entityLiving.isPotionActive(Core.electric_shock)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.YELLOW)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.YELLOW)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.YELLOW)
 				}
 				"earthen" -> {
-					if (event.entityLiving.isPotionActive(Core.muddy)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.GOLD)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.GOLD)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.GOLD)
 				}
 				"water" -> {
-					if (event.entityLiving.isPotionActive(Core.flooded)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_BLUE)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_BLUE)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_BLUE)
 				}
 				"fire" -> {
-					if (event.entityLiving.isPotionActive(Core.burning)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.RED)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.RED)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.RED)
 				}
 				"wind" -> {
-					if (event.entityLiving.isPotionActive(Core.paralysis)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_GREEN)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_GREEN)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_GREEN)
 				}
 				"ice" -> {
-					if (event.entityLiving.isPotionActive(Core.frozen)){
-						event.entityLiving.attackEntityFrom(CriticalDamageSource(event.source.trueSource!!), damage)
-						event.entityLiving.renderDamage((event.amount + damage).toInt(), TextFormatting.BLUE)
-					} else {
-						event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.BLUE)
-					}
+					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.BLUE)
 				}
 			}
 		}
@@ -250,27 +200,37 @@ class Events {
 
 	@SubscribeEvent
 	fun onDropEvent(event: LivingDropsEvent){
-		if (event.entityLiving is EntityDragon){
-			event.drops.add(EntityItem(event.entityLiving.world, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, ItemStack(Core.dragon_breath_special)))
+		val entity = event.entityLiving
+		if (entity is EntityDragon){
+			event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.dragonBreathSpecial)))
+		} else if (entity is EntityWitch){
+			if (Random.nextInt(100) >= 90) event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.witchClose)))
 		}
 
 		if (event.source.trueSource is EntityPlayer && event.entityLiving.isNonBoss && event.entityLiving is IMob){
-			val entity = event.entityLiving
+			val living = event.entityLiving
 			val commonWeight = 25 + event.lootingLevel
 			val uncommonWeight = 10 + event.lootingLevel
 			val rareWeight = 5 + event.lootingLevel
 			var dropChance = Random.nextInt(0, 500)
 			if (dropChance < rareWeight){
-				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.rare_token)))
+				event.drops.add(EntityItem(living.world, living.posX, living.posY, living.posZ, ItemStack(Core.rareToken)))
 			}
 			dropChance -= rareWeight
 			if (dropChance in 1 until uncommonWeight){
-				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.uncommon_token)))
+				event.drops.add(EntityItem(living.world, living.posX, living.posY, living.posZ, ItemStack(Core.uncommonToken)))
 			}
 			dropChance -= uncommonWeight
 			if (dropChance in 1 until commonWeight){
-				event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.common_token)))
+				event.drops.add(EntityItem(living.world, living.posX, living.posY, living.posZ, ItemStack(Core.commonToken)))
 			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onLoginEvent(event: net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent){
+		GlobalScope.launch {
+			println(1)
 		}
 	}
 }

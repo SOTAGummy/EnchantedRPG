@@ -8,11 +8,11 @@ import net.minecraft.util.ResourceLocation
 
 object Recipes {
 	init {
-		PedestalRecipe(Core.uncommon_token, Core.common_token, Core.common_token, Core.common_token, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.rare_token, Core.uncommon_token, Core.uncommon_token, Core.uncommon_token, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.epic_token, Core.rare_token, Core.rare_token, Core.rare_token, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.legend_token, Core.epic_token, Core.epic_token, Core.epic_token, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.mythic_token, Core.legend_token, Core.legend_token, Core.legend_token, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.uncommonToken, Core.commonToken, Core.commonToken, Core.commonToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.rareToken, Core.uncommonToken, Core.uncommonToken, Core.uncommonToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.epicToken, Core.rareToken, Core.rareToken, Core.rareToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.legendToken, Core.epicToken, Core.epicToken, Core.epicToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.mythicToken, Core.legendToken, Core.legendToken, Core.legendToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 
 		registerSkillRecipes("heal")
 		registerSkillRecipes("leap")
@@ -25,8 +25,10 @@ object Recipes {
 		registerSkillRecipes("lightning")
 		registerSkillRecipes("explosion")
 		registerSkillRecipes("fire_ball")
+		registerSkillRecipes("shock_wave")
 
-		PedestalRecipe(Core.dragon_breath_special, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.dragonBreathSpecial, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
+		PedestalRecipe(Core.amethyst, Core.enchantedDust, Items.DIAMOND, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}
 
 	private fun registerSkillRecipes(name: String){

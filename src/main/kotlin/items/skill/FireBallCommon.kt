@@ -30,7 +30,7 @@ object FireBallCommon: ItemSkill("fire_ball_common", 20, IItemRarity.COMMON){
 			override fun onImpact(result: RayTraceResult) {
 				if (!this.world.isRemote) {
 					if (result.entityHit != null) {
-						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 6F)
+						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 10F)
 						applyEnchantments(shootingEntity, result.entityHit)
 					}
 					setDead()

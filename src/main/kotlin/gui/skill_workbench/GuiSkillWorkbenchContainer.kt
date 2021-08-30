@@ -73,13 +73,13 @@ class GuiSkillWorkbenchContainer(container: Container, val te: TileEntitySkillWo
 				world.addScheduledTask(){
 					val tile = world.getTileEntity(te.pos) as TileEntitySkillWorkbench
 					if (!tile.inventory.getStackInSlot(0).isEmpty && tile.inventory.getStackInSlot(0).getSkillCount() != 0){
+						val stack = tile.inventory.getStackInSlot(0)
 						repeat(tile.inventory.getStackInSlot(0).getSkillCount()){
 							if (tile.inventory.getStackInSlot(8).isEmpty){
-								val stack = tile.inventory.getStackInSlot(0).copy()
 								tile.inventory.setStackInSlot(8, stack.removeSkill())
-								tile.inventory.setStackInSlot(0, stack)
 							}
 						}
+						tile.inventory.setStackInSlot(0, stack)
 					}
 				}
 			}

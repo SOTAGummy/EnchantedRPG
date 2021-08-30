@@ -30,7 +30,7 @@ object FireBallUncommon: ItemSkill("fire_ball_uncommon", 25, IItemRarity.UNCOMMO
 			override fun onImpact(result: RayTraceResult) {
 				if (!this.world.isRemote) {
 					if (result.entityHit != null) {
-						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 8F)
+						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 12F)
 						applyEnchantments(shootingEntity, result.entityHit)
 					}
 					setDead()

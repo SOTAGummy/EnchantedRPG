@@ -133,12 +133,7 @@ fun ItemStack.removeSkill(): ItemStack{
 	return if (this.getSkillCount() != 0){
 		val stack = ItemStack(Item.getItemById(this.tagCompound!!.getIntArray("skills")[this.getSkillCount() - 1]))
 		val array = this.tagCompound!!.getIntArray("skills").clone()
-		array[0] = 0
-		repeat(this.getSkillCapacity() - 1){
-			array[it] = array[it + 1]
-		}
-		array[this.getSkillCapacity() - 1] = 0
-		println(array)
+		array[this.getSkillCount() - 1] = 0
 		this.tagCompound!!.setIntArray("skills", array)
 		stack
 	} else {

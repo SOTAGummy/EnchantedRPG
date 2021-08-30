@@ -30,7 +30,7 @@ object FireBallMythic: ItemSkill("fire_ball_mythic", 45, IItemRarity.MYTHIC){
 			override fun onImpact(result: RayTraceResult) {
 				if (!this.world.isRemote) {
 					if (result.entityHit != null) {
-						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 16F)
+						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 20F)
 						applyEnchantments(shootingEntity, result.entityHit)
 					}
 					setDead()

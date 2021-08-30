@@ -30,7 +30,7 @@ object FireBallLegend: ItemSkill("fire_ball_legend", 40, IItemRarity.LEGEND){
 			override fun onImpact(result: RayTraceResult) {
 				if (!this.world.isRemote) {
 					if (result.entityHit != null) {
-						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 14F)
+						result.entityHit.attackEntityFrom(FireDamage(shootingEntity), 18F)
 						applyEnchantments(shootingEntity, result.entityHit)
 					}
 					setDead()

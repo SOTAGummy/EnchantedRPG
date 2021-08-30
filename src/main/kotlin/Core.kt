@@ -13,24 +13,26 @@ import creativeTab.EnchantedRPGSkillsTab
 import enchantment.*
 import event.Events
 import gui.GuiHandler
+import items.Amethyst
 import items.EnchantedDust
-import items.accessory.DiamondAmulet
-import items.accessory.DiamondGlove
-import items.accessory.DiamondNecklace
-import items.accessory.DiamondRing
+import items.WitchClose
+import items.accessory.*
+import items.armor.WizardBoots
+import items.armor.WizardChestplate
+import items.armor.WizardHelmet
+import items.armor.WizardLeggings
 import items.baseItem.ItemAccessory
 import items.container.*
 import items.skill.*
 import items.token.*
 import net.minecraft.block.Block
-import net.minecraft.block.BlockPlanks
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.enchantment.Enchantment
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.EnumHelperClient
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
@@ -52,10 +54,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
-import potion.*
+import potion.PotionNoGravity
+import potion.PotionSPBoost
 import proxy.CommonProxy
 import recipe.Recipes
 import sound.SoundHandler
+import utils.ArmorUtil
 import utils.EnumExtension
 import utils.Storage
 
@@ -82,6 +86,9 @@ class Core {
 		val RING = EnumExtension.addEquipmentSlot("RING", 9, ACCESSORY, 3, 4, "ring")
 		val accessoryType = EnumHelper.addEnchantmentType("ACCESSORY") { item: Item? -> item is ItemAccessory }!!
 
+		//ArmorType
+		val WIZARD = ArmorUtil.addArmorType("wizard", 3000, intArrayOf(4, 4, 4, 4), 15, SoundEvents.BLOCK_CLOTH_PLACE, 0F)
+
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
 		val skillsTab = EnchantedRPGSkillsTab
@@ -89,106 +96,124 @@ class Core {
 		val enchantmentsTab = EnchantedRPGEnchantmentTab
 
 		//Item
-		val enchanted_dust = EnchantedDust
+		val enchantedDust = EnchantedDust
+		val amethyst = Amethyst
+		val witchClose = WitchClose
 
 		//Block
 		val pedestal = Pedestal
-		val skill_workbench = SkillWorkbench
+		val skillWorkbench = SkillWorkbench
 
 		//SkillContainer
-		val skill_book = SkillBook
-		val wooden_wand = WoodenWand
-		val stone_wand = StoneWand
-		val iron_wand = IronWand
-		val diamond_wand = DiamondWand
-		val emerald_wand = EmeraldWand
-		val obsidian_wand = ObsidianWand
+		val skillBook = SkillBook
+		val woodenWand = WoodenWand
+		val stoneWand = StoneWand
+		val ironWand = IronWand
+		val diamondWand = DiamondWand
+		val emeraldWand = EmeraldWand
+		val obsidianWand = ObsidianWand
 
 		//Skill
-		val code_test_master = CodeTestMaster
-		val toggle_mode_master = ToggleModeMaster
-		val full_fill_master = FullFillMaster
-		val heal_common = HealCommon
-		val heal_uncommon = HealUncommon
-		val heal_rare = HealRare
-		val heal_epic = HealEpic
-		val heal_legend = HealLegend
-		val heal_mythic = HealMythic
-		val leap_common = LeapCommon
-		val leap_uncommon = LeapUncommon
-		val leap_rare = LeapRare
-		val leap_epic = LeapEpic
-		val leap_legend = LeapLegend
-		val leap_mythic = LeapMythic
-		val arrow_rain_common = ArrowRainCommon
-		val arrow_rain_uncommon = ArrowRainUncommon
-		val arrow_rain_rare = ArrowRainRare
-		val arrow_rain_epic = ArrowRainEpic
-		val arrow_rain_legend = ArrowRainLegend
-		val arrow_rain_mythic = ArrowRainMythic
-		val rage_common = RageCommon
-		val rage_uncommon = RageUncommon
-		val rage_rare = RageRare
-		val rage_epic = RageEpic
-		val rage_legend = RageLegend
-		val rage_mythic = RageMythic
-		val berserk_common = BerserkCommon
-		val berserk_uncommon = BerserkUncommon
-		val berserk_rare = BerserkRare
-		val berserk_epic = BerserkEpic
-		val berserk_legend = BerserkLegend
-		val berserk_mythic = BerserkMythic
-		val black_hole_common = BlackHoleCommon
-		val black_hole_uncommon = BlackHoleUncommon
-		val black_hole_rare = BlackHoleRare
-		val black_hole_epic = BlackHoleEpic
-		val black_hole_legend = BlackHoleLegend
-		val black_hole_mythic = BlackHoleMythic
-		val cure_common = CureCommon
-		val cure_uncommon = CureUncommon
-		val cure_rare = CureRare
-		val cure_epic = CureEpic
-		val cure_legend = CureLegend
-		val cure_mythic = CureMythic
-		val blow_common = BlowCommon
-		val blow_uncommon = BlowUncommon
-		val blow_rare = BlowRare
-		val blow_epic = BlowEpic
-		val blow_legend = BlowLegend
-		val blow_mythic = BlowMythic
-		val lightning_common = LightningCommon
-		val lightning_uncommon = LightningUncommon
-		val lightning_rare = LightningRare
-		val lightning_epic = LightningEpic
-		val lightning_legend = LightningLegend
-		val lightning_mythic = LightningMythic
-		val explosion_common = ExplosionCommon
-		val explosion_uncommon = ExplosionUncommon
-		val explosion_rare = ExplosionRare
-		val explosion_epic = ExplosionEpic
-		val explosion_legend = ExplosionLegend
-		val explosion_mythic = ExplosionMythic
-		val fire_ball_common = FireBallCommon
-		val fire_ball_uncommon = FireBallUncommon
-		val fire_ball_rare = FireBallRare
-		val fire_ball_epic = FireBallEpic
-		val fire_ball_legend = FireBallLegend
-		val fire_ball_mythic = FireBallMythic
-		val dragon_breath_special = DragonBreathSpecial
+		val codeTestMaster = CodeTestMaster
+		val toggleModeMaster = ToggleModeMaster
+		val fullFillMaster = FullFillMaster
+		val healCommon = HealCommon
+		val healUncommon = HealUncommon
+		val healRare = HealRare
+		val healEpic = HealEpic
+		val healLegend = HealLegend
+		val healMythic = HealMythic
+		val leapCommon = LeapCommon
+		val leapUncommon = LeapUncommon
+		val leapRare = LeapRare
+		val leapEpic = LeapEpic
+		val leapLegend = LeapLegend
+		val leapMythic = LeapMythic
+		val arrowRainCommon = ArrowRainCommon
+		val arrowRainUncommon = ArrowRainUncommon
+		val arrowRainRare = ArrowRainRare
+		val arrowRainEpic = ArrowRainEpic
+		val arrowRainLegend = ArrowRainLegend
+		val arrowRainMythic = ArrowRainMythic
+		val rageCommon = RageCommon
+		val rageUncommon = RageUncommon
+		val rageRare = RageRare
+		val rageEpic = RageEpic
+		val rageLegend = RageLegend
+		val rageMythic = RageMythic
+		val berserkCommon = BerserkCommon
+		val berserkUncommon = BerserkUncommon
+		val berserkRare = BerserkRare
+		val berserkEpic = BerserkEpic
+		val berserkLegend = BerserkLegend
+		val berserkMythic = BerserkMythic
+		val blackHoleCommon = BlackHoleCommon
+		val blackHoleUncommon = BlackHoleUncommon
+		val blackHoleRare = BlackHoleRare
+		val blackHoleEpic = BlackHoleEpic
+		val blackHoleLegend = BlackHoleLegend
+		val blackHoleMythic = BlackHoleMythic
+		val cureCommon = CureCommon
+		val cureUncommon = CureUncommon
+		val cureRare = CureRare
+		val cureEpic = CureEpic
+		val cureLegend = CureLegend
+		val cureMythic = CureMythic
+		val blowCommon = BlowCommon
+		val blowUncommon = BlowUncommon
+		val blowRare = BlowRare
+		val blowEpic = BlowEpic
+		val blowLegend = BlowLegend
+		val blowMythic = BlowMythic
+		val lightningCommon = LightningCommon
+		val lightningUncommon = LightningUncommon
+		val lightningRare = LightningRare
+		val lightningEpic = LightningEpic
+		val lightningLegend = LightningLegend
+		val lightningMythic = LightningMythic
+		val explosionCommon = ExplosionCommon
+		val explosionUncommon = ExplosionUncommon
+		val explosionRare = ExplosionRare
+		val explosionEpic = ExplosionEpic
+		val explosionLegend = ExplosionLegend
+		val explosionMythic = ExplosionMythic
+		val fireBallCommon = FireBallCommon
+		val fireBallUncommon = FireBallUncommon
+		val fireBallRare = FireBallRare
+		val fireBallEpic = FireBallEpic
+		val fireBallLegend = FireBallLegend
+		val fireBallMythic = FireBallMythic
+		val shockWaveCommon = ShockWaveCommon
+		val shockWaveUncommon = ShockWaveUncommon
+		val shockWaveRare = ShockWaveRare
+		val shockWaveEpic = ShockWaveEpic
+		val shockWaveLegend = ShockWaveLegend
+		val shockWaveMythic = ShockWaveMythic
+		val dragonBreathSpecial = DragonBreathSpecial
 
 		//Token
-		val common_token = CommonToken
-		val uncommon_token = UncommonToken
-		val rare_token = RareToken
-		val epic_token = EpicToken
-		val legend_token = LegendToken
-		val mythic_token = MythicToken
+		val commonToken = CommonToken
+		val uncommonToken = UncommonToken
+		val rareToken = RareToken
+		val epicToken = EpicToken
+		val legendToken = LegendToken
+		val mythicToken = MythicToken
+
+		//Armor
+		val wizardHelmet = WizardHelmet
+		val wizardChestplate = WizardChestplate
+		val wizardLeggings = WizardLeggings
+		val wizardBoots = WizardBoots
 
 		//Accessory
-		val diamond_necklace = DiamondNecklace
-		val diamond_amulet = DiamondAmulet
-		val diamond_glove = DiamondGlove
-		val diamond_ring = DiamondRing
+		val diamondNecklace = DiamondNecklace
+		val diamondAmulet = DiamondAmulet
+		val diamondGlove = DiamondGlove
+		val diamondRing = DiamondRing
+		val wizardNecklace = WizardNecklace
+		val wizardAmulet = WizardAmulet
+		val wizardGlove = WizardGlove
+		val wizardRing = WizardRing
 
 		//Attribute
 		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)
@@ -213,14 +238,8 @@ class Core {
 		val wise = EnchantmentWise
 
 		//PotionEffect
-		val burning = PotionBurning()
-		val electric_shock = PotionElectricShock()
-		val flooded = PotionFlooded()
-		val frozen = PotionFrozen()
-		val muddy = PotionMuddy()
-		val paralysis = PotionParalysis()
-		val no_gravity = PotionNoGravity()
-		val sp_boost = PotionSPBoost()
+		val noGravity = PotionNoGravity()
+		val spBoost = PotionSPBoost()
 	}
 
 	@Mod.EventHandler
@@ -262,13 +281,13 @@ class Core {
 			event.registry.register(Storage.Items[it])
 		}
 		event.registry.register(ItemBlock(pedestal).setRegistryName(ResourceLocation(ID, "pedestal")))
-		event.registry.register(ItemBlock(skill_workbench).setRegistryName(ResourceLocation(ID, "skill_workbench")))
+		event.registry.register(ItemBlock(skillWorkbench).setRegistryName(ResourceLocation(ID, "skill_workbench")))
 	}
 
 	@SubscribeEvent
 	fun registerBlocks(event: RegistryEvent.Register<Block>){
 		event.registry.register(pedestal)
-		event.registry.register(skill_workbench)
+		event.registry.register(skillWorkbench)
 	}
 
 	@SubscribeEvent
@@ -292,6 +311,6 @@ class Core {
 			ModelLoader.setCustomModelResourceLocation(model, 0, ModelResourceLocation(ResourceLocation(ID, model.unlocalizedName.split(".")[1]), "inventory"))
 		}
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ResourceLocation(ID, "pedestal"), "inventory"))
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(skill_workbench), 0, ModelResourceLocation(ResourceLocation(ID, "skill_workbench"), "inventory"))
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(skillWorkbench), 0, ModelResourceLocation(ResourceLocation(ID, "skill_workbench"), "inventory"))
 	}
 }

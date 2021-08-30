@@ -1,6 +1,8 @@
 #GeneralRPG English Language File
 #Items
 item.enchanted_dust.name=EnchantedDust
+item.amethyst.name=Amethyst
+item.witch_close.name=Witch's Close
 item.skill_book.name=SkillBook
 item.wooden_wand.name=WoodenWand
 item.stone_wand.name=StoneWand
@@ -77,11 +79,25 @@ item.fire_ball_rare.name=FireBall
 item.fire_ball_epic.name=FireBall
 item.fire_ball_legend.name=FireBall
 item.fire_ball_mythic.name=FireBall
+item.shock_wave_common.name=ShockWave
+item.shock_wave_uncommon.name=ShockWave
+item.shock_wave_rare.name=ShockWave
+item.shock_wave_epic.name=ShockWave
+item.shock_wave_legend.name=ShockWave
+item.shock_wave_mythic.name=ShockWave
 item.dragon_breath_special.name=DragonBreath
+item.wizard_helmet.name=Wizard's Helmet
+item.wizard_chestplate.name=Wizard's Robe
+item.wizard_leggings.name=Wizard's Leggings
+item.wizard_boots.name=Wizard's Boots
 item.diamond_necklace.name=DiamondNecklace
 item.diamond_amulet.name=DiamondAmulet
 item.diamond_glove.name=DiamondGlove
 item.diamond_ring.name=DiamondRing
+item.wizard_necklace.name=Wizard's Necklace
+item.wizard_amulet.name=Wizard's Amulet
+item.wizard_glove.name=Wizard's Glove
+item.wizard_ring.name=Wizard's Ring
 item.common_token.name=CommonToken
 item.uncommon_token.name=UncommonToken
 item.rare_token.name=RareToken

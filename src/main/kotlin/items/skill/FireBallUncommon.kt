@@ -13,7 +13,7 @@ import net.minecraft.world.Explosion
 import net.minecraft.world.World
 import source.FireDamage
 
-object FireBallUncommon: ItemSkill("fire_ball_uncommon", 25, IItemRarity.UNCOMMON){
+object FireBallUncommon: ItemSkill("fire_ball", 25, IItemRarity.UNCOMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

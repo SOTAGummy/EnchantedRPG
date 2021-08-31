@@ -15,7 +15,7 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import recipe.PedestalRecipe
 
-abstract class ItemSkill(name: String, val cost: Int, rarity: IItemRarity): RootItem(name, rarity){
+abstract class ItemSkill(name: String, val cost: Int, rarity: IItemRarity): RootItem("${name}_${rarity.name.toLowerCase()}", rarity){
 	init {
 		creativeTab = Core.skillsTab
 		maxStackSize = 1

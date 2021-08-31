@@ -18,7 +18,7 @@ import source.LightningDamage
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-object BlackHoleCommon: ItemSkill("black_hole_common", 70, IItemRarity.COMMON){
+object BlackHoleCommon: ItemSkill("black_hole", 70, IItemRarity.COMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

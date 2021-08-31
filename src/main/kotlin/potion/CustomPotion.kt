@@ -1,10 +1,12 @@
 package potion
 
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.potion.Potion
+import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
 import utils.Storage
 
@@ -23,5 +25,13 @@ abstract class CustomPotion(name: String, isBad: Boolean, color: Int): Potion(is
 
 	override fun isReady(duration: Int, amplifier: Int): Boolean {
 		return true
+	}
+
+	open fun onAttacked(source: DamageSource, attacked: Entity, amount: Float, amplifier: Int){
+
+	}
+
+	open fun onAttack(source: DamageSource, attacked: Entity, amount: Float, amplifier: Int){
+
 	}
 }

@@ -16,7 +16,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-object ShockWaveCommon: ItemSkill("shock_wave_common", 35, IItemRarity.COMMON){
+object ShockWaveCommon: ItemSkill("shock_wave", 35, IItemRarity.COMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		player.addVelocity(0.0, 1.0, 0.0)
 	}

@@ -16,7 +16,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-object ShockWaveMythic: ItemSkill("shock_wave_mythic", 85, IItemRarity.MYTHIC){
+object ShockWaveMythic: ItemSkill("shock_wave", 85, IItemRarity.MYTHIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		player.addVelocity(0.0, 1.0, 0.0)
 	}

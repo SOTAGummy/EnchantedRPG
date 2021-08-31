@@ -9,7 +9,7 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object BerserkRare: ItemSkill("berserk_rare", 65, IItemRarity.RARE){
+object BerserkRare: ItemSkill("berserk", 65, IItemRarity.RARE){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

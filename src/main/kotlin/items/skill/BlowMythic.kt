@@ -8,7 +8,7 @@ import net.minecraft.world.World
 import source.WindDamage
 import kotlin.math.sqrt
 
-object BlowMythic: ItemSkill("blow_mythic", 90, IItemRarity.MYTHIC){
+object BlowMythic: ItemSkill("blow", 90, IItemRarity.MYTHIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

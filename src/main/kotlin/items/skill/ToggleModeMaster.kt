@@ -7,7 +7,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.GameType
 import net.minecraft.world.World
 
-object ToggleModeMaster: ItemSkill("toggle_mode_master", 0, IItemRarity.MASTER){
+object ToggleModeMaster: ItemSkill("toggle_mode", 0, IItemRarity.MASTER){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

@@ -56,6 +56,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
 import potion.PotionNoGravity
 import potion.PotionSPBoost
+import potion.PotionVampirism
 import proxy.CommonProxy
 import recipe.Recipes
 import sound.SoundHandler
@@ -189,6 +190,12 @@ class Core {
 		val shockWaveEpic = ShockWaveEpic
 		val shockWaveLegend = ShockWaveLegend
 		val shockWaveMythic = ShockWaveMythic
+		val vampirismCommon = VampirismCommon
+		val vampirismUncommon = VampirismUncommon
+		val vampirismRare = VampirismRare
+		val vampirismEpic = VampirismEpic
+		val vampirismLegend = VampirismLegend
+		val vampirismMythic = VampirismMythic
 		val dragonBreathSpecial = DragonBreathSpecial
 
 		//Token
@@ -240,6 +247,7 @@ class Core {
 		//PotionEffect
 		val noGravity = PotionNoGravity()
 		val spBoost = PotionSPBoost()
+		val vampirism = PotionVampirism()
 	}
 
 	@Mod.EventHandler

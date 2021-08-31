@@ -17,7 +17,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import source.LightningDamage
 
-object LightningCommon: ItemSkill("lightning_common", 30, IItemRarity.COMMON){
+object LightningCommon: ItemSkill("lightning", 30, IItemRarity.COMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

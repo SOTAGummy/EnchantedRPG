@@ -8,7 +8,7 @@ import net.minecraft.world.World
 import source.WindDamage
 import kotlin.math.sqrt
 
-object BlowRare: ItemSkill("blow_rare", 60, IItemRarity.RARE){
+object BlowRare: ItemSkill("blow", 60, IItemRarity.RARE){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

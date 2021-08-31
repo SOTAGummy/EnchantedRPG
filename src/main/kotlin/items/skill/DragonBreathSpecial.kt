@@ -10,7 +10,7 @@ import net.minecraft.world.World
 import kotlin.math.cos
 import kotlin.math.sin
 
-object DragonBreathSpecial: ItemSkill("dragon_breath_special", 100, IItemRarity.SPECIAL){
+object DragonBreathSpecial: ItemSkill("dragon_breath", 100, IItemRarity.SPECIAL){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

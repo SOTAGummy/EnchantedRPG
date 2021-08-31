@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.boss.EntityDragon
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityWitch
@@ -39,6 +40,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
 import packet.PacketSP
+import potion.CustomPotion
 import source.CriticalDamageSource
 import utils.Storage
 import kotlin.random.Random
@@ -151,48 +153,62 @@ class Events {
 
 	@SubscribeEvent
 	fun onAttackEvent(event: LivingAttackEvent){
+		val attacker = event.source.trueSource
+		val attacked = event.entityLiving
 		if (!event.entityLiving.world.isRemote){
 			if (event.source.damageType == "player"){
-				val player = event.source.trueSource as EntityPlayer
-				val entity = event.entityLiving
+				val player = attacker as EntityPlayer
 				if (player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue != 0.0){
 					val chance = Random.nextDouble(100.0)
 					if (chance < player.getEntityAttribute(Core.CRITICAL_RATE).attributeValue){
-						Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, entity.posX, entity.posY + 1, entity.posZ, 0.0, 1.0, 0.0)
+						Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, attacked.posX, attacked.posY + 1, attacked.posZ, 0.0, 1.0, 0.0)
 						val damage = player.getEntityAttribute(Core.CRITICAL_DAMAGE).attributeValue.toFloat() * event.amount
-						entity.attackEntityFrom(CriticalDamageSource(player), damage)
-						entity.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_PURPLE)
+						attacked.attackEntityFrom(CriticalDamageSource(player), damage)
+						attacked.renderDamage((event.amount + damage).toInt(), TextFormatting.DARK_PURPLE)
 					} else {
-						entity.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
+						attacked.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
 					}
 				} else {
-					entity.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.WHITE)
 				}
 			}
 		}
-		if (event.source.damageType == "indirectMagic" && event.source.trueSource is EntityPlayer && event.entityLiving == event.source.trueSource){
-			event.isCanceled = true
-		}
 
-		if (event.source.trueSource is EntityPlayer){
+		if (attacker is EntityPlayer){
 			when(event.source.damageType){
 				"lightning" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.YELLOW)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.YELLOW)
 				}
 				"earthen" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.GOLD)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.GOLD)
 				}
 				"water" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_BLUE)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.DARK_BLUE)
 				}
 				"fire" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.RED)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.RED)
 				}
 				"wind" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.DARK_GREEN)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.DARK_GREEN)
 				}
 				"ice" -> {
-					event.entityLiving.renderDamage(event.amount.toInt(), TextFormatting.BLUE)
+					attacked.renderDamage(event.amount.toInt(), TextFormatting.BLUE)
+				}
+			}
+		}
+
+		if (attacker is EntityLiving && attacker.activePotionMap.isNotEmpty()){
+			for (i in Storage.Potions){
+				if (attacker.isPotionActive(i)){
+					(i as CustomPotion).onAttack(event.source, attacked, event.amount, attacker.activePotionMap[i]!!.amplifier)
+				}
+			}
+		}
+
+		if (attacked is EntityLiving && attacked.activePotionMap.isNotEmpty()){
+			for (i in Storage.Potions){
+				if (attacked.isPotionActive(i)){
+					(i as CustomPotion).onAttacked(event.source, attacked, event.amount, attacked.activePotionMap[i]!!.amplifier)
 				}
 			}
 		}

@@ -16,7 +16,7 @@ import source.EarthenDamage
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-object BlackHoleEpic: ItemSkill("black_hole_epic", 100, IItemRarity.EPIC){
+object BlackHoleEpic: ItemSkill("black_hole", 100, IItemRarity.EPIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

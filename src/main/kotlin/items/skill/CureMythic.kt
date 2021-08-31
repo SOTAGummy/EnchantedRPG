@@ -7,7 +7,7 @@ import net.minecraft.potion.Potion
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object CureMythic: ItemSkill("cure_mythic", 35, IItemRarity.MYTHIC){
+object CureMythic: ItemSkill("cure", 35, IItemRarity.MYTHIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

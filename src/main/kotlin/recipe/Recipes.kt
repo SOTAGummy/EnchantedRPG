@@ -26,6 +26,7 @@ object Recipes {
 		registerSkillRecipes("explosion")
 		registerSkillRecipes("fire_ball")
 		registerSkillRecipes("shock_wave")
+		registerSkillRecipes("vampirism")
 
 		PedestalRecipe(Core.dragonBreathSpecial, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 		PedestalRecipe(Core.amethyst, Core.enchantedDust, Items.DIAMOND, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)

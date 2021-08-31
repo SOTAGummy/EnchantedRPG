@@ -13,6 +13,6 @@ object VampirismLegend: ItemSkill("vampirism", 35, IItemRarity.LEGEND){
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.addPotionEffect(PotionEffect(Core.vampirism, 1200, 4))
+		player.addPotionEffect(PotionEffect(Core.vampirism, 1000, 2))
 	}
 }

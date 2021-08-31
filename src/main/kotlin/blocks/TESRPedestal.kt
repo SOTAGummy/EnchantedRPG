@@ -1,6 +1,5 @@
 package blocks
 
-import net.minecraft.block.BlockAnvil
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderHelper
@@ -9,7 +8,6 @@ import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.ForgeHooksClient
-import net.minecraftforge.items.CapabilityItemHandler
 import org.lwjgl.opengl.GL11
 import kotlin.math.cos
 import kotlin.math.sin

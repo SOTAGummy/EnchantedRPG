@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.world.World
+import net.minecraft.world.WorldServer
 import source.EarthenDamage
 import kotlin.math.cos
 import kotlin.math.sin
@@ -37,8 +38,10 @@ object ShockWaveLegend: ItemSkill("shock_wave", 75, IItemRarity.LEGEND){
 				}
 			}
 			val entityList = world.getLivingEntitiesInArea(player.position, 5)
-			for (i in entityList) {
-				i.attackEntityFrom(EarthenDamage(player), 15F)
+			(world as WorldServer).addScheduledTask(){
+				for (i in entityList) {
+					i.attackEntityFrom(EarthenDamage(player), 20F)
+				}
 			}
 		}
 	}

@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.boss.EntityDragon
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityWitch
@@ -26,6 +27,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
 import net.minecraftforge.event.entity.living.LivingAttackEvent
@@ -197,15 +199,19 @@ class Events {
 			}
 		}
 
-		if (attacker is EntityLiving && attacker.activePotionMap.isNotEmpty()){
+		if (attacker is EntityLivingBase && attacker.activePotionEffects.isNotEmpty()){
+			println(1)
+			println(attacker.activePotionEffects)
 			for (i in Storage.Potions){
+				println(attacker.isPotionActive(i))
 				if (attacker.isPotionActive(i)){
+					println(2)
 					(i as CustomPotion).onAttack(event.source, attacked, event.amount, attacker.activePotionMap[i]!!.amplifier)
 				}
 			}
 		}
 
-		if (attacked is EntityLiving && attacked.activePotionMap.isNotEmpty()){
+		if (attacked is EntityLivingBase && attacked.activePotionMap.isNotEmpty()){
 			for (i in Storage.Potions){
 				if (attacked.isPotionActive(i)){
 					(i as CustomPotion).onAttacked(event.source, attacked, event.amount, attacked.activePotionMap[i]!!.amplifier)

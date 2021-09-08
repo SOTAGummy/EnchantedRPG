@@ -19,7 +19,7 @@ abstract class ItemArmor(name: String, material: ArmorMaterial, slot: EntityEqui
 		this.creativeTab = Core.itemsTab
 		Storage.Items.add(this)
 
-		val file = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
+		val file = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
 		if (!file.exists()) {
 			file.createNewFile()
 			file.writeText("{\n" +

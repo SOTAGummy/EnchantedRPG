@@ -15,6 +15,7 @@ import event.Events
 import gui.GuiHandler
 import items.Amethyst
 import items.EnchantedDust
+import items.TestArea
 import items.WitchClose
 import items.accessory.*
 import items.armor.WizardBoots
@@ -40,6 +41,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
+import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -49,6 +51,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
+import net.minecraftforge.fml.common.registry.EntityRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
@@ -196,6 +199,12 @@ class Core {
 		val vampirismEpic = VampirismEpic
 		val vampirismLegend = VampirismLegend
 		val vampirismMythic = VampirismMythic
+		val enderKnockCommon = EnderKnockCommon
+		val enderKnockUncommon = EnderKnockUncommon
+		val enderKnockRare = EnderKnockRare
+		val enderKnockEpic = EnderKnockEpic
+		val enderKnockLegend = EnderKnockLegend
+		val enderKnockMythic = EnderKnockMythic
 		val dragonBreathSpecial = DragonBreathSpecial
 
 		//Token
@@ -248,6 +257,8 @@ class Core {
 		val noGravity = PotionNoGravity()
 		val spBoost = PotionSPBoost()
 		val vampirism = PotionVampirism()
+
+		val testArea = TestArea
 	}
 
 	@Mod.EventHandler
@@ -290,6 +301,7 @@ class Core {
 		}
 		event.registry.register(ItemBlock(pedestal).setRegistryName(ResourceLocation(ID, "pedestal")))
 		event.registry.register(ItemBlock(skillWorkbench).setRegistryName(ResourceLocation(ID, "skill_workbench")))
+		event.registry.register(testArea)
 	}
 
 	@SubscribeEvent
@@ -318,6 +330,7 @@ class Core {
 		for (model in Storage.Items) {
 			ModelLoader.setCustomModelResourceLocation(model, 0, ModelResourceLocation(ResourceLocation(ID, model.unlocalizedName.split(".")[1]), "inventory"))
 		}
+		ModelLoader.setCustomModelResourceLocation(testArea, 0, ModelResourceLocation(ResourceLocation(ID, "test_area"), "inventory"))
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ResourceLocation(ID, "pedestal"), "inventory"))
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(skillWorkbench), 0, ModelResourceLocation(ResourceLocation(ID, "skill_workbench"), "inventory"))
 	}

@@ -10,6 +10,5 @@ enum class IItemRarity(val colorChar: TextFormatting, val rgb: Int, val skills: 
 	EPIC(TextFormatting.LIGHT_PURPLE, 16733695, arrayListOf()),
 	LEGEND(TextFormatting.GOLD, 16755200, arrayListOf()),
 	MYTHIC(TextFormatting.YELLOW, 16777045, arrayListOf()),
-	SPECIAL(TextFormatting.DARK_BLUE, 170, arrayListOf()),
 	MASTER(TextFormatting.RED, 16733525, arrayListOf())
 }

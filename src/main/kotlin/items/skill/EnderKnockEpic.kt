@@ -12,8 +12,11 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object EnderKnockEpic: ItemSkill("ender_knock_epic", 65, IItemRarity.EPIC){
+object EnderKnockEpic: ItemSkill("ender_knock", 65, IItemRarity.EPIC){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
+		val x = player.posX
+		val y = player.posY
+		val z = player.posZ
 		val entities = world.getLivingEntitiesInArea(player.position, 15)
 		GlobalScope.launch {
 			repeat(entities.size.coerceAtMost(4)){
@@ -22,10 +25,14 @@ object EnderKnockEpic: ItemSkill("ender_knock_epic", 65, IItemRarity.EPIC){
 				entities[it].setVelocity((entities[it].posX - player.posX) / 2, 1.0, (entities[it].posZ - player.posZ) / 2)
 				delay(250)
 			}
+			player.setPosition(x, y, z)
 		}
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
+		val x = player.posX
+		val y = player.posY
+		val z = player.posZ
 		val entities = world.getLivingEntitiesInArea(player.position, 15)
 		GlobalScope.launch {
 			repeat(entities.size.coerceAtMost(4)){
@@ -34,6 +41,7 @@ object EnderKnockEpic: ItemSkill("ender_knock_epic", 65, IItemRarity.EPIC){
 				entities[it].setVelocity((entities[it].posX - player.posX) / 2, 1.0, (entities[it].posZ - player.posZ) / 2)
 				delay(250)
 			}
+			player.setPosition(x, y, z)
 		}
 	}
 

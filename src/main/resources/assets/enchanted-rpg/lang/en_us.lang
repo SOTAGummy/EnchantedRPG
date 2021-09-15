@@ -1,8 +1,7 @@
 #GeneralRPG English Language File
 #Items
 item.enchanted_dust.name=EnchantedDust
-item.amethyst.name=Amethyst
-item.witch_close.name=Witch's Close
+item.wizard_fragment.name=WizardFragment
 item.skill_book.name=SkillBook
 item.wooden_wand.name=WoodenWand
 item.stone_wand.name=StoneWand

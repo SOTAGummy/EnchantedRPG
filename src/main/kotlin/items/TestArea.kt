@@ -7,6 +7,5 @@ object TestArea: Item(){
 	init {
 		this.registryName = ResourceLocation(Core.ID, "test_area")
 		this.unlocalizedName = "test_area"
-		this.creativeTab = Core.itemsTab
 	}
 }

@@ -6,24 +6,21 @@ import capability.accessory.IAccessory
 import capability.sp.ISP
 import capability.sp.SP
 import capability.sp.SPStorage
-import creativeTab.EnchantedRPGAccessoryTab
-import creativeTab.EnchantedRPGEnchantmentTab
-import creativeTab.EnchantedRPGItemsTab
-import creativeTab.EnchantedRPGSkillsTab
+import creativeTab.*
 import enchantment.*
 import event.Events
 import gui.GuiHandler
-import items.Amethyst
 import items.EnchantedDust
 import items.TestArea
-import items.WitchClose
 import items.accessory.*
 import items.armor.WizardBoots
 import items.armor.WizardChestplate
 import items.armor.WizardHelmet
 import items.armor.WizardLeggings
 import items.baseItem.ItemAccessory
+import items.baseItem.ItemArmor
 import items.container.*
+import items.fragment.WizardFragment
 import items.skill.*
 import items.token.*
 import net.minecraft.block.Block
@@ -32,6 +29,7 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
@@ -41,7 +39,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
-import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -49,17 +46,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
-import net.minecraftforge.fml.common.registry.EntityRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketHandler
-import potion.PotionNoGravity
-import potion.PotionSPBoost
-import potion.PotionVampirism
+import potion.*
 import proxy.CommonProxy
 import recipe.Recipes
 import sound.SoundHandler
@@ -92,21 +87,24 @@ class Core {
 
 		//ArmorType
 		val WIZARD = ArmorUtil.addArmorType("wizard", 3000, intArrayOf(4, 4, 4, 4), 15, SoundEvents.BLOCK_CLOTH_PLACE, 0F)
+		val STRONG = ArmorUtil.addArmorType("strong", 3000, intArrayOf(4, 5, 5, 4), 15, SoundEvents.BLOCK_ANVIL_PLACE, 0F)
 
 		//CreativeTab
 		val itemsTab = EnchantedRPGItemsTab
 		val skillsTab = EnchantedRPGSkillsTab
 		val accessoriesTab = EnchantedRPGAccessoryTab
 		val enchantmentsTab = EnchantedRPGEnchantmentTab
+		val armorTab = EnchantedRPGArmorTab
 
 		//Item
 		val enchantedDust = EnchantedDust
-		val amethyst = Amethyst
-		val witchClose = WitchClose
 
 		//Block
 		val pedestal = Pedestal
 		val skillWorkbench = SkillWorkbench
+
+		//Fragment
+		val wizardFragment = WizardFragment
 
 		//SkillContainer
 		val skillBook = SkillBook
@@ -126,86 +124,73 @@ class Core {
 		val healRare = HealRare
 		val healEpic = HealEpic
 		val healLegend = HealLegend
-		val healMythic = HealMythic
 		val leapCommon = LeapCommon
 		val leapUncommon = LeapUncommon
 		val leapRare = LeapRare
 		val leapEpic = LeapEpic
 		val leapLegend = LeapLegend
-		val leapMythic = LeapMythic
 		val arrowRainCommon = ArrowRainCommon
 		val arrowRainUncommon = ArrowRainUncommon
 		val arrowRainRare = ArrowRainRare
 		val arrowRainEpic = ArrowRainEpic
 		val arrowRainLegend = ArrowRainLegend
-		val arrowRainMythic = ArrowRainMythic
 		val rageCommon = RageCommon
 		val rageUncommon = RageUncommon
 		val rageRare = RageRare
 		val rageEpic = RageEpic
 		val rageLegend = RageLegend
-		val rageMythic = RageMythic
 		val berserkCommon = BerserkCommon
 		val berserkUncommon = BerserkUncommon
 		val berserkRare = BerserkRare
 		val berserkEpic = BerserkEpic
 		val berserkLegend = BerserkLegend
-		val berserkMythic = BerserkMythic
 		val blackHoleCommon = BlackHoleCommon
 		val blackHoleUncommon = BlackHoleUncommon
 		val blackHoleRare = BlackHoleRare
 		val blackHoleEpic = BlackHoleEpic
 		val blackHoleLegend = BlackHoleLegend
-		val blackHoleMythic = BlackHoleMythic
 		val cureCommon = CureCommon
 		val cureUncommon = CureUncommon
 		val cureRare = CureRare
 		val cureEpic = CureEpic
 		val cureLegend = CureLegend
-		val cureMythic = CureMythic
 		val blowCommon = BlowCommon
 		val blowUncommon = BlowUncommon
 		val blowRare = BlowRare
 		val blowEpic = BlowEpic
 		val blowLegend = BlowLegend
-		val blowMythic = BlowMythic
 		val lightningCommon = LightningCommon
 		val lightningUncommon = LightningUncommon
 		val lightningRare = LightningRare
 		val lightningEpic = LightningEpic
 		val lightningLegend = LightningLegend
-		val lightningMythic = LightningMythic
 		val explosionCommon = ExplosionCommon
 		val explosionUncommon = ExplosionUncommon
 		val explosionRare = ExplosionRare
 		val explosionEpic = ExplosionEpic
 		val explosionLegend = ExplosionLegend
-		val explosionMythic = ExplosionMythic
 		val fireBallCommon = FireBallCommon
 		val fireBallUncommon = FireBallUncommon
 		val fireBallRare = FireBallRare
 		val fireBallEpic = FireBallEpic
 		val fireBallLegend = FireBallLegend
-		val fireBallMythic = FireBallMythic
 		val shockWaveCommon = ShockWaveCommon
 		val shockWaveUncommon = ShockWaveUncommon
 		val shockWaveRare = ShockWaveRare
 		val shockWaveEpic = ShockWaveEpic
 		val shockWaveLegend = ShockWaveLegend
-		val shockWaveMythic = ShockWaveMythic
 		val vampirismCommon = VampirismCommon
 		val vampirismUncommon = VampirismUncommon
 		val vampirismRare = VampirismRare
 		val vampirismEpic = VampirismEpic
 		val vampirismLegend = VampirismLegend
-		val vampirismMythic = VampirismMythic
 		val enderKnockCommon = EnderKnockCommon
 		val enderKnockUncommon = EnderKnockUncommon
 		val enderKnockRare = EnderKnockRare
 		val enderKnockEpic = EnderKnockEpic
 		val enderKnockLegend = EnderKnockLegend
-		val enderKnockMythic = EnderKnockMythic
-		val dragonBreathSpecial = DragonBreathSpecial
+		val infernoCommon = InfernoCommon
+		val dragonBreathSpecial = DragonBreathMythic
 
 		//Token
 		val commonToken = CommonToken
@@ -242,6 +227,7 @@ class Core {
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")
 		val HEAL_SOUND = SoundHandler.registerSound("heal")
 		val RAGE_SOUND = SoundHandler.registerSound("rage")
+		val INFERNO_SOUND = SoundHandler.registerSound("inferno")
 
 		//Enchantment
 		val toughness = EnchantmentToughness
@@ -254,9 +240,11 @@ class Core {
 		val wise = EnchantmentWise
 
 		//PotionEffect
-		val noGravity = PotionNoGravity()
 		val spBoost = PotionSPBoost()
 		val vampirism = PotionVampirism()
+		val pursuit = PotionPursuit()
+		val criticalRate = PotionCriticalRate()
+		val criticalDamage = PotionCriticalDamage()
 
 		val testArea = TestArea
 	}
@@ -333,5 +321,18 @@ class Core {
 		ModelLoader.setCustomModelResourceLocation(testArea, 0, ModelResourceLocation(ResourceLocation(ID, "test_area"), "inventory"))
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(pedestal), 0, ModelResourceLocation(ResourceLocation(ID, "pedestal"), "inventory"))
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(skillWorkbench), 0, ModelResourceLocation(ResourceLocation(ID, "skill_workbench"), "inventory"))
+	}
+
+	@SubscribeEvent
+	fun onCraftEvent(event: PlayerEvent.ItemCraftedEvent){
+		if (event.crafting.item is ItemArmor) {
+			val nbt = if (event.crafting.tagCompound != null) {
+				event.crafting.tagCompound
+			} else {
+				NBTTagCompound()
+			}
+			nbt!!.setBoolean("Unbreakable", true)
+			event.crafting.tagCompound = nbt
+		}
 	}
 }

@@ -27,11 +27,11 @@ abstract class CustomPotion(name: String, isBad: Boolean, color: Int): Potion(is
 		return true
 	}
 
-	open fun onAttacked(source: DamageSource, attacked: Entity, amount: Float, amplifier: Int){
+	open fun onAttacked(source: DamageSource, attacked: EntityLivingBase, amount: Float, amplifier: Int){
 
 	}
 
-	open fun onAttack(source: DamageSource, attacked: Entity, amount: Float, amplifier: Int){
+	open fun onAttack(source: DamageSource, attacked: EntityLivingBase, amount: Float, amplifier: Int){
 
 	}
 }

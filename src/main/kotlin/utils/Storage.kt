@@ -1,6 +1,7 @@
 package utils
 
 import enchantment.AccessoryEnchantment
+import items.baseItem.ItemArmor
 import net.minecraft.entity.ai.attributes.IAttribute
 import net.minecraft.item.Item
 import net.minecraft.potion.Potion
@@ -9,6 +10,7 @@ import recipe.PedestalRecipe
 
 object Storage {
 	val Items = arrayListOf<Item>()
+	val Armor = arrayListOf<ItemArmor>()
 	val Sounds = arrayListOf<SoundEvent>()
 	val Potions = arrayListOf<Potion>()
 	val Recipes = arrayListOf<PedestalRecipe>()

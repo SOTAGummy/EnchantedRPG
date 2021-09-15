@@ -22,5 +22,13 @@
       "stream": false
     }
     ]
+  },
+  "inferno": {
+    "category" : "player",
+    "sounds": [{
+      "name": "enchanted-rpg:inferno",
+      "stream": false
+    }
+    ]
   }
 }

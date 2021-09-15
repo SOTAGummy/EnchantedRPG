@@ -200,12 +200,8 @@ class Events {
 		}
 
 		if (attacker is EntityLivingBase && attacker.activePotionEffects.isNotEmpty()){
-			println(1)
-			println(attacker.activePotionEffects)
 			for (i in Storage.Potions){
-				println(attacker.isPotionActive(i))
 				if (attacker.isPotionActive(i)){
-					println(2)
 					(i as CustomPotion).onAttack(event.source, attacked, event.amount, attacker.activePotionMap[i]!!.amplifier)
 				}
 			}
@@ -226,7 +222,7 @@ class Events {
 		if (entity is EntityDragon){
 			event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.dragonBreathSpecial)))
 		} else if (entity is EntityWitch){
-			if (Random.nextInt(100) >= 90) event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.witchClose)))
+			if (Random.nextInt(100) >= 90) event.drops.add(EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, ItemStack(Core.wizardFragment)))
 		}
 
 		if (event.source.trueSource is EntityPlayer && event.entityLiving.isNonBoss && event.entityLiving is IMob){

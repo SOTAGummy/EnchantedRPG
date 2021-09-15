@@ -1,8 +1,7 @@
 #GeneralRPG 日本語言語ファイル
 #アイテム
 item.enchanted_dust.name=エンチャントの粉
-item.amethyst.name=アメジスト
-item.witch_close.name=ウィッチの布
+item.wizard_fragment.name=魔法使いのフラグメント
 item.skill_book.name=スキルブック
 item.wooden_wand.name=木の杖
 item.stone_wand.name=石の杖

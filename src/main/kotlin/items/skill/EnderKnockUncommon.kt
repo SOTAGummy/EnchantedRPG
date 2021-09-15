@@ -12,8 +12,11 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object EnderKnockUncommon: ItemSkill("ender_knock_uncommon", 45, IItemRarity.UNCOMMON){
+object EnderKnockUncommon: ItemSkill("ender_knock", 45, IItemRarity.UNCOMMON){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
+		val x = player.posX
+		val y = player.posY
+		val z = player.posZ
 		val entities = world.getLivingEntitiesInArea(player.position, 15)
 		GlobalScope.launch {
 			repeat(entities.size.coerceAtMost(2)){
@@ -22,18 +25,27 @@ object EnderKnockUncommon: ItemSkill("ender_knock_uncommon", 45, IItemRarity.UNC
 				entities[it].setVelocity((entities[it].posX - player.posX) / 2, 1.0, (entities[it].posZ - player.posZ) / 2)
 				delay(500)
 			}
+			player.setPosition(x, y, z)
 		}
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
+		val x = player.posX
+		val y = player.posY
+		val z = player.posZ
 		val entities = world.getLivingEntitiesInArea(player.position, 15)
 		GlobalScope.launch {
-			repeat(entities.size.coerceAtMost(2)){
+			repeat(entities.size.coerceAtMost(2)) {
 				player.setPosition(entities[it].posX, entities[it].posY, entities[it].posZ)
 				entities[it].attackEntityFrom(DamageSource.causePlayerDamage(player), 6F)
-				entities[it].setVelocity((entities[it].posX - player.posX) / 2, 1.0, (entities[it].posZ - player.posZ) / 2)
+				entities[it].setVelocity(
+					(entities[it].posX - player.posX) / 2,
+					1.0,
+					(entities[it].posZ - player.posZ) / 2
+				)
 				delay(500)
 			}
+			player.setPosition(x, y, z)
 		}
 	}
 

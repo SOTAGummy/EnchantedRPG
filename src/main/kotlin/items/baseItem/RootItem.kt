@@ -16,7 +16,6 @@ abstract class RootItem(name: String, val rarity: IItemRarity): Item(){
 		unlocalizedName = name
 		creativeTab = Core.itemsTab
 
-
 		val file = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
 		if (!file.exists() && this !is ItemSkill) {
 			file.createNewFile()

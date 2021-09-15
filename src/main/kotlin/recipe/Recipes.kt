@@ -12,7 +12,6 @@ object Recipes {
 		PedestalRecipe(Core.rareToken, Core.uncommonToken, Core.uncommonToken, Core.uncommonToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 		PedestalRecipe(Core.epicToken, Core.rareToken, Core.rareToken, Core.rareToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 		PedestalRecipe(Core.legendToken, Core.epicToken, Core.epicToken, Core.epicToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.mythicToken, Core.legendToken, Core.legendToken, Core.legendToken, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 
 		registerSkillRecipes("heal")
 		registerSkillRecipes("leap")
@@ -27,9 +26,9 @@ object Recipes {
 		registerSkillRecipes("fire_ball")
 		registerSkillRecipes("shock_wave")
 		registerSkillRecipes("vampirism")
+		registerSkillRecipes("ender_knock")
 
 		PedestalRecipe(Core.dragonBreathSpecial, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
-		PedestalRecipe(Core.amethyst, Core.enchantedDust, Items.DIAMOND, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}
 
 	private fun registerSkillRecipes(name: String){
@@ -59,13 +58,6 @@ object Recipes {
 				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_epic"))!!,
 				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_epic"))!!,
 				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_epic"))!!,
-				Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR
-		)
-
-		PedestalRecipe(Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_mythic"))!!,
-				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_legend"))!!,
-				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_legend"))!!,
-				Item.REGISTRY.getObject(ResourceLocation(Core.ID, "${name}_legend"))!!,
 				Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR
 		)
 	}

@@ -7,7 +7,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
-import net.minecraft.entity.projectile.EntityTippedArrow
 import net.minecraft.init.Items
 import net.minecraft.item.ItemArrow
 import net.minecraft.item.ItemStack
@@ -16,7 +15,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import kotlin.random.Random
 
-object ArrowRainCommon: ItemSkill("arrow_rain", 30, IItemRarity.COMMON){
+object ArrowRainCommon: ItemSkill("arrow_rain", 30, IItemRarity.COMMON, 2){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

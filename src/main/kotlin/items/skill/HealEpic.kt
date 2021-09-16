@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object HealEpic: ItemSkill("heal", 20, IItemRarity.EPIC){
+object HealEpic: ItemSkill("heal", 20, IItemRarity.EPIC, 1){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		player.playSound(Core.HEAL_SOUND, 0.5F, 1F)
 	}

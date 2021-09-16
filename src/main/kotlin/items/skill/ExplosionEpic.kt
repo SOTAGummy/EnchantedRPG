@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object ExplosionEpic: ItemSkill("explosion", 65, IItemRarity.EPIC){
+object ExplosionEpic: ItemSkill("explosion", 65, IItemRarity.EPIC, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

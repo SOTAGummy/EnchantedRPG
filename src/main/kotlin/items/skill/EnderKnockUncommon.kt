@@ -12,7 +12,7 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object EnderKnockUncommon: ItemSkill("ender_knock", 45, IItemRarity.UNCOMMON){
+object EnderKnockUncommon: ItemSkill("ender_knock", 45, IItemRarity.UNCOMMON, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val x = player.posX
 		val y = player.posY

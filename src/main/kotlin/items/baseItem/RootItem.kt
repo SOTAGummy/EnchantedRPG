@@ -27,7 +27,7 @@ abstract class RootItem(name: String, val rarity: IItemRarity): Item(){
 					"}")
 		} else if (!file.exists() && this is ItemSkill){
 			file.createNewFile()
-			val item = this as ItemSkill
+			val item = this
 			file.writeText("{\n" +
 					"  \"parent\": \"item/generated\",\n" +
 					"  \"textures\": {\n" +

@@ -153,3 +153,5 @@ item.modifiers.ring=When equipped
 #Text
 text.skill_cost=Cost
 text.damage=Damage
+text.cooldown=Cooldown
+text.second=s

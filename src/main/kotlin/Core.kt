@@ -198,7 +198,6 @@ class Core {
 		val rareToken = RareToken
 		val epicToken = EpicToken
 		val legendToken = LegendToken
-		val mythicToken = MythicToken
 
 		//Armor
 		val wizardHelmet = WizardHelmet

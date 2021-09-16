@@ -7,9 +7,7 @@ import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.effect.EntityLightningBolt
-import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.EnumHand
@@ -17,7 +15,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import source.LightningDamage
 
-object LightningEpic: ItemSkill("lightning", 75, IItemRarity.EPIC){
+object LightningEpic: ItemSkill("lightning", 75, IItemRarity.EPIC, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

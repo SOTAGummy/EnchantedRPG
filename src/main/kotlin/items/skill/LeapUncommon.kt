@@ -7,7 +7,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 
-object LeapUncommon: ItemSkill("leap", 30, IItemRarity.UNCOMMON){
+object LeapUncommon: ItemSkill("leap", 30, IItemRarity.UNCOMMON, 1){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val vx = -MathHelper.sin(Math.toRadians(player.rotationYaw.toDouble()).toFloat()) * MathHelper.cos(
 				Math.toRadians(player.rotationPitch.toDouble()).toFloat()

@@ -7,18 +7,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
-import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import source.EarthenDamage
-import source.LightningDamage
-import kotlin.math.sqrt
 import kotlin.random.Random
 
-object BlackHoleCommon: ItemSkill("black_hole", 70, IItemRarity.COMMON){
+object BlackHoleCommon: ItemSkill("black_hole", 70, IItemRarity.COMMON, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

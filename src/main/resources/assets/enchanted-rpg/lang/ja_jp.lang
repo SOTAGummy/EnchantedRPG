@@ -153,3 +153,5 @@ item.modifiers.ring=装備したとき
 #テキスト
 text.skill_cost=コスト
 text.damage=ダメージ
+text.cooldown=クールダウン
+text.second=秒

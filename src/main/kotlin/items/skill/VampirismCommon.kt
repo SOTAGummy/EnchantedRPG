@@ -7,7 +7,7 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object VampirismCommon: ItemSkill("vampirism", 15, IItemRarity.COMMON){
+object VampirismCommon: ItemSkill("vampirism", 15, IItemRarity.COMMON, 3){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

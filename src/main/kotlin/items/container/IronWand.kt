@@ -23,6 +23,7 @@ object IronWand: RootItem("iron_wand", IItemRarity.RARE), ISkillStorable {
 	override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
 		if (!player.isSneaking){
 			player.heldItemMainhand.call(world, player, hand)
+			player.cooldownTracker.setCooldown(this, getCooldownTime(player.heldItemMainhand) * 20)
 		}
 
 		return ActionResult(EnumActionResult.SUCCESS, player.heldItemMainhand)

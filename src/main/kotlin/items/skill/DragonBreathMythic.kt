@@ -5,12 +5,11 @@ import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityDragonFireball
 import net.minecraft.util.EnumHand
-import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import kotlin.math.cos
 import kotlin.math.sin
 
-object DragonBreathMythic: ItemSkill("dragon_breath", 100, IItemRarity.MYTHIC){
+object DragonBreathMythic: ItemSkill("dragon_breath", 100, IItemRarity.MYTHIC, 6){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

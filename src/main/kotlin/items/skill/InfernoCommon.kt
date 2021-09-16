@@ -10,16 +10,14 @@ import net.minecraft.world.World
 import source.FireDamage
 import kotlin.random.Random
 
-object InfernoCommon: ItemSkill("inferno", 80, IItemRarity.COMMON){
+object InfernoCommon: ItemSkill("inferno", 80, IItemRarity.COMMON, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val entities = world.getLivingEntitiesInArea(player.position, 5)
 		player.playSound(Core.INFERNO_SOUND, 0.4F, 1F)
 		repeat(entities.size){
-			repeat(50){
-				val randomX = Random.nextDouble(-0.5, 0.5)
-				val randomZ = Random.nextDouble(-0.5, 0.5)
-				world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, entities[it].posX, entities[it].posY, entities[it].posZ, randomX, 1.0, randomZ)
-			}
+			val randomX = Random.nextDouble(-0.5, 0.5)
+			val randomZ = Random.nextDouble(-0.5, 0.5)
+			world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, entities[it].posX, entities[it].posY, entities[it].posZ, randomX, 1.0, randomZ)
 		}
 	}
 

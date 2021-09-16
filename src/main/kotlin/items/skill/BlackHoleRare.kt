@@ -13,10 +13,9 @@ import net.minecraft.util.EnumParticleTypes
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
 import source.EarthenDamage
-import kotlin.math.sqrt
 import kotlin.random.Random
 
-object BlackHoleRare: ItemSkill("black_hole", 90, IItemRarity.RARE){
+object BlackHoleRare: ItemSkill("black_hole", 90, IItemRarity.RARE, 5){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 
 	}

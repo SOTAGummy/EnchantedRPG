@@ -61,6 +61,10 @@ abstract class AccessoryEnchantment(name: String, rarity: Rarity): Enchantment(r
 		return 1
 	}
 
+	override fun canApplyTogether(ench: Enchantment): Boolean {
+		return ench !is AccessoryEnchantment
+	}
+
 	fun getUUID(slot: EntityEquipmentSlot): UUID {
 		return ENCHANTMENT_MODIFIER[slot.index]
 	}

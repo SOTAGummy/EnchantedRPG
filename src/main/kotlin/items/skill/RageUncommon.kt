@@ -8,7 +8,7 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object RageUncommon: ItemSkill("rage", 16, IItemRarity.UNCOMMON){
+object RageUncommon: ItemSkill("rage", 16, IItemRarity.UNCOMMON, 3){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		player.playSound(Core.RAGE_SOUND, 0.5F, 1F)
 	}

@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -44,7 +45,7 @@ object ArrowRainEpic: ItemSkill("arrow_rain", 45, IItemRarity.EPIC, 2){
 				val randomZ = Random.nextDouble(4.5) * randomCodeZ
 				arrow.setPosition(pos.x + randomX, pos.y.toDouble() + 5.0, pos.z + randomZ)
 				arrow.setVelocity(0.0, -1.0, 0.0)
-				arrow.damage = 6.0
+				arrow.damage = player.getATK() * 2.5
 				arrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED
 				entityList.add(arrow)
 				val server = world as WorldServer

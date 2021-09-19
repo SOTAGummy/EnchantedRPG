@@ -14,7 +14,7 @@ object ExplosionUncommon: ItemSkill("explosion", 45, IItemRarity.UNCOMMON, 5){
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val entity = world.getLivingEntitiesInArea(player.position, 15)
-		repeat(3){
+		repeat(entity.size.coerceAtMost(3)){
 			world.createExplosion(player, entity[it].posX, entity[it].posY, entity[it].posZ, 2F, false)
 		}
 	}

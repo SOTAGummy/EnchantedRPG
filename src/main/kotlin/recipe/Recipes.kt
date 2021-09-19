@@ -23,10 +23,10 @@ object Recipes {
 		registerSkillRecipes("blow")
 		registerSkillRecipes("lightning")
 		registerSkillRecipes("explosion")
-		registerSkillRecipes("fire_ball")
 		registerSkillRecipes("shock_wave")
 		registerSkillRecipes("vampirism")
 		registerSkillRecipes("ender_knock")
+		registerSkillRecipes("high_jump")
 
 		PedestalRecipe(Core.dragonBreathSpecial, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}

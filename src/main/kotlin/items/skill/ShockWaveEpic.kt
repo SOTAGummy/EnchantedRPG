@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
@@ -19,11 +20,11 @@ import kotlin.random.Random
 
 object ShockWaveEpic: ItemSkill("shock_wave", 65, IItemRarity.EPIC, 3){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.addVelocity(0.0, 1.0, 0.0)
+		player.addVelocity(0.0, -1.0, 0.0)
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		player.addVelocity(0.0, 1.0, 0.0)
+		player.addVelocity(0.0, -1.0, 0.0)
 		GlobalScope.launch {
 			delay(10)
 			launch {
@@ -40,9 +41,13 @@ object ShockWaveEpic: ItemSkill("shock_wave", 65, IItemRarity.EPIC, 3){
 			val entityList = world.getLivingEntitiesInArea(player.position, 5)
 			(world as WorldServer).addScheduledTask(){
 				for (i in entityList) {
-					i.attackEntityFrom(EarthenDamage(player), 20F)
+					i.attackEntityFrom(EarthenDamage(player), (player.getATK().toFloat() + player.fallDistance) * 2.5F)
 				}
 			}
 		}
+	}
+
+	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
+		return !player.onGround
 	}
 }

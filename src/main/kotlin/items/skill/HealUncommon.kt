@@ -6,14 +6,14 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-object HealUncommon: ItemSkill("heal", 10, IItemRarity.UNCOMMON, 1){
+object HealUncommon: ItemSkill("heal", 10, IItemRarity.UNCOMMON, 2){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		player.playSound(Core.HEAL_SOUND, 0.5F, 1F)
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		if (player.health + 4 < player.maxHealth){
-			player.health += 4
+		if (player.health + (player.maxHealth * 0.2) < player.maxHealth){
+			player.health += player.maxHealth * 0.2F
 		} else {
 			player.health = player.maxHealth
 		}

@@ -16,10 +16,11 @@ abstract class ItemArmor(name: String, material: ArmorMaterial, slot: EntityEqui
 		this.maxStackSize = 1
 		this.unlocalizedName = name
 		this.registryName = ResourceLocation(Core.ID, name)
+		this.creativeTab = null
 		Storage.Armor.add(this)
 		Storage.Items.add(this)
 
-		val file = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
+		val file = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\models\\item\\$name.json")
 		if (!file.exists()) {
 			file.createNewFile()
 			file.writeText("{\n" +

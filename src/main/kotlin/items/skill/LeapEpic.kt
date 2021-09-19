@@ -6,17 +6,19 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
+import kotlin.math.cos
+import kotlin.math.sin
 
 object LeapEpic: ItemSkill("leap", 40, IItemRarity.EPIC, 1){
 	override fun clientFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
-		val vx = -MathHelper.sin(Math.toRadians(player.rotationYaw.toDouble()).toFloat()) * MathHelper.cos(
-				Math.toRadians(player.rotationPitch.toDouble()).toFloat()
+		val vx = -sin(Math.toRadians(player.rotationYaw.toDouble())) * cos(
+				Math.toRadians(player.rotationPitch.toDouble())
 		)
-		val vz = MathHelper.cos(Math.toRadians(player.rotationYaw.toDouble()).toFloat()) * MathHelper.cos(
-				Math.toRadians(player.rotationPitch.toDouble()).toFloat()
+		val vz = cos(Math.toRadians(player.rotationYaw.toDouble())) * cos(
+				Math.toRadians(player.rotationPitch.toDouble())
 		)
-		val vy = -MathHelper.sin(Math.toRadians(player.rotationPitch.toDouble()).toFloat())
-		player.addVelocity(vx.toDouble() * 1.6, vy.toDouble() * 1.6, vz.toDouble() * 1.6)
+		val vy = -sin(Math.toRadians(player.rotationPitch.toDouble()))
+		player.addVelocity(vx * 1.6, vy * 1.6, vz * 1.6)
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {

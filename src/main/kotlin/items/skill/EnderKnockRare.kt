@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
@@ -37,7 +38,7 @@ object EnderKnockRare: ItemSkill("ender_knock", 55, IItemRarity.RARE, 5){
 		GlobalScope.launch {
 			repeat(entities.size.coerceAtMost(3)){
 				player.setPosition(entities[it].posX, entities[it].posY, entities[it].posZ)
-				entities[it].attackEntityFrom(DamageSource.causePlayerDamage(player), 7F)
+				entities[it].attackEntityFrom(DamageSource.causePlayerDamage(player), player.getATK().toFloat() * 3F)
 				entities[it].setVelocity((entities[it].posX - player.posX) / 2, 1.0, (entities[it].posZ - player.posZ) / 2)
 				delay(333)
 			}

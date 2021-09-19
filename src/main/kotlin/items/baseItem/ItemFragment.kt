@@ -10,7 +10,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 		creativeTab = Core.itemsTab
 		Storage.Items.add(this)
 
-		val helmet = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_helmet.json")
+		val helmet = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_helmet.json")
 		if (!helmet.exists()) {
 			helmet.createNewFile()
 			helmet.writeText("{\n" +
@@ -33,7 +33,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val chestplate =  File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_chestplate.json")
+		val chestplate =  File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_chestplate.json")
 		if (!chestplate.exists()) {
 			chestplate.createNewFile()
 			chestplate.writeText("{\n" +
@@ -56,7 +56,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val leggings = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_leggings.json")
+		val leggings = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_leggings.json")
 		if (!leggings.exists()) {
 			leggings.createNewFile()
 			leggings.writeText("{\n" +
@@ -79,7 +79,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val boots = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_boots.json")
+		val boots = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_boots.json")
 		if (!boots.exists()) {
 			boots.createNewFile()
 			boots.writeText("{\n" +
@@ -102,7 +102,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val necklace = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_necklace.json")
+		val necklace = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_necklace.json")
 		if (!necklace.exists()) {
 			necklace.createNewFile()
 			necklace.writeText("{\n" +
@@ -129,7 +129,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val amulet = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_amulet.json")
+		val amulet = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_amulet.json")
 		if (!amulet.exists()) {
 			amulet.createNewFile()
 			amulet.writeText("{\n" +
@@ -152,7 +152,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val glove = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_glove.json")
+		val glove = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_glove.json")
 		if (!glove.exists()) {
 			glove.createNewFile()
 			glove.writeText("{\n" +
@@ -175,7 +175,7 @@ abstract class ItemFragment(name: String, rarity: IItemRarity): RootItem("${name
 					"  }\n" +
 					"}")
 		}
-		val ring = File("D:\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_ring.json")
+		val ring = File("C:\\Users\\gummy\\OneDrive\\デスクトップ\\mod\\EnchantedRPG\\src\\main\\resources\\assets\\enchanted-rpg\\recipes\\${name}_ring.json")
 		if (!ring.exists()) {
 			ring.createNewFile()
 			ring.writeText("{\n" +

@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
@@ -27,7 +28,7 @@ object EnderKnockCommon: ItemSkill("ender_knock", 35, IItemRarity.COMMON, 5){
 		val z = player.posZ
 		val entities = world.getLivingEntitiesInArea(player.position, 15)
 		player.setPosition(entities[0].posX, entities[0].posY, entities[0].posZ)
-		entities[0].attackEntityFrom(DamageSource.causePlayerDamage(player), 5F)
+		entities[0].attackEntityFrom(DamageSource.causePlayerDamage(player), player.getATK().toFloat() * 2)
 		entities[0].setVelocity((entities[0].posX - player.posX) / 2, 1.0, (entities[0].posZ - player.posZ) / 2)
 		player.setPosition(x, y, z)
 	}

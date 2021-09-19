@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import extension.times
 import items.baseItem.ItemSkill
@@ -22,14 +23,13 @@ object LightningCommon: ItemSkill("lightning", 30, IItemRarity.COMMON, 5){
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val entityList = world.getLivingEntitiesInArea(player.position, 10)
-		entityList.times(3)
 		GlobalScope.launch {
-			repeat(3){
+			repeat(entityList.size.coerceAtMost(3)){
 				val lightning = EntityLightningBolt(world, entityList[it].posX, entityList[it].posY, entityList[it].posZ, true)
 				lightning.setLocationAndAngles(entityList[it].posX, entityList[it].posY, entityList[it].posZ, 0F, 0F)
 				(world as WorldServer).addScheduledTask(){
 					world.addWeatherEffect(lightning)
-					if (entityList[it] !is EntityPlayerMP) entityList[it].attackEntityFrom(LightningDamage(player), 2F)
+					if (entityList[it] !is EntityPlayerMP) entityList[it].attackEntityFrom(LightningDamage(player), player.getATK().toFloat())
 				}
 				delay(333)
 			}

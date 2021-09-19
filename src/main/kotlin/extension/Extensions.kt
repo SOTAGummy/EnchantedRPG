@@ -1,5 +1,6 @@
 package extension
 
+import Core
 import capability.sp.SPProvider
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
@@ -8,21 +9,23 @@ import kotlinx.coroutines.launch
 import module.ISkillStorable
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.I18n
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
-import kotlin.math.abs
 import kotlin.random.Random
 
 fun ItemStack.getItemSkill(index: Int): ItemSkill?{
@@ -93,11 +96,13 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val clientThread = Minecraft.getMinecraft()
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if ((getItemSkill(it) != null && getItemSkill(it)!!.canCall(world, player, hand) && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
-						clientThread.addScheduledTask(){
-							getItemSkill(it)?.clientFunction(world, player, hand)
+					getItemSkill(it)?.let { skill ->
+						if ((skill.canCall(world, player, hand) && player.useSP(skill.cost)) || player.isCreative) {
+							clientThread.addScheduledTask(){
+								getItemSkill(it)?.serverFunction(world, player, hand)
+							}
+							delay(1000)
 						}
-						delay(1000)
 					}
 				}
 			}
@@ -105,11 +110,13 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 			val serverThread = world as WorldServer
 			GlobalScope.launch {
 				repeat(getSkillCapacity()){
-					if ((getItemSkill(it) != null && getItemSkill(it)!!.canCall(world, player, hand) && player.useSP(getItemSkill(it)?.cost!!)) || player.isCreative){
-						serverThread.addScheduledTask(){
-							getItemSkill(it)?.serverFunction(world, player, hand)
+					getItemSkill(it)?.let { skill ->
+						if ((skill.canCall(world, player, hand) && player.useSP(skill.cost)) || player.isCreative) {
+							serverThread.addScheduledTask(){
+								getItemSkill(it)?.serverFunction(world, player, hand)
+							}
+							delay(1000)
 						}
-						delay(1000)
 					}
 				}
 			}
@@ -183,4 +190,8 @@ fun <T : Any?> ArrayList<T>.times(time: Int): ArrayList<T>{
 		this.addAll(this)
 	}
 	return this
+}
+
+fun EntityPlayer.getATK(): Double {
+	return this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).attributeValue
 }

@@ -13,13 +13,11 @@ import gui.GuiHandler
 import items.EnchantedDust
 import items.TestArea
 import items.accessory.*
-import items.armor.WizardBoots
-import items.armor.WizardChestplate
-import items.armor.WizardHelmet
-import items.armor.WizardLeggings
+import items.armor.*
 import items.baseItem.ItemAccessory
 import items.baseItem.ItemArmor
 import items.container.*
+import items.fragment.EnhancedWizardFragment
 import items.fragment.WizardFragment
 import items.skill.*
 import items.token.*
@@ -87,6 +85,7 @@ class Core {
 
 		//ArmorType
 		val WIZARD = ArmorUtil.addArmorType("wizard", 3000, intArrayOf(4, 4, 4, 4), 15, SoundEvents.BLOCK_CLOTH_PLACE, 0F)
+		val ENHANCED_WIZARD = ArmorUtil.addArmorType("enhanced_wizard", 3000, intArrayOf(6, 8, 8, 6), 30, SoundEvents.BLOCK_CLOTH_PLACE, 2F)
 		val STRONG = ArmorUtil.addArmorType("strong", 3000, intArrayOf(4, 5, 5, 4), 15, SoundEvents.BLOCK_ANVIL_PLACE, 0F)
 
 		//CreativeTab
@@ -105,6 +104,7 @@ class Core {
 
 		//Fragment
 		val wizardFragment = WizardFragment
+		val enhancedWizardFragment = EnhancedWizardFragment
 
 		//SkillContainer
 		val skillBook = SkillBook
@@ -169,11 +169,6 @@ class Core {
 		val explosionRare = ExplosionRare
 		val explosionEpic = ExplosionEpic
 		val explosionLegend = ExplosionLegend
-		val fireBallCommon = FireBallCommon
-		val fireBallUncommon = FireBallUncommon
-		val fireBallRare = FireBallRare
-		val fireBallEpic = FireBallEpic
-		val fireBallLegend = FireBallLegend
 		val shockWaveCommon = ShockWaveCommon
 		val shockWaveUncommon = ShockWaveUncommon
 		val shockWaveRare = ShockWaveRare
@@ -189,6 +184,11 @@ class Core {
 		val enderKnockRare = EnderKnockRare
 		val enderKnockEpic = EnderKnockEpic
 		val enderKnockLegend = EnderKnockLegend
+		val highJumpCommon = HighJumpCommon
+		val highJumpUncommon = HighJumpUncommon
+		val highJumpRare = HighJumpRare
+		val highJumpEpic = HighJumpEpic
+		val highJumpLegend = HighJumpLegend
 		val infernoCommon = InfernoCommon
 		val dragonBreathSpecial = DragonBreathMythic
 
@@ -204,6 +204,10 @@ class Core {
 		val wizardChestplate = WizardChestplate
 		val wizardLeggings = WizardLeggings
 		val wizardBoots = WizardBoots
+		val enhancedWizardHelmet = EnhancedWizardHelmet
+		val enhancedWizardChestplate = EnhancedWizardChestplate
+		val enhancedWizardLeggings = EnhancedWizardLeggings
+		val enhancedWizardBoots = EnhancedWizardBoots
 
 		//Accessory
 		val diamondNecklace = DiamondNecklace
@@ -214,6 +218,10 @@ class Core {
 		val wizardAmulet = WizardAmulet
 		val wizardGlove = WizardGlove
 		val wizardRing = WizardRing
+		val enhancedWizardNecklace = EnhancedWizardNecklace
+		val enhancedWizardAmulet = EnhancedWizardAmulet
+		val enhancedWizardGlove = EnhancedWizardGlove
+		val enhancedWizardRing = EnhancedWizardRing
 
 		//Attribute
 		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)

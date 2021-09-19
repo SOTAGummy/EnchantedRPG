@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
@@ -22,7 +23,7 @@ object BlowLegend: ItemSkill("blow", 80, IItemRarity.LEGEND, 3){
 				val posX = entityList[it].posX
 				val posZ = entityList[it].posZ
 				entityList[it].addVelocity(posX - playerX, 0.8, posZ - playerZ)
-				entityList[it].attackEntityFrom(WindDamage(player), 10F)
+				entityList[it].attackEntityFrom(WindDamage(player), player.getATK().toFloat() * 4F)
 			}
 		}
 	}

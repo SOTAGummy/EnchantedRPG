@@ -1,6 +1,7 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
@@ -31,7 +32,7 @@ object BlackHoleEpic: ItemSkill("black_hole", 100, IItemRarity.EPIC, 5){
 						val posY = entityList[it].posY
 						val posZ = entityList[it].posZ
 						entityList[it].setVelocity((ray.x - posX) / 2, (ray.y - posY) / 2, (ray.z - posZ) / 2)
-						entityList[it].attackEntityFrom(EarthenDamage(player), 1F)
+						entityList[it].attackEntityFrom(EarthenDamage(player), player.getATK().toFloat())
 					}
 				}
 				Minecraft.getMinecraft().addScheduledTask(){

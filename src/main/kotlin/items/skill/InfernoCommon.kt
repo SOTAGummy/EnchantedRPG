@@ -1,8 +1,10 @@
 package items.skill
 
 import enum.IItemRarity
+import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
+import net.minecraft.block.BlockTorch
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumParticleTypes
@@ -17,14 +19,14 @@ object InfernoCommon: ItemSkill("inferno", 80, IItemRarity.COMMON, 5){
 		repeat(entities.size){
 			val randomX = Random.nextDouble(-0.5, 0.5)
 			val randomZ = Random.nextDouble(-0.5, 0.5)
-			world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, entities[it].posX, entities[it].posY, entities[it].posZ, randomX, 1.0, randomZ)
+			world.spawnParticle(EnumParticleTypes.FLAME, entities[it].posX, entities[it].posY, entities[it].posZ, randomX, 1.0, randomZ)
 		}
 	}
 
 	override fun serverFunction(world: World, player: EntityPlayer, handIn: EnumHand) {
 		val entities = world.getLivingEntitiesInArea(player.position, 5)
 		repeat(entities.size){
-			entities[it].attackEntityFrom(FireDamage(player), 10F)
+			entities[it].attackEntityFrom(FireDamage(player), player.getATK().toFloat())
 			entities[it].setFire(10)
 		}
 	}

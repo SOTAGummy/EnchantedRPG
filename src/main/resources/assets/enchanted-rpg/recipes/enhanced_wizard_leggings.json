@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "enchanted-rpg:enhanced_wizard_fragment",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:enhanced_wizard_leggings",
+    "data": 0,
+    "count": 1
+  }
+}

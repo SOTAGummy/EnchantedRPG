@@ -1,10 +1,11 @@
 package entity
 
+import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 
-class EntityArea(world: World, x: Double, y: Double, z: Double, stack: ItemStack): EntityItem(world, x, y, z, stack){
+class EntityArea(world: World, x: Double, y: Double, z: Double, stack: ItemStack, val target: Entity): EntityItem(world, x, y, z, stack){
 	init {
 		this.motionY = 0.0
 		this.motionX = 0.0
@@ -20,5 +21,6 @@ class EntityArea(world: World, x: Double, y: Double, z: Double, stack: ItemStack
 		this.setInfinitePickupDelay()
 		super.onUpdate()
 		this.setVelocity(0.0, 0.0, 0.0)
+		this.setPosition(target.posX, target.posY - 1, target.posZ)
 	}
 }

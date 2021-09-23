@@ -17,6 +17,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object WoodenWand: RootItem("wooden_wand", IItemRarity.COMMON), ISkillStorable{
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 1
 	}

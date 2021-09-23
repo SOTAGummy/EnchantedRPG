@@ -7,10 +7,10 @@ import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
-class MPIndicator(mc: Minecraft, correction: Int): Gui() {
+class SPIndicator(mc: Minecraft, correction: Int): Gui() {
 	companion object {
 		@JvmStatic
-		private val texture = ResourceLocation(Core.ID + ":textures/gui/mp_bar.png")
+		private val texture = ResourceLocation(Core.ID + ":textures/gui/sp_bar.png")
 	}
 
 	init {

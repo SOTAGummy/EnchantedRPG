@@ -16,6 +16,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object ObsidianWand: RootItem("obsidian_wand", IItemRarity.EPIC), ISkillStorable {
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 4
 	}

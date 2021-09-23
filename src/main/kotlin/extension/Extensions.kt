@@ -195,3 +195,19 @@ fun <T : Any?> ArrayList<T>.times(time: Int): ArrayList<T>{
 fun EntityPlayer.getATK(): Double {
 	return this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).attributeValue
 }
+
+fun EntityPlayer.getSP(): Int{
+	return this.getCapability(SPProvider.SP!!, null)?.getSP()!!
+}
+
+fun EntityPlayer.getMaxSP(): Int{
+	return this.getEntityAttribute(Core.MAX_SP).attributeValue.toInt()
+}
+
+fun EntityPlayer.getLevel(): Int{
+	return this.getEntityAttribute(Core.LEVEL).attributeValue.toInt()
+}
+
+fun EntityPlayer.getExp(): Int{
+	return this.getEntityAttribute(Core.EXP).attributeValue.toInt()
+}

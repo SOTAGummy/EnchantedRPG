@@ -21,7 +21,6 @@ object SkillBook: RootItem("skill_book", IItemRarity.UNCOMMON), ISkillStorable{
 		creativeTab = Core.itemsTab
 	}
 
-
 	override fun getSkillCapacity(): Int {
 		return 4
 	}

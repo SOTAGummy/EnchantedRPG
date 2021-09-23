@@ -16,6 +16,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object IronWand: RootItem("iron_wand", IItemRarity.RARE), ISkillStorable {
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 3
 	}

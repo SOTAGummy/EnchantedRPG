@@ -10,8 +10,7 @@ import creativeTab.*
 import enchantment.*
 import event.Events
 import gui.GuiHandler
-import items.EnchantedDust
-import items.TestArea
+import items.*
 import items.accessory.*
 import items.armor.*
 import items.baseItem.ItemAccessory
@@ -59,6 +58,7 @@ import sound.SoundHandler
 import utils.ArmorUtil
 import utils.EnumExtension
 import utils.Storage
+import java.awt.geom.Arc2D
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
 class Core {
@@ -97,6 +97,7 @@ class Core {
 
 		//Item
 		val enchantedDust = EnchantedDust
+		val primalSeed = PrimalSeed
 
 		//Block
 		val pedestal = Pedestal
@@ -189,6 +190,11 @@ class Core {
 		val highJumpRare = HighJumpRare
 		val highJumpEpic = HighJumpEpic
 		val highJumpLegend = HighJumpLegend
+		val hpBoostCommon = HPBoostCommon
+		val hpBoostUncommon = HPBoostUncommon
+		val hpBoostRare = HPBoostRare
+		val hpBoostEpic = HPBoostEpic
+		val hpBoostLegend = HPBoostLegend
 		val infernoCommon = InfernoCommon
 		val dragonBreathSpecial = DragonBreathMythic
 
@@ -198,6 +204,14 @@ class Core {
 		val rareToken = RareToken
 		val epicToken = EpicToken
 		val legendToken = LegendToken
+
+		//Food
+		val lifeFruit = LifeFruit
+		val spFruit = SPFruit
+		val powerFruit = PowerFruit
+		val guardFruit = GuardFruit
+		val criticalFruit = CriticalFruit
+		val speedFruit = SpeedFruit
 
 		//Armor
 		val wizardHelmet = WizardHelmet
@@ -227,8 +241,10 @@ class Core {
 		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)
 		val SP_SAVING_RATE = AttributeUtils.addAttribute("spSavingRate", 0.0, -2147483647.0, 100.0)
 		val SP_RECOVER_RATE = AttributeUtils.addAttribute("spRecoverRate", 1.0, 1.0, Double.MAX_VALUE)
-		val CRITICAL_RATE = AttributeUtils.addAttribute("criticalRate", 0.0, 0.0, 100.0)
+		val CRITICAL_RATE = AttributeUtils.addAttribute("criticalRate", 0.0, 0.0, Double.MAX_VALUE)
 		val CRITICAL_DAMAGE = AttributeUtils.addAttribute("criticalDamage", 0.0, 0.0, Double.MAX_VALUE)
+		val EXP = AttributeUtils.addAttribute("exp", 0.0, 0.0, Double.MAX_VALUE)
+		val LEVEL = AttributeUtils.addAttribute("level", 1.0, 1.0, 999.0)
 
 		//Sound
 		val CRAFT_SOUND = SoundHandler.registerSound("craft_sound")

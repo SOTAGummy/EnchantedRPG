@@ -16,6 +16,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object StoneWand: RootItem("stone_wand", IItemRarity.UNCOMMON), ISkillStorable {
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 2
 	}

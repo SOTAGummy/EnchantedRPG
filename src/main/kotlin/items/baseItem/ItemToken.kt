@@ -1,6 +1,7 @@
 package items.baseItem
 
 import enum.IItemRarity
+import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult

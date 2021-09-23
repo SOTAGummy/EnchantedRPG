@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " X ",
+    "   "
+  ],
+  "key": {
+    "X": {
+      "item": "enchanted-rpg:primal_seed",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:sp_fruit",
+    "data": 0,
+    "count": 1
+  }
+}

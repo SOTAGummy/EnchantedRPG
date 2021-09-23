@@ -16,6 +16,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object EmeraldWand: RootItem("emerald_wand", IItemRarity.MYTHIC), ISkillStorable {
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 6
 	}

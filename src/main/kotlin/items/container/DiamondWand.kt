@@ -16,6 +16,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
 object DiamondWand: RootItem("diamond_wand", IItemRarity.LEGEND), ISkillStorable {
+	init {
+		this.maxStackSize = 1
+	}
+
 	override fun getSkillCapacity(): Int {
 		return 5
 	}

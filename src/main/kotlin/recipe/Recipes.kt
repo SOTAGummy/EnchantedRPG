@@ -27,6 +27,7 @@ object Recipes {
 		registerSkillRecipes("vampirism")
 		registerSkillRecipes("ender_knock")
 		registerSkillRecipes("high_jump")
+		registerSkillRecipes("hp_boost")
 
 		PedestalRecipe(Core.dragonBreathSpecial, Item.getItemFromBlock(Blocks.DRAGON_EGG), Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR, Items.AIR)
 	}

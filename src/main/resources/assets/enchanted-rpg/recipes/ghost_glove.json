@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "enchanted-rpg:ghost_fragment",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:ghost_glove",
+    "data": 0,
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Y ",
+    "Y Y",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "enchanted-rpg:ghost_fragment",
+      "data": 0
+    },
+    "Y": {
+      "item": "minecraft:string",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "enchanted-rpg:ghost_necklace",
+    "data": 0,
+    "count": 1
+  }
+}

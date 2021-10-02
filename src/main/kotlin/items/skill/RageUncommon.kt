@@ -1,5 +1,6 @@
 package items.skill
 
+import Core
 import enum.IItemRarity
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer

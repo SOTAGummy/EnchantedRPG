@@ -1,5 +1,6 @@
 package gui.status
 
+import Core
 import extension.getExp
 import extension.getLevel
 import extension.getMaxSP

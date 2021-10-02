@@ -1,5 +1,6 @@
 package utils
 
+import Core
 import capability.accessory.AccessoryProvider
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot

@@ -1,7 +1,6 @@
 package utils
 
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.util.EnumParticleTypes
 import sun.misc.Unsafe
 import sun.reflect.ConstructorAccessor
 import java.lang.reflect.Constructor

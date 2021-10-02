@@ -1,5 +1,6 @@
 package entity
 
+import Core
 import net.minecraft.client.renderer.RenderItem
 import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.client.renderer.entity.RenderSnowball

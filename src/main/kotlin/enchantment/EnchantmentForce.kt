@@ -1,5 +1,6 @@
 package enchantment
 
+import Core
 import com.google.common.collect.Multimap
 import items.baseItem.ItemAccessory
 import net.minecraft.entity.ai.attributes.AttributeModifier

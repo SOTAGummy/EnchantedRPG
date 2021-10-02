@@ -16,7 +16,6 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.items.CapabilityItemHandler
-import recipe.PedestalRecipe
 import recipe.PedestalRecipeHandler
 
 object Pedestal: BlockContainer(Material.ROCK){

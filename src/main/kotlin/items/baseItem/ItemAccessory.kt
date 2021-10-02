@@ -1,5 +1,6 @@
 package items.baseItem
 
+import Core
 import com.google.common.collect.Multimap
 import enum.IItemRarity
 import net.minecraft.enchantment.EnchantmentHelper

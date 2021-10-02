@@ -1,10 +1,10 @@
 package items.skill
 
+import Core
 import enum.IItemRarity
 import extension.getATK
 import extension.getLivingEntitiesInArea
 import items.baseItem.ItemSkill
-import net.minecraft.block.BlockTorch
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumParticleTypes

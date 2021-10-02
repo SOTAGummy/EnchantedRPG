@@ -4,12 +4,10 @@ import extension.getItemSkill
 import extension.getSkillCount
 import items.baseItem.ItemSkill
 import net.minecraft.client.resources.I18n
-import net.minecraft.init.Items
 import net.minecraft.item.Item.getItemById
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
-import java.util.*
 
 interface ISkillStorable{
 	fun getSkillCapacity(): Int

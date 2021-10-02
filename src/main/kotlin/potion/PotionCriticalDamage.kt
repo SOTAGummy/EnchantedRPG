@@ -1,5 +1,6 @@
 package potion
 
+import Core
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import java.awt.Color
 

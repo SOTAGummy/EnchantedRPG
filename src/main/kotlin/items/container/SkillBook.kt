@@ -1,14 +1,12 @@
 package items.container
 
+import Core
 import enum.IItemRarity
-import extension.addItemSkill
 import extension.call
 import items.baseItem.RootItem
 import module.ISkillStorable
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.EnumAction
-import net.minecraft.item.ItemEnderPearl
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult

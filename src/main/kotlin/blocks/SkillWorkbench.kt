@@ -1,5 +1,6 @@
 package blocks
 
+import Core
 import gui.GuiHandler
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
@@ -13,8 +14,6 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.ItemStackHandler
 
 object SkillWorkbench: BlockContainer(Material.ROCK){
 	init {

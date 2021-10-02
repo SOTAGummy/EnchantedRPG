@@ -2,7 +2,6 @@ package enchantment
 
 import com.google.common.collect.Multimap
 import items.baseItem.ItemAccessory
-import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.item.ItemStack

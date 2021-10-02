@@ -1,5 +1,6 @@
 package items.baseItem
 
+import Core
 import enum.IItemRarity
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.Item

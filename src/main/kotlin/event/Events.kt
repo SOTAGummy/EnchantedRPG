@@ -4,6 +4,7 @@ import Core
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
 import capability.sp.SPProvider
+import dimension.WorldProviderTest
 import extension.getExp
 import extension.getLevel
 import extension.renderDamage
@@ -15,14 +16,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiInventory
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
-import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.boss.EntityDragon
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.entity.monster.EntityMob
 import net.minecraft.entity.monster.EntityWitch
 import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.EntityPlayer
@@ -35,7 +33,6 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
-import net.minecraftforge.client.event.RenderLivingEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityEvent
 import net.minecraftforge.event.entity.living.LivingAttackEvent
@@ -43,6 +40,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingDropsEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent
+import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -51,11 +49,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import packet.PacketAccessory
 import packet.PacketHandler
 import packet.PacketSP
-import particle.ParticleDamage
 import potion.CustomPotion
 import source.CriticalDamageSource
 import utils.Storage
-import java.util.*
 import kotlin.random.Random
 
 
@@ -307,6 +303,13 @@ class Events {
 					player.addItemStackToInventory(ItemStack(Core.primalSeed, 1))
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onBreakEvent(event: BlockEvent.BreakEvent){
+		if (event.world.provider is WorldProviderTest) {
+			event.isCanceled = true
 		}
 	}
 }

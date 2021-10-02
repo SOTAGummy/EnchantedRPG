@@ -9,19 +9,16 @@ import kotlinx.coroutines.launch
 import module.ISkillStorable
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.I18n
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
@@ -99,7 +96,7 @@ fun ItemStack.call(world: World, player: EntityPlayer, hand: EnumHand){
 					getItemSkill(it)?.let { skill ->
 						if ((skill.canCall(world, player, hand) && player.useSP(skill.cost)) || player.isCreative) {
 							clientThread.addScheduledTask(){
-								getItemSkill(it)?.serverFunction(world, player, hand)
+								getItemSkill(it)?.clientFunction(world, player, hand)
 							}
 							delay(1000)
 						}

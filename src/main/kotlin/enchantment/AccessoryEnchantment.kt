@@ -1,10 +1,10 @@
 package enchantment
 
+import Core
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import items.baseItem.ItemAccessory
 import net.minecraft.enchantment.Enchantment
-import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.init.Items
 import net.minecraft.inventory.EntityEquipmentSlot

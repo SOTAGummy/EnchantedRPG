@@ -1,5 +1,6 @@
 package items.container
 
+import Core
 import com.google.common.collect.Multimap
 import enum.IItemRarity
 import extension.call

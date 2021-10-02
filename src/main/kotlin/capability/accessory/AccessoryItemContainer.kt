@@ -1,9 +1,7 @@
 package capability.accessory
 
 import Core
-import capability.accessory.AccessoryProvider
 import items.baseItem.ItemAccessory
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 

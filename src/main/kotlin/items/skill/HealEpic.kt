@@ -1,5 +1,6 @@
 package items.skill
 
+import Core
 import enum.IItemRarity
 import items.baseItem.ItemSkill
 import net.minecraft.entity.player.EntityPlayer
@@ -20,6 +21,6 @@ object HealEpic: ItemSkill("heal", 20, IItemRarity.EPIC, 2){
 	}
 
 	override fun canCall(world: World, player: EntityPlayer, handIn: EnumHand): Boolean {
-		return player.maxHealth <= player.health
+		return player.maxHealth >= player.health
 	}
 }

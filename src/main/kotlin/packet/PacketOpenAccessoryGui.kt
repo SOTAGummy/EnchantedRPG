@@ -1,5 +1,6 @@
 package packet
 
+import Core
 import gui.GuiHandler
 import io.netty.buffer.ByteBuf
 import net.minecraft.world.WorldServer

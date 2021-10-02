@@ -1,5 +1,6 @@
 package attribute
 
+import Core
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.IAttribute
 import net.minecraft.entity.ai.attributes.RangedAttribute

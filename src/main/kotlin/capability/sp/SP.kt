@@ -1,5 +1,6 @@
 package capability.sp
 
+import Core
 import net.minecraft.entity.player.EntityPlayer
 
 class SP: ISP {

@@ -1,5 +1,6 @@
 package capability.accessory
 
+import Core
 import items.baseItem.ItemAccessory
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandlerModifiable

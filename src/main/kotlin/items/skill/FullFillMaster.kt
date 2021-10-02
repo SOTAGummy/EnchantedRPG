@@ -1,5 +1,6 @@
 package items.skill
 
+import Core
 import capability.sp.SPProvider
 import enum.IItemRarity
 import items.baseItem.ItemSkill

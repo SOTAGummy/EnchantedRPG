@@ -3,7 +3,6 @@ package items.skill
 import enum.IItemRarity
 import extension.getATK
 import extension.getLivingEntitiesInArea
-import extension.times
 import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

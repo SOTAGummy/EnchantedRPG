@@ -1,5 +1,6 @@
 package items.accessory
 
+import Core
 import com.google.common.collect.Multimap
 import enum.IItemRarity
 import items.baseItem.ItemAccessory

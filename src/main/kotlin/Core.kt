@@ -7,6 +7,7 @@ import capability.sp.ISP
 import capability.sp.SP
 import capability.sp.SPStorage
 import creativeTab.*
+import dimension.WorldProviderTest
 import enchantment.*
 import event.Events
 import gui.GuiHandler
@@ -17,6 +18,7 @@ import items.baseItem.ItemAccessory
 import items.baseItem.ItemArmor
 import items.container.*
 import items.fragment.EnhancedWizardFragment
+import items.fragment.GhostFragment
 import items.fragment.WizardFragment
 import items.skill.*
 import items.token.*
@@ -29,8 +31,10 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
+import net.minecraft.world.DimensionType
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.common.DimensionManager
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.util.EnumHelper
@@ -58,7 +62,6 @@ import sound.SoundHandler
 import utils.ArmorUtil
 import utils.EnumExtension
 import utils.Storage
-import java.awt.geom.Arc2D
 
 @Mod(modid = Core.ID, name = Core.NAME, version = Core.VERSION)
 class Core {
@@ -86,6 +89,7 @@ class Core {
 		//ArmorType
 		val WIZARD = ArmorUtil.addArmorType("wizard", 3000, intArrayOf(4, 4, 4, 4), 15, SoundEvents.BLOCK_CLOTH_PLACE, 0F)
 		val ENHANCED_WIZARD = ArmorUtil.addArmorType("enhanced_wizard", 3000, intArrayOf(6, 8, 8, 6), 30, SoundEvents.BLOCK_CLOTH_PLACE, 2F)
+		val GHOST = ArmorUtil.addArmorType("ghost", 3000, intArrayOf(-5, -5, -5, -5), 15, SoundEvents.BLOCK_CLOTH_PLACE, 0F)
 		val STRONG = ArmorUtil.addArmorType("strong", 3000, intArrayOf(4, 5, 5, 4), 15, SoundEvents.BLOCK_ANVIL_PLACE, 0F)
 
 		//CreativeTab
@@ -106,6 +110,7 @@ class Core {
 		//Fragment
 		val wizardFragment = WizardFragment
 		val enhancedWizardFragment = EnhancedWizardFragment
+		val ghostFragment = GhostFragment
 
 		//SkillContainer
 		val skillBook = SkillBook
@@ -120,6 +125,7 @@ class Core {
 		val codeTestMaster = CodeTestMaster
 		val toggleModeMaster = ToggleModeMaster
 		val fullFillMaster = FullFillMaster
+		val mineMaster = MineMaster
 		val healCommon = HealCommon
 		val healUncommon = HealUncommon
 		val healRare = HealRare
@@ -222,6 +228,10 @@ class Core {
 		val enhancedWizardChestplate = EnhancedWizardChestplate
 		val enhancedWizardLeggings = EnhancedWizardLeggings
 		val enhancedWizardBoots = EnhancedWizardBoots
+		val ghostHelmet = GhostHelmet
+		val ghostChestplate = GhostChestplate
+		val ghostLeggings = GhostLeggings
+		val ghostBoots = GhostBoots
 
 		//Accessory
 		val diamondNecklace = DiamondNecklace
@@ -236,6 +246,10 @@ class Core {
 		val enhancedWizardAmulet = EnhancedWizardAmulet
 		val enhancedWizardGlove = EnhancedWizardGlove
 		val enhancedWizardRing = EnhancedWizardRing
+		val ghostNecklace = GhostNecklace
+		val ghostAmulet = GhostAmulet
+		val ghostGlove = GhostGlove
+		val ghostRing = GhostRing
 
 		//Attribute
 		val MAX_SP = AttributeUtils.addAttribute("maxSp", 100.0, 0.0, Double.MAX_VALUE)
@@ -269,6 +283,9 @@ class Core {
 		val criticalRate = PotionCriticalRate()
 		val criticalDamage = PotionCriticalDamage()
 
+		//DimensionType
+		val testDimension: DimensionType = DimensionType.register("test", "_test", DimensionManager.getNextFreeDimId(), WorldProviderTest::class.java, true)
+
 		val testArea = TestArea
 	}
 
@@ -298,6 +315,7 @@ class Core {
 		repeat(Storage.Sounds.size){
 			ForgeRegistries.SOUND_EVENTS.register(Storage.Sounds[it])
 		}
+		DimensionManager.registerDimension(testDimension.id, testDimension)
 	}
 
 	@Mod.EventHandler

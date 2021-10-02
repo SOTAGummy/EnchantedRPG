@@ -1,5 +1,6 @@
 package utils
 
+import Core
 import net.minecraft.item.ItemArmor
 import net.minecraft.util.SoundEvent
 import net.minecraftforge.common.util.EnumHelper

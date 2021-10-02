@@ -6,6 +6,7 @@ import items.baseItem.ItemSkill
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.init.Items

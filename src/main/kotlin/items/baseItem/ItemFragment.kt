@@ -1,7 +1,7 @@
 package items.baseItem
 
+import Core
 import enum.IItemRarity
-import net.minecraft.item.ItemStack
 import utils.Storage
 import java.io.File
 

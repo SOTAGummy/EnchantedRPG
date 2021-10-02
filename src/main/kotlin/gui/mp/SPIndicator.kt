@@ -1,5 +1,6 @@
 package gui.mp
 
+import Core
 import capability.sp.SPProvider
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui

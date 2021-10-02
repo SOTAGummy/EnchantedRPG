@@ -1,5 +1,6 @@
 package utils
 
+import dimension.dungeon.Dungeon
 import enchantment.AccessoryEnchantment
 import items.baseItem.ItemArmor
 import net.minecraft.entity.ai.attributes.IAttribute
@@ -14,6 +15,7 @@ object Storage {
 	val Sounds = arrayListOf<SoundEvent>()
 	val Potions = arrayListOf<Potion>()
 	val Recipes = arrayListOf<PedestalRecipe>()
+	val Dungeons = arrayListOf<Dungeon>()
 	val Attributes = arrayListOf<IAttribute>()
 	val Enchantments = arrayListOf<AccessoryEnchantment>()
 }

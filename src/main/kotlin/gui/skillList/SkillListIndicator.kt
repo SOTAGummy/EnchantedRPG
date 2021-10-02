@@ -1,5 +1,6 @@
 package gui.skillList
 
+import Core
 import extension.getItemSkill
 import extension.getSkillCount
 import module.ISkillStorable

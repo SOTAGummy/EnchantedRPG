@@ -2,7 +2,10 @@ package gui.skill_workbench
 
 import Core
 import blocks.TileEntitySkillWorkbench
-import extension.*
+import extension.addItemSkill
+import extension.canAddItemSkill
+import extension.getSkillCount
+import extension.removeSkill
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager

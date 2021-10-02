@@ -1,5 +1,6 @@
 package items
 
+import Core
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 

@@ -3,7 +3,10 @@ package gui.accessory
 import Core
 import capability.accessory.AccessoryItemContainer
 import capability.accessory.AccessoryProvider
-import gui.accessory.slot.*
+import gui.accessory.slot.AmuletSlot
+import gui.accessory.slot.GloveSlot
+import gui.accessory.slot.NecklaceSlot
+import gui.accessory.slot.RingSlot
 import items.baseItem.ItemAccessory
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.EntityLiving

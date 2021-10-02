@@ -4,6 +4,8 @@ import Core
 import enum.IItemRarity
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
